@@ -1,0 +1,590 @@
+/* ============================================================
+   WHEN YOU SEE ME — site stylesheet
+   Shared by index, search, about, publications,
+   creative-interventions, convenings, contact.
+
+   The comp is drawn at 1920 x N design pixels. Every measurement
+   is a literal design-pixel value multiplied by --px. At a 1920px
+   viewport --px resolves to 1px, so pages are a 1:1 reproduction;
+   at any other width they scale proportionally. Below 900px the
+   absolute layout is dropped and pages reflow as a single column.
+   ============================================================ */
+
+:root{
+  --px: calc(100vw / 1920);
+
+  --bg:    #4F3737;   /* page field (flat average of the comp texture) */
+  --block: #3A2222;   /* flat accent + content blocks   */
+  --deep:  #281010;   /* deepest block, footer only     */
+  --field: #543A3B;   /* textarea fill                  */
+  --ink:   #F2E5E4;   /* primary text                   */
+  --dim:   #D8C6C6;   /* legal strip                    */
+
+  --hair:  rgba(242,229,228,.13);   /* rules, row dividers      */
+  --hair-2:rgba(242,229,228,.26);   /* the same rule, emphasised */
+
+  --sans: "Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;
+
+  /* ---- TYPE SCALE ------------------------------------------
+     --ts is the single knob: all comp type sizes are multiplied
+     by it. 0.6667 = two thirds of the drawn size.
+     Leading is NOT scaled by the same factor. Type set smaller
+     needs proportionally more leading to hold a line, so each
+     role carries a --lead correction applied on top of --ts.
+     --------------------------------------------------------- */
+  --ts: .6667;
+  --lead: 1;
+}
+
+/* Don't let the design balloon on very wide displays. */
+@media (min-width: 2400px){ :root{ --px: 1.25px } }
+
+*, *::before, *::after{ box-sizing: border-box }
+
+html{ scroll-behavior: smooth; background: var(--bg) }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto } }
+
+body{
+  margin:0;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img{ display:block; max-width:100%; }
+a{ color: inherit; text-decoration: none }
+a:hover{ color:#fff }
+a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visible{
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   SCROLLBAR
+   Squared off like every block in the comp, sunk into the
+   deepest maroon, with the thumb drawn in the same translucent
+   ink used for the hairline rules. No rounding anywhere.
+   ============================================================ */
+:root{
+  --bar-track: var(--deep);
+  --bar-thumb: rgba(242,229,228,.28);
+  --bar-thumb-hover: rgba(242,229,228,.55);
+  scrollbar-width: thin;                              /* Firefox */
+  scrollbar-color: rgba(242,229,228,.28) #281010;
+}
+::-webkit-scrollbar{ width: calc(14 * var(--px)); height: calc(14 * var(--px)) }
+::-webkit-scrollbar-track{ background: var(--bar-track) }
+::-webkit-scrollbar-thumb{
+  background: var(--bar-thumb);
+  border: calc(4 * var(--px)) solid var(--bar-track);  /* sets the thumb into the trough */
+  border-radius: 0;
+  transition: background-color .25s ease;
+}
+::-webkit-scrollbar-thumb:hover{ background: var(--bar-thumb-hover) }
+::-webkit-scrollbar-thumb:active{ background: var(--ink) }
+::-webkit-scrollbar-corner{ background: var(--bar-track) }
+
+/* the textarea sits on a lighter fill, so its trough follows it */
+.field{ scrollbar-color: rgba(242,229,228,.28) #3A2222 }
+.field::-webkit-scrollbar-track{ background: var(--block) }
+.field::-webkit-scrollbar-thumb{ border-color: var(--block) }
+
+@media (max-width: 900px){
+  ::-webkit-scrollbar{ width: 8px; height: 8px }
+  ::-webkit-scrollbar-thumb{ border-width: 2px }
+}
+
+/* ---------- positioning primitives ---------- */
+
+.stage{
+  position: relative;
+  width: 100%;
+  min-height: calc(var(--stage, 5462) * var(--px));
+}
+/* Holds the page to its drawn height: reveal transforms and
+   fallback-font descenders must not add scroll. site.js grows this
+   if CMS content runs past the drawn height, so the clip is only
+   applied once the script is there to measure. The fixed header
+   escapes the clip. */
+@media (min-width: 901px){ .js .stage{ overflow: hidden } }
+
+.a{                                    /* absolutely placed at design x / y */
+  position: absolute;
+  left: calc(var(--x) * var(--px));
+  top:  calc(var(--y) * var(--px));
+  margin: 0;
+}
+.box{                                  /* sized block */
+  width:  calc(var(--w) * var(--px));
+  height: calc(var(--h) * var(--px));
+}
+.tw{ width: calc(var(--w) * var(--px)) }   /* measure-constrained text */
+
+.t{                                    /* type sized in design px */
+  font-size:   calc(var(--fs) * var(--px) * var(--ts));
+  line-height: calc(var(--lh) * var(--px) * var(--ts) * var(--lead));
+}
+
+.sec{ position: static }               /* sections don't create a containing block */
+
+/* The footer is the one section that is its own containing block, so the
+   whole band can be moved down in one go when a CMS list runs longer
+   than the drawn page. Its children are placed relative to it. */
+.site-footer{
+  position: absolute;
+  left: 0;
+  top: calc(var(--y) * var(--px));
+  width: 100%;
+  height: calc(417 * var(--px));
+}
+
+/* ---------- layers ---------- */
+.deco{ background: var(--block); z-index: 1 }
+.deco--white{ background:#fff }
+.deco--deep{ background: var(--deep) }
+.photo{ z-index: 2; object-fit: cover }
+.panel{ background: var(--block); z-index: 3 }   /* blocks that sit over photos */
+.content{ z-index: 4 }
+
+/* ---------- type roles ----------
+   Tracking is set per role. Helvetica needs pulling in at display
+   sizes and opening up once it drops under ~15 design px.        */
+.logo{
+  font-weight: 300; text-align: right; --lead: 1.06; letter-spacing: -.02em;
+  width: calc(var(--w) * var(--px));   /* right edge sits under the white bar */
+}
+.nav{ font-weight: 400; --lead: 1.05; letter-spacing: .01em }
+.display{ font-weight: 700; --lead: 1.05; letter-spacing: -.018em }
+.sub{ font-weight: 400; --lead: 1.10; letter-spacing: -.008em }
+/* Measure caps. Dropping the type to two thirds inside columns
+   drawn for the larger size would push running text past 100
+   characters a line, so the text holds its own measure and lets
+   the drawn column become the gutter. ch is set from the font's
+   own "0", so these stay true at any viewport. */
+.body{ font-weight: 400; --lead: 1.13; letter-spacing: .005em; max-width: 62ch }
+.label{ font-weight: 400; --lead: 1.10; letter-spacing: .01em }
+.legal{
+  font-weight: 400; color: var(--dim); --lead: 1.25; letter-spacing: .05em;
+  /* 13 design px x 2/3 lands at 8.7 — under the legibility floor,
+     so the legal strip stops at 10 and takes tracking instead. */
+  font-size: max(calc(10 * var(--px)), calc(var(--fs) * var(--px) * var(--ts)));
+}
+.legal b{ font-weight: 700; letter-spacing: .06em }
+
+.body p{ margin: 0 }
+.body p + p{ margin-top: calc(27 * var(--px)) }
+
+.lede{ font-weight: 400; --lead: 1.12; letter-spacing: -.004em; max-width: 52ch }
+
+/* ---------- header nav ----------
+   The nav is a line of type, so its word spaces come down with the
+   type: both the gap between items and the wide space inside
+   "Creative Interventions" carry --ts, which keeps the row as evenly
+   spaced as it is drawn. Smaller type makes a shorter row, so the
+   nav hangs from the comp's right margin (1920 - 1780) instead of
+   its left edge, staying flush with the bar above it. */
+.navbar{
+  display: flex;
+  justify-content: flex-end;
+  gap: calc(18 * var(--px) * var(--ts));
+  white-space: nowrap;
+  left: auto;
+  right: calc(140 * var(--px));
+}
+.navbar .pair{ word-spacing: calc(12.5 * var(--px) * var(--ts)) }
+.navbar a[aria-current="page"],
+.search[aria-current="page"]{ color:#fff }
+.navbar a[aria-current="page"]::after,
+.search[aria-current="page"]::after{ transform: scaleX(1) }
+
+/* ---------- link stacks ---------- */
+.stack{ display: flex; flex-direction: column; --lead: 1.12; letter-spacing: .01em }
+
+/* ---------- thumbnails ---------- */
+.thumbs{ display: flex; z-index: 4 }
+.thumbs span, .thumbs a{
+  display: block;
+  width:  calc(154 * var(--px));
+  height: calc(139 * var(--px));
+  background: #fff;
+  cursor: pointer;
+}
+.thumbs--dark span, .thumbs--dark a{ background: var(--block) }
+.thumbs span:hover, .thumbs a:hover{ opacity: .85 }
+
+/* wrappers exist only for the mobile reflow */
+.welcome-grid, .footer-cols, .legal-bar{ display: contents }
+
+/* ---------- rules ---------- */
+.rule{
+  height: calc(2 * var(--px));
+  background: var(--hair);
+  z-index: 4;
+}
+
+/* ---------- form controls ---------- */
+.field{
+  background: var(--field);
+  border: 0;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: calc(27 * var(--px) * var(--ts));
+  line-height: calc(34 * var(--px) * var(--ts) * 1.1);
+  letter-spacing: .005em;
+  padding: calc(22 * var(--px)) calc(16 * var(--px));
+  resize: none;
+  z-index: 4;
+}
+.field::placeholder{ color: var(--ink); opacity: .62 }
+.field--line{ height: calc(84 * var(--px)); padding-top:0; padding-bottom:0 }
+/* the page supplies its own clear control, so the browser's search
+   decorations (which come in the UA's blue) are turned off */
+.field[type="search"]{ -webkit-appearance: none; appearance: none }
+.field[type="search"]::-webkit-search-decoration,
+.field[type="search"]::-webkit-search-cancel-button,
+.field[type="search"]::-webkit-search-results-button,
+.field[type="search"]::-webkit-search-results-decoration{
+  -webkit-appearance: none; appearance: none; display: none;
+}
+.actions button{
+  background: none; border: 0; padding: 0;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+
+/* ============================================================
+   LIST PRIMITIVES
+   Repeating, CMS-fed content (publications, convenings, results)
+   is not pinned row by row. The container sits on the comp grid;
+   its rows flow inside it so the count can change.
+   ============================================================ */
+.rows{ display: flex; flex-direction: column }
+.row{
+  display: grid;
+  grid-template-columns: calc(154 * var(--px)) 1fr auto;
+  column-gap: calc(38 * var(--px));
+  align-items: start;
+  padding: calc(30 * var(--px)) 0;
+  border-top: 1px solid var(--hair);
+}
+.row:last-child{ border-bottom: 1px solid var(--hair) }
+.row--plain{ grid-template-columns: 1fr auto }
+.row h3{ margin: 0; font-weight: 400; --fs: 30; --lh: 34; --lead: 1.08; letter-spacing: -.006em }
+.row .meta,
+.row .when{ --fs: 21; --lh: 27 }
+.row .meta{ display: block; margin-top: calc(10 * var(--px)); color: var(--dim) }
+.row .body{ margin-top: calc(12 * var(--px)) }
+.row .when{ text-align: right; color: var(--dim); white-space: nowrap }
+.row a:hover .tile{ opacity: .85 }
+.row a:hover h3{ color:#fff }
+
+.tile{
+  display:block;
+  width: calc(154 * var(--px));
+  height: calc(139 * var(--px));
+  background: var(--block);
+  transition: opacity .3s ease;
+}
+.tile--light{ background:#fff }
+.tile img{ width:100%; height:100%; object-fit: cover }
+/* a tile drawn at its own comp size rather than the thumbnail default */
+.tile.box{ width: calc(var(--w) * var(--px)); height: calc(var(--h) * var(--px)) }
+
+/* ---------- search results ---------- */
+.status{ color: var(--dim) }
+.status strong{ font-weight: 400; color: var(--ink) }
+.result-section{ color: var(--dim) }
+
+/* ---------- scope filters (search) ---------- */
+.scopes{ display:flex; flex-wrap:wrap; gap: calc(10 * var(--px)) }
+.scopes button{
+  font: inherit; color: inherit; cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--hair-2);
+  border-radius: 0;
+  padding: calc(11 * var(--px)) calc(20 * var(--px));
+  letter-spacing: .01em;
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+}
+.scopes button:hover{ border-color: var(--ink) }
+.scopes button[aria-pressed="true"]{ background: var(--block); border-color: var(--block); color:#fff }
+
+/* ============================================================
+   MICRO-ANIMATION
+   One orchestrated arrival at the top of the page; everything
+   below gets a short, quiet reveal as it comes into view.
+   ============================================================ */
+@keyframes fadeIn   { to{ opacity:1 } }
+@keyframes riseIn   { from{ opacity:0; transform:translateY(calc(10 * var(--px))) } to{ opacity:1; transform:none } }
+@keyframes wipeIn   { from{ transform:scaleX(0) } to{ transform:none } }
+@keyframes heroIn   { from{ opacity:0; transform:scale(1.025) } to{ opacity:1; transform:none } }
+
+.js .site-header .deco{ transform:scaleX(0); transform-origin:left;  animation: wipeIn .75s cubic-bezier(.22,.61,.36,1) forwards }
+.js .site-header .deco--bar{ transform-origin:right; animation-delay:.1s }
+.js .site-header .logo{ opacity:0; animation: fadeIn .8s .2s ease forwards }
+.js .search,
+.js .navbar a{ opacity:0; animation: riseIn .55s cubic-bezier(.22,.61,.36,1) forwards }
+.js .search{ animation-delay:.26s }
+.js .navbar a:nth-child(1){ animation-delay:.32s }
+.js .navbar a:nth-child(2){ animation-delay:.38s }
+.js .navbar a:nth-child(3){ animation-delay:.44s }
+.js .navbar a:nth-child(4){ animation-delay:.50s }
+.js .navbar a:nth-child(5){ animation-delay:.56s }
+.js .hero{ opacity:0; animation: heroIn 1.05s .3s cubic-bezier(.22,.61,.36,1) forwards }
+
+/* scroll reveals — classes are applied by script, so a no-JS page shows everything */
+.js .reveal{
+  opacity: 0;
+  transition: opacity .6s ease var(--d,0ms),
+              transform .65s cubic-bezier(.22,.61,.36,1) var(--d,0ms),
+              clip-path .8s cubic-bezier(.22,.61,.36,1) var(--d,0ms);
+}
+.js .reveal.is-in{ opacity: 1 }
+.js .reveal-up{ transform: translateY(calc(16 * var(--px))) }
+.js .reveal-block{ transform: scale(.988) }
+.js .reveal-line{ transform: scaleX(0); transform-origin: left }
+.js .reveal-photo{ clip-path: inset(0 0 100% 0) }
+.js .reveal-up.is-in,
+.js .reveal-block.is-in,
+.js .reveal-line.is-in{ transform: none }
+.js .reveal-photo.is-in{ clip-path: inset(0 0 0 0) }
+
+/* ---------- hover + focus detail ---------- */
+.navbar a, .stack a, .inline-link{ position: relative }
+.navbar a::after,
+.search::after,
+.inline-link::after,
+.stack a::after{
+  content:"";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: calc(-5 * var(--px));
+  height: calc(1 * var(--px));
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s cubic-bezier(.22,.61,.36,1);
+}
+.navbar a:hover::after,
+.navbar a:focus-visible::after,
+.search:hover::after,
+.search:focus-visible::after,
+.inline-link:hover::after,
+.inline-link:focus-visible::after,
+.stack a:hover::after,
+.stack a:focus-visible::after{ transform: scaleX(1) }
+
+.thumbs span, .thumbs a{
+  transition: transform .3s cubic-bezier(.22,.61,.36,1), filter .3s ease, opacity .3s ease;
+}
+.thumbs span:hover, .thumbs a:hover{ transform: translateY(calc(-6 * var(--px))); filter: brightness(1.12) }
+.thumbs--dark span:hover, .thumbs--dark a:hover{ filter: brightness(1.45) }
+
+.field{ transition: background-color .3s ease, box-shadow .3s ease }
+.field:focus{ background: #5C4243; box-shadow: inset 0 0 0 1px rgba(242,229,228,.18); outline: none }
+
+.actions button{ transition: transform .25s cubic-bezier(.22,.61,.36,1), color .25s ease }
+.actions button:hover{ transform: translateX(calc(5 * var(--px))); color: #fff }
+
+.photo{ transition: filter .4s ease }
+
+/* ============================================================
+   PERSISTENT HEADER
+   Sits at the comp's coordinates at rest, then condenses and
+   picks up a ground once the page has moved.
+   ============================================================ */
+.site-header{
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: calc(200 * var(--px));
+  z-index: 50;
+  transition: height .42s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;            /* at rest the band must not shadow the hero */
+}
+.site-header a,
+.site-header .logo,
+.site-header .deco{ pointer-events: auto }
+body.is-scrolled .site-header{ pointer-events: auto }
+.site-header::before{                 /* the ground, faded in on scroll */
+  content:"";
+  position: absolute; inset: 0;
+  background: var(--bg);
+  box-shadow: 0 1px 0 rgba(242,229,228,0);
+  opacity: 0;
+  transition: opacity .35s ease, box-shadow .35s ease;
+}
+body.is-scrolled .site-header{ height: calc(120 * var(--px)) }
+body.is-scrolled .site-header::before{
+  opacity: 1;
+  box-shadow: 0 1px 0 rgba(242,229,228,.10);
+}
+
+/* the wordmark shrinks toward its own right edge so the nav stays put */
+.site-header .logo{
+  transform-origin: 100% 0;
+  transition: transform .42s cubic-bezier(.4,0,.2,1);
+}
+body.is-scrolled .site-header .logo{
+  transform: translateY(calc(-9 * var(--px))) scale(.52);
+}
+
+/* anchor targets — the sections themselves are zero-height on desktop */
+.anchor{
+  position: absolute;
+  width: 1px; height: 1px;
+  scroll-margin-top: calc(172 * var(--px));
+  pointer-events: none;
+}
+
+/* skip link */
+.skip{
+  position:absolute; left:calc(8 * var(--px)); top:calc(-200 * var(--px));
+  z-index:60; background:var(--deep); color:var(--ink);
+  padding:calc(10 * var(--px)) calc(16 * var(--px));
+  font-size:calc(21 * var(--px) * var(--ts));
+}
+.skip:focus{ top:calc(8 * var(--px)) }
+
+/* ---------- motion opt-out ---------- */
+@media (prefers-reduced-motion: reduce){
+  .js .reveal,
+  .js .site-header .deco,
+  .js .site-header .logo,
+  .js .search,
+  .js .navbar a,
+  .js .hero{
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .site-header,
+  .site-header::before,
+  .thumbs span,
+  .thumbs a,
+  .tile,
+  .actions button,
+  .scopes button,
+  .navbar a::after,
+  .search::after,
+  .inline-link::after,
+  .stack a::after{ transition: none !important }
+}
+
+/* ============================================================
+   MOBILE — below 900px the comp's absolute grid is abandoned
+   and everything reflows in DOM order.
+
+   The two-thirds reduction is carried through here as far as
+   legibility allows: headings take it in full, running text and
+   controls stop at their floors (14px for body, 16px for the
+   textarea so iOS doesn't zoom the page on focus).
+   ============================================================ */
+@media (max-width: 900px){
+  :root{ --px: 1px }
+
+  .stage{ height: auto; min-height: 0; padding-bottom: 0 }
+  .deco, .panel, .rule{ display: none }
+  .a{ position: static }
+  .box, .tw{ width: auto; height: auto }
+
+  .sec{
+    display: block;
+    padding: 0 24px 56px;
+  }
+
+  /* header sticks as a slim bar; the stacked wordmark steps aside once scrolled */
+  .site-header{
+    position: sticky;
+    top: 0;
+    height: auto;
+    background: var(--bg);
+    transition: box-shadow .3s ease;
+  }
+  .site-header::before{ display: none }
+  body.is-scrolled .site-header{
+    height: auto;
+    box-shadow: 0 1px 0 rgba(242,229,228,.10);
+  }
+  body.is-scrolled .site-header .logo{
+    display: none;
+    transform: none;
+  }
+  .anchor{ position: static; display: block; width: 0; height: 0; scroll-margin-top: 92px }
+  .site-footer{ position: static; height: auto; top: auto }
+  .sec--flush{ padding-left: 0; padding-right: 0 }
+  header.sec{ padding: 0 0 30px }
+  footer.sec{ padding-bottom: 0 }
+
+  .t{ font-size: 14px; line-height: 1.5 }
+  .logo{ width: auto; font-size: 20px; line-height: 21px; text-align: left; padding: 22px 24px 0 }
+  .navbar{ left: auto; right: auto }
+  .navbar{
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 6px 16px;
+    padding: 16px 24px 0;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .navbar .pair{ word-spacing: normal }
+  .search{ display: block; padding: 16px 24px 0; font-size: 14px }  /* inline padding would overflow the sticky bar */
+  .display{ font-size: 24px; line-height: 1.12; margin-bottom: 6px }
+  .sub{ font-size: 16px; line-height: 1.32; margin-bottom: 20px }
+  .lede{ font-size: 16px; line-height: 1.45 }
+  .body{ font-size: 14px; line-height: 1.6 }
+  .body p + p{ margin-top: 14px }
+  .label{ font-size: 14px; margin: 24px 0 12px; text-align: left !important }
+
+  .hero{ width: 100%; height: auto; padding: 26px 16px 34px }
+  /* the hero's 1.025 entrance scales the full-bleed image a few pixels past
+     a phone's width and briefly offers a sideways scroll, so on mobile it
+     arrives by fade alone */
+  .js .hero{ animation-name: fadeIn }
+  .photo{ width: 100%; height: auto; margin-bottom: 22px }
+
+  .welcome-grid{ display: block }
+  .welcome-grid > * + *{ margin-top: 14px }
+
+  /* three to a row, wrapping, with the gaps taken out of the track so the
+     row lands exactly on the column rather than a fraction over it */
+  .thumbs{ flex-wrap: wrap; gap: 12px !important }
+  .thumbs span, .thumbs a{ flex: 0 0 calc(33.333% - 8px); width: auto; height: 84px }
+
+  /* inputs stay at 16px: anything smaller makes iOS zoom on focus */
+  .field{ width: 100%; height: 190px; font-size: 16px; line-height: 1.45; padding: 14px }
+  .field--line{ height: 54px; padding: 0 14px }
+  .actions{ margin-top: 14px; font-size: 14px; line-height: 1.7 }
+
+  .rows{ margin-top: 8px }
+  /* in the reflow these lose their drawn offset, so they take their own */
+  .inline-link{ display: inline-block; margin-top: 14px }
+  .row{
+    grid-template-columns: 84px 1fr;
+    column-gap: 16px;
+    padding: 18px 0;
+  }
+  .row .when{ grid-column: 2; text-align: left; margin-top: 8px }
+  .row--plain{ grid-template-columns: 1fr }
+  .tile{ width: 84px; height: 76px }
+  /* tiles drawn at a comp size (the team portraits) reflow full width */
+  .tile.box{ width: 100%; height: 220px }
+  .scopes{ gap: 8px }
+  .scopes button{ padding: 9px 14px; font-size: 14px }
+
+  .footer-cols{ display: block }
+  .footer-cols > * + *{ margin-top: 26px }
+  .stack{ font-size: 14px; line-height: 1.8 }
+  .legal-bar{
+    display: block;
+    background: var(--block);
+    padding: 18px 24px;
+    font-size: 10.5px;
+    line-height: 1.6;
+  }
+  .legal-bar .a{ text-align: left !important }
+  .legal-bar .a + .a{ margin-top: 8px }
+}
