@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | When You See Me</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            canvas: '#392422',
+                            card: '#271614',
+                            input: '#1A0E0D',
+                            light: '#F2EBE9',
+                            muted: '#B5A5A3',
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-canvas text-brand-light font-sans relative overflow-x-hidden selection:bg-white selection:text-brand-canvas">
+
+    <div class="absolute top-0 left-0 w-48 h-64 bg-brand-card z-0 hidden lg:block"></div>
+    <div class="absolute top-48 right-0 w-96 h-[600px] bg-brand-card z-0 hidden lg:block"></div>
+
+    <!-- Fixed Header Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-transparent">
+        <div class="max-w-[1240px] mx-auto px-6 pt-10 flex flex-col md:flex-row justify-between items-start">
+            <a href="index.html" class="text-white text-lg leading-[1.1] font-normal tracking-tight drop-shadow-md">
+                When<br />You See<br />Me
+            </a>
+            <nav class="flex items-center space-x-6 text-xs text-brand-muted mt-4 md:mt-1 drop-shadow-md">
+                <a href="search.html" class="hover:text-white transition-colors">Search</a>
+                <a href="about.html" class="text-white font-medium border-b border-white pb-0.5 ml-8">About</a>
+                <a href="publications.html" class="hover:text-white transition-colors">Publications</a>
+                <a href="interventions.html" class="hover:text-white transition-colors">Creative Interventions</a>
+                <a href="convenings.html" class="hover:text-white transition-colors">Convenings</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-44 pb-32 max-w-[1240px] mx-auto px-6">
+        <div class="grid grid-cols-12 gap-6 relative">
+            <div class="col-span-12 lg:col-span-6 bg-brand-card p-10 z-10 -ml-0 lg:-ml-12 shadow-xl">
+                <h1 class="text-5xl font-normal text-white mb-3">About The Project</h1>
+                <p class="text-xs text-brand-muted">Gender-based violence prevention and community responses in Ghana</p>
+            </div>
+
+            <div class="col-span-12 lg:col-span-8 z-0 pt-6">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1200" alt="About Hero" class="w-full h-96 object-cover shadow-2xl border border-white/5" />
+            </div>
+
+            <div class="col-span-12 lg:col-span-6 bg-brand-card p-10 z-20 shadow-2xl -mt-20 lg:-mt-32 border border-white/5 ml-auto">
+                <h3 class="text-lg text-white font-normal mb-4">Research Framework & Narrative Methodology</h3>
+                <p class="text-xs text-brand-muted leading-relaxed mb-4">
+                    Migration is a significant risk factor to experiencing gender-based violence (GBV), and women who migrate without their relatives often lack support to prevent or escape violence[cite: 1].
+                </p>
+                <p class="text-xs text-brand-muted leading-relaxed">
+                    We employ narrative methodologies to study the help- and justice-seeking behaviors of female Nigerian immigrants in Ghana facing intimate partner violence (IPV) and non-partner sexual violence[cite: 1].
+                </p>
+            </div>
+        </div>
+
+        <section class="mt-24 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="bg-brand-card p-10 border border-white/5">
+                <h3 class="text-xl text-white font-normal mb-4">Applied Theatre & Comics</h3>
+                <p class="text-xs text-brand-muted leading-relaxed">
+                    Our team converts research insights into educational illustrated stories and interactive applied theatre performances to raise awareness across host communities[cite: 1].
+                </p>
+            </div>
+            <div class="bg-brand-card p-10 border border-white/5">
+                <h3 class="text-xl text-white font-normal mb-4">Traditional Leaders & Queenmothers</h3>
+                <p class="text-xs text-brand-muted leading-relaxed">
+                    We collaborate closely with female traditional leaders ('queenmothers') to establish institutional and informal support channels for survivors[cite: 1].
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-20 bg-brand-card border-t border-white/5 pt-16 pb-12 px-6">
+        <div class="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-xs text-brand-muted">
+            <div class="text-white text-base leading-[1.15]">When<br />You See<br />Me</div>
+            <div class="flex flex-col space-y-2">
+                <a href="about.html" class="hover:text-white">About</a>
+                <a href="publications.html" class="hover:text-white">Publications</a>
+                <a href="interventions.html" class="hover:text-white">Creative Interventions</a>
+                <a href="convenings.html" class="hover:text-white">Convenings</a>
+                <a href="contact.html" class="hover:text-white">Contact</a>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <a href="#" class="hover:text-white">LinkedIn</a>
+                <a href="#" class="hover:text-white">Instagram</a>
+                <a href="#" class="hover:text-white">Facebook</a>
+            </div>
+            <div>
+                <p>info@whenyouseeme.com</p>
+                <p>+233 457 9890</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

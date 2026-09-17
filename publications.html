@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications | When You See Me</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            canvas: '#392422',
+                            card: '#271614',
+                            input: '#1A0E0D',
+                            light: '#F2EBE9',
+                            muted: '#B5A5A3',
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-canvas text-brand-light font-sans relative overflow-x-hidden selection:bg-white selection:text-brand-canvas">
+
+    <div class="absolute top-0 left-0 w-48 h-64 bg-brand-card z-0 hidden lg:block"></div>
+    <div class="absolute top-96 right-0 w-80 h-[500px] bg-brand-card z-0 hidden lg:block"></div>
+
+    <!-- Fixed Header Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-transparent">
+        <div class="max-w-[1240px] mx-auto px-6 pt-10 flex flex-col md:flex-row justify-between items-start">
+            <a href="index.html" class="text-white text-lg leading-[1.1] font-normal tracking-tight drop-shadow-md">
+                When<br />You See<br />Me
+            </a>
+            <nav class="flex items-center space-x-6 text-xs text-brand-muted mt-4 md:mt-1 drop-shadow-md">
+                <a href="search.html" class="hover:text-white transition-colors">Search</a>
+                <a href="about.html" class="hover:text-white transition-colors ml-8">About</a>
+                <a href="publications.html" class="text-white font-medium border-b border-white pb-0.5">Publications</a>
+                <a href="interventions.html" class="hover:text-white transition-colors">Creative Interventions</a>
+                <a href="convenings.html" class="hover:text-white transition-colors">Convenings</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="relative z-10 pt-44 pb-32 max-w-[1240px] mx-auto px-6">
+        <div class="grid grid-cols-12 gap-x-6 relative">
+            <div class="col-span-12 lg:col-span-6 bg-brand-card p-10 z-10 -ml-0 lg:-ml-12 shadow-xl">
+                <h1 class="text-5xl font-normal text-white mb-2">Publications</h1>
+                <p class="text-xs text-brand-muted">Academic papers, research reports & policy briefs</p>
+            </div>
+
+            <div class="col-span-12 lg:col-span-7 col-start-6 z-0 pt-8">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000" alt="Pitch Zone 2022" class="w-full object-cover shadow-2xl border border-white/5" />
+            </div>
+
+            <div class="col-span-12 lg:col-span-6 bg-brand-card p-10 z-20 shadow-2xl mt-8 lg:-mt-24 border border-white/5">
+                <span class="text-[10px] text-brand-muted uppercase tracking-widest mb-2 block">Featured Report • Pitch Zone 2022</span>
+                <h2 class="text-xl text-white font-normal mb-4">Pitch story ideas for award categories & production grants</h2>
+                <p class="text-xs leading-relaxed text-brand-muted mb-4">
+                    Analysis on how media narrative grant frameworks empower migrant women to document justice-seeking journeys.
+                </p>
+                <a href="#" class="text-xs text-white underline">Download PDF (2.4 MB) ↑</a>
+            </div>
+        </div>
+
+        <!-- Publication List -->
+        <div class="mt-20 space-y-6">
+            <div class="bg-brand-card p-8 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <span class="text-[10px] uppercase text-brand-muted tracking-widest">Research Article • 2026</span>
+                    <h3 class="text-lg text-white font-normal mt-1">Justice-Seeking Behaviors of Female Nigerian Immigrants in Ghana</h3>
+                    <p class="text-xs text-brand-muted mt-2 max-w-2xl">Exploring pathways through informal networks and traditional queenmother leaders.</p>
+                </div>
+                <button class="mt-4 md:mt-0 text-xs text-white border border-white/20 px-4 py-2 hover:bg-white hover:text-brand-canvas transition-all">Download PDF</button>
+            </div>
+
+            <div class="bg-brand-card p-8 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <span class="text-[10px] uppercase text-brand-muted tracking-widest">Policy Brief • 2025</span>
+                    <h3 class="text-lg text-white font-normal mt-1">Preventing Intimate Partner Violence in Migrant Communities</h3>
+                    <p class="text-xs text-brand-muted mt-2 max-w-2xl">Policy recommendations for host community protection frameworks.</p>
+                </div>
+                <button class="mt-4 md:mt-0 text-xs text-white border border-white/20 px-4 py-2 hover:bg-white hover:text-brand-canvas transition-all">Download PDF</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-20 bg-brand-card border-t border-white/5 pt-16 pb-12 px-6">
+        <div class="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-xs text-brand-muted">
+            <div class="text-white text-base leading-[1.15]">When<br />You See<br />Me</div>
+            <div class="flex flex-col space-y-2">
+                <a href="about.html" class="hover:text-white">About</a>
+                <a href="publications.html" class="hover:text-white">Publications</a>
+                <a href="interventions.html" class="hover:text-white">Creative Interventions</a>
+                <a href="convenings.html" class="hover:text-white">Convenings</a>
+                <a href="contact.html" class="hover:text-white">Contact</a>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <a href="#" class="hover:text-white">LinkedIn</a>
+                <a href="#" class="hover:text-white">Instagram</a>
+                <a href="#" class="hover:text-white">Facebook</a>
+            </div>
+            <div>
+                <p>info@whenyouseeme.com</p>
+                <p>+233 457 9890</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

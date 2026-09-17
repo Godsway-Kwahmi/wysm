@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | When You See Me</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            canvas: '#392422',
+                            card: '#271614',
+                            input: '#1A0E0D',
+                            light: '#F2EBE9',
+                            muted: '#B5A5A3',
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-canvas text-brand-light font-sans relative overflow-x-hidden selection:bg-white selection:text-brand-canvas">
+
+    <div class="absolute top-0 left-0 w-48 h-64 bg-brand-card z-0 hidden lg:block"></div>
+    <div class="absolute top-48 right-0 w-80 h-96 bg-brand-card z-0 hidden lg:block"></div>
+
+    <!-- Fixed Header Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-transparent">
+        <div class="max-w-[1240px] mx-auto px-6 pt-10 flex flex-col md:flex-row justify-between items-start">
+            <a href="index.html" class="text-white text-lg leading-[1.1] font-normal tracking-tight drop-shadow-md">
+                When<br />You See<br />Me
+            </a>
+            <nav class="flex items-center space-x-6 text-xs text-brand-muted mt-4 md:mt-1 drop-shadow-md">
+                <a href="search.html" class="hover:text-white transition-colors">Search</a>
+                <a href="about.html" class="hover:text-white transition-colors ml-8">About</a>
+                <a href="publications.html" class="hover:text-white transition-colors">Publications</a>
+                <a href="interventions.html" class="hover:text-white transition-colors">Creative Interventions</a>
+                <a href="convenings.html" class="hover:text-white transition-colors">Convenings</a>
+                <a href="contact.html" class="text-white font-medium border-b border-white pb-0.5">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-44 pb-32 max-w-[1240px] mx-auto px-6">
+        <div class="grid grid-cols-12 gap-x-6 relative">
+            <div class="col-span-12 lg:col-span-5 bg-brand-card p-10 z-10 -ml-0 lg:-ml-12 shadow-xl">
+                <h1 class="text-5xl font-normal text-white">Contact</h1>
+            </div>
+
+            <div class="col-span-12 lg:col-span-8 col-start-4 bg-brand-card p-12 z-20 shadow-2xl mt-8 lg:-mt-12 border border-white/5">
+                <p class="text-xs text-brand-muted mb-4 tracking-wide">Send feedback / inquiry</p>
+                <textarea rows="6" class="w-full bg-brand-input border border-white/10 p-4 text-sm text-white placeholder-brand-muted focus:outline-none focus:border-white/30 resize-none shadow-inner" placeholder="Type here"></textarea>
+                <div class="flex justify-between items-center mt-6 text-xs text-brand-muted">
+                    <button type="reset" class="hover:text-white transition-colors">start over</button>
+                    <button type="submit" class="hover:text-white transition-colors border border-white/20 px-6 py-2 hover:bg-white hover:text-brand-canvas">send</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-brand-muted">
+            <div class="bg-brand-card p-8 border border-white/5">
+                <span class="block text-white mb-2 font-medium">Social Media</span>
+                <p><a href="#" class="hover:text-white">LinkedIn</a></p>
+                <p><a href="#" class="hover:text-white">Instagram</a></p>
+                <p><a href="#" class="hover:text-white">Facebook</a></p>
+                <p><a href="#" class="hover:text-white">YouTube</a></p>
+            </div>
+
+            <div class="bg-brand-card p-8 border border-white/5">
+                <span class="block text-white mb-2 font-medium">Phone Number</span>
+                <p>+233 457 9890</p>
+            </div>
+
+            <div class="bg-brand-card p-8 border border-white/5">
+                <span class="block text-white mb-2 font-medium">Email</span>
+                <p>info@whenyouseeme.com</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-20 bg-brand-card border-t border-white/5 pt-16 pb-12 px-6">
+        <div class="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-xs text-brand-muted">
+            <div class="text-white text-base leading-[1.15]">When<br />You See<br />Me</div>
+            <div class="flex flex-col space-y-2">
+                <a href="about.html" class="hover:text-white">About</a>
+                <a href="publications.html" class="hover:text-white">Publications</a>
+                <a href="interventions.html" class="hover:text-white">Creative Interventions</a>
+                <a href="convenings.html" class="hover:text-white">Convenings</a>
+                <a href="contact.html" class="hover:text-white">Contact</a>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <a href="#" class="hover:text-white">LinkedIn</a>
+                <a href="#" class="hover:text-white">Instagram</a>
+                <a href="#" class="hover:text-white">Facebook</a>
+            </div>
+            <div>
+                <p>info@whenyouseeme.com</p>
+                <p>+233 457 9890</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
