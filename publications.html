@@ -1,116 +1,183 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publications | When You See Me</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            canvas: '#392422',
-                            card: '#271614',
-                            input: '#1A0E0D',
-                            light: '#F2EBE9',
-                            muted: '#B5A5A3',
-                        }
-                    },
-                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
+<script>document.documentElement.classList.add("js")</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publications — When You See Me</title>
+<meta name="description" content="Papers, reports and writing produced by the When You See Me project.">
+<link rel="stylesheet" href="assets/site.css">
 </head>
-<body class="bg-brand-canvas text-brand-light font-sans relative overflow-x-hidden selection:bg-white selection:text-brand-canvas">
+<body>
 
-    <div class="absolute top-0 left-0 w-48 h-64 bg-brand-card z-0 hidden lg:block"></div>
-    <div class="absolute top-96 right-0 w-80 h-[500px] bg-brand-card z-0 hidden lg:block"></div>
+<a class="skip" href="#main">Skip to content</a>
 
-    <!-- Fixed Header Navigation -->
-    <header class="fixed top-0 w-full z-50 bg-transparent">
-        <div class="max-w-[1240px] mx-auto px-6 pt-10 flex flex-col md:flex-row justify-between items-start">
-            <a href="index.html" class="text-white text-lg leading-[1.1] font-normal tracking-tight drop-shadow-md">
-                When<br />You See<br />Me
-            </a>
-            <nav class="flex items-center space-x-6 text-xs text-brand-muted mt-4 md:mt-1 drop-shadow-md">
-                <a href="search.html" class="hover:text-white transition-colors">Search</a>
-                <a href="about.html" class="hover:text-white transition-colors ml-8">About</a>
-                <a href="publications.html" class="text-white font-medium border-b border-white pb-0.5">Publications</a>
-                <a href="interventions.html" class="hover:text-white transition-colors">Creative Interventions</a>
-                <a href="convenings.html" class="hover:text-white transition-colors">Convenings</a>
-                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
-            </nav>
+<div class="stage" id="main" style="--stage:3000">
+
+  <header class="sec site-header">
+    <div class="a box deco deco--white" style="--x:0;--y:0;--w:295;--h:59"></div>
+    <div class="a box deco deco--bar" style="--x:960;--y:0;--w:820;--h:23"></div>
+    <a class="a t logo content" href="index.html" style="--x:0;--y:70.9;--w:289;--fs:44;--lh:36">
+      When<br>You See<br>Me
+    </a>
+
+    <a class="a t nav content search" href="search.html" style="--x:967.7;--y:63.1;--fs:21;--lh:21">Search</a>
+
+    <nav class="a t nav navbar content" style="--x:1176;--y:63.1;--w:606;--fs:21;--lh:21" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="publications.html" aria-current="page">Publications</a>
+      <a href="creative-interventions.html" class="pair">Creative Interventions</a>
+      <a href="convenings.html">Convenings</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="sec">
+    <div class="a box deco" style="--x:1780;--y:240;--w:140;--h:300"></div>
+    <div class="a box deco" style="--x:140;--y:270;--w:761;--h:300"></div>
+
+    <h1 class="a t display content" style="--x:184;--y:304;--fs:62;--lh:60">Publications</h1>
+    <p class="a t tw lede content" style="--x:186;--y:400;--w:600;--fs:36;--lh:36">Papers, reports and writing produced by the project.</p>
+  </section>
+
+  <section class="sec">
+    <img class="a box photo" id="feature-image" src="assets/img/publication.webp" loading="lazy"
+         style="--x:681;--y:620;--w:1099;--h:560"
+         alt="A speaker addresses an audience beside a Pitch Zone 2022 banner.">
+    <div class="a box panel" style="--x:140;--y:720;--w:700;--h:440"></div>
+    <h2 class="a t tw sub content" id="feature-title" style="--x:180;--y:762;--w:520;--fs:36;--lh:36">Publication title goes here</h2>
+    <div class="a t tw body content" style="--x:180;--y:862;--w:505;--fs:21;--lh:27">
+      <p id="feature-body">Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
+    </div>
+    <a class="a t content inline-link" id="feature-link" href="#" style="--x:180;--y:1000;--fs:21;--lh:27">Read the publication</a>
+  </section>
+
+  <section class="sec">
+    <h2 class="a t tw sub content" style="--x:140;--y:1360;--w:800;--fs:36;--lh:36">Everything we have published</h2>
+    <div id="pub-list">
+<div class="a tw content" style="--x:140;--y:1440;--w:1640">
+    <div class="rows">
+      <div class="row">
+        <a class="tile" href="#" tabindex="-1" aria-hidden="true"></a>
+        <div>
+          <h3 class="t"><a href="#">Publication title goes here</a></h3>
+          <span class="t body meta">Journal or publisher goes here</span>
         </div>
-    </header>
-
-    <!-- Main Section -->
-    <main class="relative z-10 pt-44 pb-32 max-w-[1240px] mx-auto px-6">
-        <div class="grid grid-cols-12 gap-x-6 relative">
-            <div class="col-span-12 lg:col-span-6 bg-brand-card p-10 z-10 -ml-0 lg:-ml-12 shadow-xl">
-                <h1 class="text-5xl font-normal text-white mb-2">Publications</h1>
-                <p class="text-xs text-brand-muted">Academic papers, research reports & policy briefs</p>
-            </div>
-
-            <div class="col-span-12 lg:col-span-7 col-start-6 z-0 pt-8">
-                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000" alt="Pitch Zone 2022" class="w-full object-cover shadow-2xl border border-white/5" />
-            </div>
-
-            <div class="col-span-12 lg:col-span-6 bg-brand-card p-10 z-20 shadow-2xl mt-8 lg:-mt-24 border border-white/5">
-                <span class="text-[10px] text-brand-muted uppercase tracking-widest mb-2 block">Featured Report • Pitch Zone 2022</span>
-                <h2 class="text-xl text-white font-normal mb-4">Pitch story ideas for award categories & production grants</h2>
-                <p class="text-xs leading-relaxed text-brand-muted mb-4">
-                    Analysis on how media narrative grant frameworks empower migrant women to document justice-seeking journeys.
-                </p>
-                <a href="#" class="text-xs text-white underline">Download PDF (2.4 MB) ↑</a>
-            </div>
+        <span class="t when">2026</span>
+      </div>
+      <div class="row">
+        <a class="tile" href="#" tabindex="-1" aria-hidden="true"></a>
+        <div>
+          <h3 class="t"><a href="#">Publication title goes here</a></h3>
+          <span class="t body meta">Journal or publisher goes here</span>
         </div>
-
-        <!-- Publication List -->
-        <div class="mt-20 space-y-6">
-            <div class="bg-brand-card p-8 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center">
-                <div>
-                    <span class="text-[10px] uppercase text-brand-muted tracking-widest">Research Article • 2026</span>
-                    <h3 class="text-lg text-white font-normal mt-1">Justice-Seeking Behaviors of Female Nigerian Immigrants in Ghana</h3>
-                    <p class="text-xs text-brand-muted mt-2 max-w-2xl">Exploring pathways through informal networks and traditional queenmother leaders.</p>
-                </div>
-                <button class="mt-4 md:mt-0 text-xs text-white border border-white/20 px-4 py-2 hover:bg-white hover:text-brand-canvas transition-all">Download PDF</button>
-            </div>
-
-            <div class="bg-brand-card p-8 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center">
-                <div>
-                    <span class="text-[10px] uppercase text-brand-muted tracking-widest">Policy Brief • 2025</span>
-                    <h3 class="text-lg text-white font-normal mt-1">Preventing Intimate Partner Violence in Migrant Communities</h3>
-                    <p class="text-xs text-brand-muted mt-2 max-w-2xl">Policy recommendations for host community protection frameworks.</p>
-                </div>
-                <button class="mt-4 md:mt-0 text-xs text-white border border-white/20 px-4 py-2 hover:bg-white hover:text-brand-canvas transition-all">Download PDF</button>
-            </div>
+        <span class="t when">2026</span>
+      </div>
+      <div class="row">
+        <a class="tile" href="#" tabindex="-1" aria-hidden="true"></a>
+        <div>
+          <h3 class="t"><a href="#">Publication title goes here</a></h3>
+          <span class="t body meta">Journal or publisher goes here</span>
         </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="relative z-20 bg-brand-card border-t border-white/5 pt-16 pb-12 px-6">
-        <div class="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-xs text-brand-muted">
-            <div class="text-white text-base leading-[1.15]">When<br />You See<br />Me</div>
-            <div class="flex flex-col space-y-2">
-                <a href="about.html" class="hover:text-white">About</a>
-                <a href="publications.html" class="hover:text-white">Publications</a>
-                <a href="interventions.html" class="hover:text-white">Creative Interventions</a>
-                <a href="convenings.html" class="hover:text-white">Convenings</a>
-                <a href="contact.html" class="hover:text-white">Contact</a>
-            </div>
-            <div class="flex flex-col space-y-2">
-                <a href="#" class="hover:text-white">LinkedIn</a>
-                <a href="#" class="hover:text-white">Instagram</a>
-                <a href="#" class="hover:text-white">Facebook</a>
-            </div>
-            <div>
-                <p>info@whenyouseeme.com</p>
-                <p>+233 457 9890</p>
-            </div>
+        <span class="t when">2025</span>
+      </div>
+      <div class="row">
+        <a class="tile" href="#" tabindex="-1" aria-hidden="true"></a>
+        <div>
+          <h3 class="t"><a href="#">Publication title goes here</a></h3>
+          <span class="t body meta">Journal or publisher goes here</span>
         </div>
-    </footer>
+        <span class="t when">2025</span>
+      </div>
+      <div class="row">
+        <a class="tile" href="#" tabindex="-1" aria-hidden="true"></a>
+        <div>
+          <h3 class="t"><a href="#">Publication title goes here</a></h3>
+          <span class="t body meta">Journal or publisher goes here</span>
+        </div>
+        <span class="t when">2024</span>
+      </div>
+    </div>
+  </div>
+    </div>
+  </section>
+
+  <footer class="sec sec--flush site-footer" style="--y:2583">
+    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:197"></div>
+    <div class="a box deco" style="--x:968;--y:0;--w:952;--h:350"></div>
+    <div class="a box deco deco--deep" style="--x:1571;--y:0;--w:209;--h:197"></div>
+
+    <div class="footer-cols">
+      <a class="a t logo content" href="index.html" style="--x:0;--y:53.9;--w:399;--fs:44;--lh:36">
+        When<br>You See<br>Me
+      </a>
+
+      <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
+        <a href="about.html">About</a>
+        <a href="publications.html">Publications</a>
+        <a href="creative-interventions.html">Creative Interventions</a>
+        <a href="convenings.html">Convenings</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <nav class="a t stack content" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">Youtube</a>
+      </nav>
+
+      <div class="a t stack content" style="--x:1211;--y:61.7;--fs:26;--lh:33">
+        <a id="footer-email" href="mailto:info@whenyouseeme.com">info@whenyouseeme.com</a>
+        <a id="footer-phone" href="tel:+2334579890">+233 457 9890</a>
+      </div>
+    </div>
+
+    <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
+    <div class="legal-bar">
+      <p class="a t legal content" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b>ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sanity.js"></script>
+<script>
+/* Publications ------------------------------------------------------ */
+var PUB_LIST = document.querySelector('#pub-list .rows');
+
+SANITY.query(`*[_type == "publication"] | order(publishedAt desc){
+  title, excerpt1, publisher, url, "year": string(publishedAt)[0..3],
+  "imageUrl": featuredImage.asset->url
+}`).then(function (list) {
+  if (!list || !list.length || !PUB_LIST) return;
+
+  var first = list[0];
+  SANITY.text('feature-title', first.title);
+  SANITY.text('feature-body', first.excerpt1);
+  SANITY.src('feature-image', first.imageUrl);
+  SANITY.href('feature-link', first.url);
+
+  PUB_LIST.innerHTML = list.map(function (p) {
+    var href = p.url || '#';
+    return '<div class="row">' +
+             '<a class="tile" href="' + href + '" tabindex="-1" aria-hidden="true"></a>' +
+             '<div><h3 class="t"><a href="' + href + '"></a></h3>' +
+             '<span class="t body meta"></span></div>' +
+             '<span class="t when"></span>' +
+           '</div>';
+  }).join('');
+
+  // set text through the DOM so CMS copy can never inject markup
+  [].forEach.call(PUB_LIST.children, function (el, i) {
+    el.querySelector('h3 a').textContent = list[i].title || 'Untitled';
+    el.querySelector('.meta').textContent = list[i].publisher || '';
+    el.querySelector('.when').textContent = list[i].year || '';
+  });
+  if (window.fitStage) window.fitStage();
+});
+</script>
 </body>
 </html>

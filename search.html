@@ -1,121 +1,255 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search | When You See Me</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            canvas: '#392422',
-                            card: '#271614',
-                            input: '#1A0E0D',
-                            light: '#F2EBE9',
-                            muted: '#B5A5A3',
-                        }
-                    },
-                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
+<script>document.documentElement.classList.add("js")</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search — When You See Me</title>
+<meta name="description" content="Search the When You See Me research, creative programme and convenings.">
+<link rel="stylesheet" href="assets/site.css">
 </head>
-<body class="bg-brand-canvas text-brand-light font-sans relative overflow-x-hidden selection:bg-white selection:text-brand-canvas">
+<body>
 
-    <!-- Background Asymmetric Accent Blocks -->
-    <div class="absolute top-0 left-0 w-48 h-64 bg-brand-card z-0 hidden lg:block"></div>
-    <div class="absolute top-32 right-0 w-80 h-96 bg-brand-card z-0 hidden lg:block"></div>
+<a class="skip" href="#main">Skip to content</a>
 
-    <!-- Fixed Header Navigation -->
-    <header class="fixed top-0 w-full z-50 bg-transparent">
-        <div class="max-w-[1240px] mx-auto px-6 pt-10 flex flex-col md:flex-row justify-between items-start">
-            <a href="index.html" class="text-white text-lg leading-[1.1] font-normal tracking-tight drop-shadow-md">
-                When<br />You See<br />Me
-            </a>
-            <nav class="flex items-center space-x-6 text-xs text-brand-muted mt-4 md:mt-1 drop-shadow-md">
-                <a href="search.html" class="text-white font-medium border-b border-white pb-0.5">Search</a>
-                <a href="about.html" class="hover:text-white transition-colors ml-8">About</a>
-                <a href="publications.html" class="hover:text-white transition-colors">Publications</a>
-                <a href="interventions.html" class="hover:text-white transition-colors">Creative Interventions</a>
-                <a href="convenings.html" class="hover:text-white transition-colors">Convenings</a>
-                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
-            </nav>
-        </div>
-    </header>
+<div class="stage" id="main" style="--stage:1900">
 
-    <!-- Search Section -->
-    <main class="relative z-10 pt-44 pb-32 max-w-[1240px] mx-auto px-6">
-        <div class="grid grid-cols-12 gap-6">
-            <div class="col-span-12 lg:col-span-4 bg-brand-card p-10 shadow-xl -ml-0 lg:-ml-12 z-10">
-                <h1 class="text-5xl font-normal text-white mb-2">Search</h1>
-                <p class="text-xs text-brand-muted">Find publications, research, and interventions</p>
-            </div>
+  <header class="sec site-header">
+    <div class="a box deco deco--white" style="--x:0;--y:0;--w:295;--h:59"></div>
+    <div class="a box deco deco--bar" style="--x:960;--y:0;--w:820;--h:23"></div>
+    <a class="a t logo content" href="index.html" style="--x:0;--y:70.9;--w:289;--fs:44;--lh:36">
+      When<br>You See<br>Me
+    </a>
 
-            <div class="col-span-12 lg:col-span-8 bg-brand-card p-10 shadow-2xl border border-white/5 z-20">
-                <div class="relative">
-                    <input type="text" placeholder="Type key phrases, topics, or authors..." class="w-full bg-brand-input border border-white/10 p-5 text-sm text-white placeholder-brand-muted focus:outline-none focus:border-white/30 shadow-inner" />
-                    <button class="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-brand-muted hover:text-white transition-colors">Search →</button>
-                </div>
+    <a class="a t nav content search" href="search.html" aria-current="page" style="--x:967.7;--y:63.1;--fs:21;--lh:21">Search</a>
 
-                <div class="mt-8 flex gap-3 text-xs text-brand-muted">
-                    <span>Popular filters:</span>
-                    <button class="hover:text-white underline">GBV Prevention</button>
-                    <button class="hover:text-white underline">Applied Theatre</button>
-                    <button class="hover:text-white underline">Queenmothers</button>
-                </div>
-            </div>
-        </div>
+    <nav class="a t nav navbar content" style="--x:1176;--y:63.1;--w:606;--fs:21;--lh:21" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="publications.html">Publications</a>
+      <a href="creative-interventions.html" class="pair">Creative Interventions</a>
+      <a href="convenings.html">Convenings</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-        <!-- Search Results Grid -->
-        <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <article class="bg-brand-card p-8 border border-white/5 hover:border-white/20 transition-all">
-                <span class="text-[10px] uppercase text-brand-muted tracking-widest block mb-2">Publication</span>
-                <h3 class="text-lg text-white font-normal mb-3">Help-seeking behaviors among female immigrants</h3>
-                <p class="text-xs text-brand-muted leading-relaxed mb-6">Examining justice pathways and community interventions in Ghanaian cities.</p>
-                <a href="publications.html" class="text-xs text-white underline">Read paper →</a>
-            </article>
+  <section class="sec">
+    <div class="a box deco" style="--x:1780;--y:240;--w:140;--h:300"></div>
+    <div class="a box deco" style="--x:140;--y:270;--w:761;--h:300"></div>
 
-            <article class="bg-brand-card p-8 border border-white/5 hover:border-white/20 transition-all">
-                <span class="text-[10px] uppercase text-brand-muted tracking-widest block mb-2">Creative Intervention</span>
-                <h3 class="text-lg text-white font-normal mb-3">Illustrated Community Comics</h3>
-                <p class="text-xs text-brand-muted leading-relaxed mb-6">Educational stories raising awareness on survivor assistance and protection.</p>
-                <a href="interventions.html" class="text-xs text-white underline">View comic series →</a>
-            </article>
+    <h1 class="a t display content" style="--x:184;--y:304;--fs:62;--lh:60">Search</h1>
+    <p class="a t tw lede content" style="--x:186;--y:400;--w:600;--fs:36;--lh:36">Look across the research, the creative programme and the convenings.</p>
+  </section>
 
-            <article class="bg-brand-card p-8 border border-white/5 hover:border-white/20 transition-all">
-                <span class="text-[10px] uppercase text-brand-muted tracking-widest block mb-2">Convening</span>
-                <h3 class="text-lg text-white font-normal mb-3">Traditional Leaders Workshop</h3>
-                <p class="text-xs text-brand-muted leading-relaxed mb-6">Sessions engaging queenmothers to support migrant women experiencing IPV.</p>
-                <a href="convenings.html" class="text-xs text-white underline">View convening gallery →</a>
-            </article>
-        </section>
-    </main>
+  <section class="sec">
+    <form id="search-form" role="search">
+      <label class="a t label content" for="q" style="--x:140;--y:668;--fs:27;--lh:27">What are you looking for?</label>
+      <input class="a box field field--line" id="q" name="q" type="search" autocomplete="off"
+             placeholder="Try queenmothers, theatre, or comics"
+             style="--x:140;--y:722;--w:1040;--h:84">
+      <div class="a t stack actions content" style="--x:1230;--y:730;--fs:21;--lh:26">
+        <button type="submit">search</button>
+        <button type="button" id="btn-clear">clear</button>
+      </div>
+    </form>
 
-    <!-- Footer -->
-    <footer class="relative z-20 bg-brand-card border-t border-white/5 pt-16 pb-12 px-6">
-        <div class="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-xs text-brand-muted">
-            <div class="text-white text-base leading-[1.15]">When<br />You See<br />Me</div>
-            <div class="flex flex-col space-y-2">
-                <a href="about.html" class="hover:text-white">About</a>
-                <a href="publications.html" class="hover:text-white">Publications</a>
-                <a href="interventions.html" class="hover:text-white">Creative Interventions</a>
-                <a href="convenings.html" class="hover:text-white">Convenings</a>
-                <a href="contact.html" class="hover:text-white">Contact</a>
-            </div>
-            <div class="flex flex-col space-y-2">
-                <a href="#" class="hover:text-white">LinkedIn</a>
-                <a href="#" class="hover:text-white">Instagram</a>
-                <a href="#" class="hover:text-white">Facebook</a>
-            </div>
-            <div>
-                <p>info@whenyouseeme.com</p>
-                <p>+233 457 9890</p>
-            </div>
-        </div>
-    </footer>
+    <div class="a tw content" style="--x:140;--y:868;--w:1640">
+      <div class="scopes t" style="--fs:21;--lh:27" role="group" aria-label="Filter by section">
+        <button type="button" data-scope="all" aria-pressed="true">Everything</button>
+        <button type="button" data-scope="About" aria-pressed="false">About</button>
+        <button type="button" data-scope="Publications" aria-pressed="false">Publications</button>
+        <button type="button" data-scope="Creative Interventions" aria-pressed="false">Creative Interventions</button>
+        <button type="button" data-scope="Convenings" aria-pressed="false">Convenings</button>
+        <button type="button" data-scope="Contact" aria-pressed="false">Contact</button>
+      </div>
+    </div>
+
+    <p class="a t tw status content" id="status" style="--x:140;--y:990;--w:1000;--fs:21;--lh:27" role="status" aria-live="polite"></p>
+
+    <div class="a tw content" style="--x:140;--y:1060;--w:1640">
+      <div class="rows" id="results"></div>
+    </div>
+  </section>
+
+  <footer class="sec sec--flush site-footer" style="--y:1483">
+    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:197"></div>
+    <div class="a box deco" style="--x:968;--y:0;--w:952;--h:350"></div>
+    <div class="a box deco deco--deep" style="--x:1571;--y:0;--w:209;--h:197"></div>
+
+    <div class="footer-cols">
+      <a class="a t logo content" href="index.html" style="--x:0;--y:53.9;--w:399;--fs:44;--lh:36">
+        When<br>You See<br>Me
+      </a>
+
+      <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
+        <a href="about.html">About</a>
+        <a href="publications.html">Publications</a>
+        <a href="creative-interventions.html">Creative Interventions</a>
+        <a href="convenings.html">Convenings</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <nav class="a t stack content" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">Youtube</a>
+      </nav>
+
+      <div class="a t stack content" style="--x:1211;--y:61.7;--fs:26;--lh:33">
+        <a id="footer-email" href="mailto:info@whenyouseeme.com">info@whenyouseeme.com</a>
+        <a id="footer-phone" href="tel:+2334579890">+233 457 9890</a>
+      </div>
+    </div>
+
+    <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
+    <div class="legal-bar">
+      <p class="a t legal content" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b>ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sanity.js"></script>
+<script>
+/* Search -------------------------------------------------------------
+   Indexes the pages that exist. Swap INDEX for a Sanity query once
+   the content is in the CMS; the render below does not change.
+   ------------------------------------------------------------------ */
+var INDEX = [
+  { title: 'About the project', section: 'About', href: 'about.html',
+    text: 'Migration is a significant risk factor to experiencing gender-based violence GBV and women who migrate without their relatives often lack help to prevent the problem. Prevention of and responses to GBV within migrant communities in Ghana.' },
+  { title: 'What the research looks at', section: 'About', href: 'about.html',
+    text: 'Narrative methodology, help-seeking and justice-seeking behaviours of female Nigerian immigrants, intimate partner violence IPV and non-partner perpetrated sexual violence.' },
+  { title: 'Project team', section: 'About', href: 'about.html',
+    text: 'The researchers, performers and illustrators working on the project.' },
+  { title: 'Funding', section: 'About', href: 'about.html',
+    text: 'This project is funded by the Arts and Humanities Research Council AHRC.' },
+  { title: 'Publications', section: 'Publications', href: 'publications.html',
+    text: 'Papers, reports and writing produced by the project.' },
+  { title: 'Applied theatre', section: 'Creative Interventions', href: 'creative-interventions.html',
+    text: 'Performances made with and for migrant communities, opening a way to talk about violence and about the help that is available.' },
+  { title: 'Illustrated stories', section: 'Creative Interventions', href: 'creative-interventions.html',
+    text: 'Educational comics that show how survivors can reach services and justice, drawn to be read and passed on.' },
+  { title: 'Queenmothers and neighbours', section: 'Creative Interventions', href: 'creative-interventions.html',
+    text: 'Working with female traditional leaders, queenmothers, and host communities on what they can do and where they can refer someone on.' },
+  { title: 'Convenings', section: 'Convenings', href: 'convenings.html',
+    text: 'Meetings, panels and workshops with partners, practitioners and the communities the project works with.' },
+  { title: 'Contact the project', section: 'Contact', href: 'contact.html',
+    text: 'Email info@whenyouseeme.com, phone +233 457 9890, or send a message from the contact page.' }
+];
+
+(function () {
+  var form    = document.getElementById('search-form'),
+      input   = document.getElementById('q'),
+      clear   = document.getElementById('btn-clear'),
+      status  = document.getElementById('status'),
+      results = document.getElementById('results'),
+      scopeEls= [].slice.call(document.querySelectorAll('.scopes button')),
+      scope   = 'all';
+
+  function score(entry, terms) {
+    var hay = (entry.title + ' ' + entry.section + ' ' + entry.text).toLowerCase();
+    var hits = 0;
+    for (var i = 0; i < terms.length; i++) {
+      if (hay.indexOf(terms[i]) === -1) return 0;           // every term must appear
+      hits += entry.title.toLowerCase().indexOf(terms[i]) > -1 ? 3 : 1;
+    }
+    return hits;
+  }
+
+  function snippet(entry, terms) {
+    var text = entry.text, at = -1;
+    for (var i = 0; i < terms.length && at < 0; i++) at = text.toLowerCase().indexOf(terms[i]);
+    if (at < 0) at = 0;
+    var from = Math.max(0, at - 60);
+    return (from > 0 ? '\u2026' : '') + text.slice(from, from + 170).trim() +
+           (from + 170 < text.length ? '\u2026' : '');
+  }
+
+  function render() {
+    var q = input.value.trim().toLowerCase();
+    var terms = q ? q.split(/\s+/) : [];
+    var pool = INDEX.filter(function (e) { return scope === 'all' || e.section === scope; });
+
+    results.innerHTML = '';
+
+    if (window.fitStage) window.fitStage();
+
+    if (!terms.length) {
+      status.textContent = scope === 'all'
+        ? 'Type a word to search the site, or pick a section above.'
+        : 'Showing everything in ' + scope + '. Type a word to narrow it down.';
+      if (scope !== 'all') draw(pool, terms);
+      return;
+    }
+
+    var hits = pool.map(function (e) { return { e: e, s: score(e, terms) }; })
+                   .filter(function (r) { return r.s > 0; })
+                   .sort(function (a, b) { return b.s - a.s; })
+                   .map(function (r) { return r.e; });
+
+    if (!hits.length) {
+      status.textContent = 'Nothing matches \u201c' + input.value.trim() + '\u201d' +
+        (scope === 'all' ? '' : ' in ' + scope) +
+        '. Try a single word, or widen the section filter.';
+      return;
+    }
+
+    status.textContent = hits.length + (hits.length === 1 ? ' result' : ' results') +
+      ' for \u201c' + input.value.trim() + '\u201d' + (scope === 'all' ? '' : ' in ' + scope) + '.';
+    draw(hits, terms);
+  }
+
+  function draw(list, terms) {
+    list.forEach(function (e) {
+      var wrap = document.createElement('div');
+      wrap.className = 'row row--plain';
+
+      var col = document.createElement('div');
+      var h = document.createElement('h3');
+      h.className = 't';
+      var a = document.createElement('a');
+      a.href = e.href;
+      a.textContent = e.title;
+      h.appendChild(a);
+
+      var p = document.createElement('span');
+      p.className = 't body meta';
+      p.textContent = snippet(e, terms);
+
+      col.appendChild(h);
+      col.appendChild(p);
+
+      var sec = document.createElement('span');
+      sec.className = 't when result-section';
+      sec.textContent = e.section;
+
+      wrap.appendChild(col);
+      wrap.appendChild(sec);
+      results.appendChild(wrap);
+    });
+    if (window.fitStage) window.fitStage();
+  }
+
+  scopeEls.forEach(function (b) {
+    b.addEventListener('click', function () {
+      scope = b.dataset.scope;
+      scopeEls.forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+      render();
+    });
+  });
+
+  input.addEventListener('input', render);
+  clear.addEventListener('click', function () { input.value = ''; input.focus(); render(); });
+  form.addEventListener('submit', function (ev) { ev.preventDefault(); render(); });
+
+  // arriving from elsewhere with ?q=
+  var initial = new URLSearchParams(location.search).get('q');
+  if (initial) input.value = initial;
+  render();
+})();
+</script>
 </body>
 </html>

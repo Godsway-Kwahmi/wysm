@@ -1,111 +1,176 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | When You See Me</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            canvas: '#392422',
-                            card: '#271614',
-                            input: '#1A0E0D',
-                            light: '#F2EBE9',
-                            muted: '#B5A5A3',
-                        }
-                    },
-                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
+<script>document.documentElement.classList.add("js")</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — When You See Me</title>
+<meta name="description" content="Who is behind the When You See Me project, what the research looks at, and how the creative programme is made.">
+<link rel="stylesheet" href="assets/site.css">
 </head>
-<body class="bg-brand-canvas text-brand-light font-sans relative overflow-x-hidden selection:bg-white selection:text-brand-canvas">
+<body>
 
-    <div class="absolute top-0 left-0 w-48 h-64 bg-brand-card z-0 hidden lg:block"></div>
-    <div class="absolute top-48 right-0 w-96 h-[600px] bg-brand-card z-0 hidden lg:block"></div>
+<a class="skip" href="#main">Skip to content</a>
 
-    <!-- Fixed Header Navigation -->
-    <header class="fixed top-0 w-full z-50 bg-transparent">
-        <div class="max-w-[1240px] mx-auto px-6 pt-10 flex flex-col md:flex-row justify-between items-start">
-            <a href="index.html" class="text-white text-lg leading-[1.1] font-normal tracking-tight drop-shadow-md">
-                When<br />You See<br />Me
-            </a>
-            <nav class="flex items-center space-x-6 text-xs text-brand-muted mt-4 md:mt-1 drop-shadow-md">
-                <a href="search.html" class="hover:text-white transition-colors">Search</a>
-                <a href="about.html" class="text-white font-medium border-b border-white pb-0.5 ml-8">About</a>
-                <a href="publications.html" class="hover:text-white transition-colors">Publications</a>
-                <a href="interventions.html" class="hover:text-white transition-colors">Creative Interventions</a>
-                <a href="convenings.html" class="hover:text-white transition-colors">Convenings</a>
-                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
-            </nav>
-        </div>
-    </header>
+<div class="stage" id="main" style="--stage:3640">
 
-    <!-- Main Content -->
-    <main class="relative z-10 pt-44 pb-32 max-w-[1240px] mx-auto px-6">
-        <div class="grid grid-cols-12 gap-6 relative">
-            <div class="col-span-12 lg:col-span-6 bg-brand-card p-10 z-10 -ml-0 lg:-ml-12 shadow-xl">
-                <h1 class="text-5xl font-normal text-white mb-3">About The Project</h1>
-                <p class="text-xs text-brand-muted">Gender-based violence prevention and community responses in Ghana</p>
-            </div>
+  <header class="sec site-header">
+    <div class="a box deco deco--white" style="--x:0;--y:0;--w:295;--h:59"></div>
+    <div class="a box deco deco--bar" style="--x:960;--y:0;--w:820;--h:23"></div>
+    <a class="a t logo content" href="index.html" style="--x:0;--y:70.9;--w:289;--fs:44;--lh:36">
+      When<br>You See<br>Me
+    </a>
 
-            <div class="col-span-12 lg:col-span-8 z-0 pt-6">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1200" alt="About Hero" class="w-full h-96 object-cover shadow-2xl border border-white/5" />
-            </div>
+    <a class="a t nav content search" href="search.html" style="--x:967.7;--y:63.1;--fs:21;--lh:21">Search</a>
 
-            <div class="col-span-12 lg:col-span-6 bg-brand-card p-10 z-20 shadow-2xl -mt-20 lg:-mt-32 border border-white/5 ml-auto">
-                <h3 class="text-lg text-white font-normal mb-4">Research Framework & Narrative Methodology</h3>
-                <p class="text-xs text-brand-muted leading-relaxed mb-4">
-                    Migration is a significant risk factor to experiencing gender-based violence (GBV), and women who migrate without their relatives often lack support to prevent or escape violence[cite: 1].
-                </p>
-                <p class="text-xs text-brand-muted leading-relaxed">
-                    We employ narrative methodologies to study the help- and justice-seeking behaviors of female Nigerian immigrants in Ghana facing intimate partner violence (IPV) and non-partner sexual violence[cite: 1].
-                </p>
-            </div>
-        </div>
+    <nav class="a t nav navbar content" style="--x:1176;--y:63.1;--w:606;--fs:21;--lh:21" aria-label="Primary">
+      <a href="about.html" aria-current="page">About</a>
+      <a href="publications.html">Publications</a>
+      <a href="creative-interventions.html" class="pair">Creative Interventions</a>
+      <a href="convenings.html">Convenings</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-        <section class="mt-24 grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div class="bg-brand-card p-10 border border-white/5">
-                <h3 class="text-xl text-white font-normal mb-4">Applied Theatre & Comics</h3>
-                <p class="text-xs text-brand-muted leading-relaxed">
-                    Our team converts research insights into educational illustrated stories and interactive applied theatre performances to raise awareness across host communities[cite: 1].
-                </p>
-            </div>
-            <div class="bg-brand-card p-10 border border-white/5">
-                <h3 class="text-xl text-white font-normal mb-4">Traditional Leaders & Queenmothers</h3>
-                <p class="text-xs text-brand-muted leading-relaxed">
-                    We collaborate closely with female traditional leaders ('queenmothers') to establish institutional and informal support channels for survivors[cite: 1].
-                </p>
-            </div>
-        </section>
-    </main>
+  <section class="sec">
+    <div class="a box deco" style="--x:1780;--y:240;--w:140;--h:363"></div>
+    <div class="a box deco" style="--x:140;--y:270;--w:761;--h:300"></div>
+    <div class="a box deco" style="--x:0;--y:590;--w:279;--h:240"></div>
 
-    <!-- Footer -->
-    <footer class="relative z-20 bg-brand-card border-t border-white/5 pt-16 pb-12 px-6">
-        <div class="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-xs text-brand-muted">
-            <div class="text-white text-base leading-[1.15]">When<br />You See<br />Me</div>
-            <div class="flex flex-col space-y-2">
-                <a href="about.html" class="hover:text-white">About</a>
-                <a href="publications.html" class="hover:text-white">Publications</a>
-                <a href="interventions.html" class="hover:text-white">Creative Interventions</a>
-                <a href="convenings.html" class="hover:text-white">Convenings</a>
-                <a href="contact.html" class="hover:text-white">Contact</a>
-            </div>
-            <div class="flex flex-col space-y-2">
-                <a href="#" class="hover:text-white">LinkedIn</a>
-                <a href="#" class="hover:text-white">Instagram</a>
-                <a href="#" class="hover:text-white">Facebook</a>
-            </div>
-            <div>
-                <p>info@whenyouseeme.com</p>
-                <p>+233 457 9890</p>
-            </div>
-        </div>
-    </footer>
+    <h1 class="a t display content" style="--x:184;--y:304;--fs:62;--lh:60">About</h1>
+    <p class="a t tw lede content" style="--x:186;--y:400;--w:600;--fs:36;--lh:36">Preventing and responding to gender-based violence in migrant communities in Ghana.</p>
+  </section>
+
+  <section class="sec">
+    <div class="a box rule" style="--x:140;--y:660;--w:1640;--h:2"></div>
+    <div class="a t tw body content" style="--x:140;--y:696;--w:766;--fs:21;--lh:27">
+      <p id="about-intro-1">Migration is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to GBV within migrant communities in Ghana.</p>
+    </div>
+    <div class="a t tw body content" style="--x:966;--y:696;--w:766;--fs:21;--lh:27">
+      <p id="about-intro-2">We will employ narrative methodology to study the help- and justice-seeking behaviours of female Nigerian immigrants in response to two forms of GBV &ndash; intimate partner violence (IPV) and non-partner perpetrated sexual violence. We will then use applied theatre and educational illustrated stories (comics) to raise awareness of how survivors can access services and justice and how their host community and female traditional leaders &ndash; &lsquo;queenmothers&rsquo; &ndash; can assist them.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="a box deco" style="--x:1160;--y:900;--w:760;--h:540"></div>
+    <img class="a box photo" src="assets/img/convening.webp" loading="lazy"
+         style="--x:140;--y:940;--w:900;--h:500"
+         alt="Researchers and community members at a project convening.">
+
+    <h2 class="a t tw sub content" style="--x:1210;--y:985;--w:560;--fs:36;--lh:36">What the research looks at</h2>
+    <div class="a t tw body content" style="--x:1210;--y:1090;--w:505;--fs:21;--lh:27">
+      <p id="about-focus-1">The study follows female Nigerian immigrants in Ghana and the choices they make after violence: who they tell, where they go for help, and what happens when they try to reach services or the courts.</p>
+      <p id="about-focus-2">Narrative methods keep those accounts in the words of the women who lived them, rather than reducing them to a set of categories fixed in advance.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="a t tw sub content" style="--x:140;--y:1560;--w:700;--fs:36;--lh:36">Three strands of work</h2>
+
+    <div class="a box deco" style="--x:140;--y:1640;--w:500;--h:340"></div>
+    <h3 class="a t tw sub content" style="--x:180;--y:1684;--w:420;--fs:36;--lh:36">Narrative research</h3>
+    <div class="a t tw body content" style="--x:180;--y:1760;--w:420;--fs:21;--lh:27">
+      <p>Life-story interviews with women who have experienced intimate partner violence and non-partner perpetrated sexual violence after migrating.</p>
+    </div>
+
+    <div class="a box deco" style="--x:710;--y:1700;--w:500;--h:340"></div>
+    <h3 class="a t tw sub content" style="--x:750;--y:1744;--w:420;--fs:36;--lh:36">Applied theatre</h3>
+    <div class="a t tw body content" style="--x:750;--y:1820;--w:420;--fs:21;--lh:27">
+      <p>Performances made with and for migrant communities, opening a way to talk about violence and about the help that is available.</p>
+    </div>
+
+    <div class="a box deco" style="--x:1280;--y:1640;--w:500;--h:340"></div>
+    <h3 class="a t tw sub content" style="--x:1320;--y:1684;--w:420;--fs:36;--lh:36">Illustrated stories</h3>
+    <div class="a t tw body content" style="--x:1320;--y:1760;--w:420;--fs:21;--lh:27">
+      <p>Educational comics that show how survivors can reach services and justice, and how neighbours and queenmothers can help them get there.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="a t tw sub content" style="--x:140;--y:2150;--w:700;--fs:36;--lh:36">Project team</h2>
+    <div class="a tile box" style="--x:140;--y:2240;--w:320;--h:340"></div>
+    <p class="a t tw label content" style="--x:140;--y:2610;--w:320;--fs:27;--lh:27"><span id="team-1-name">Name goes here</span></p>
+    <p class="a t tw body content" id="team-1-role" style="--x:140;--y:2652;--w:320;--fs:21;--lh:27">Role goes here</p>
+    <div class="a tile box" style="--x:580;--y:2240;--w:320;--h:340"></div>
+    <p class="a t tw label content" style="--x:580;--y:2610;--w:320;--fs:27;--lh:27"><span id="team-2-name">Name goes here</span></p>
+    <p class="a t tw body content" id="team-2-role" style="--x:580;--y:2652;--w:320;--fs:21;--lh:27">Role goes here</p>
+    <div class="a tile box" style="--x:1020;--y:2240;--w:320;--h:340"></div>
+    <p class="a t tw label content" style="--x:1020;--y:2610;--w:320;--fs:27;--lh:27"><span id="team-3-name">Name goes here</span></p>
+    <p class="a t tw body content" id="team-3-role" style="--x:1020;--y:2652;--w:320;--fs:21;--lh:27">Role goes here</p>
+    <div class="a tile box" style="--x:1460;--y:2240;--w:320;--h:340"></div>
+    <p class="a t tw label content" style="--x:1460;--y:2610;--w:320;--fs:27;--lh:27"><span id="team-4-name">Name goes here</span></p>
+    <p class="a t tw body content" id="team-4-role" style="--x:1460;--y:2652;--w:320;--fs:21;--lh:27">Role goes here</p>
+  </section>
+
+  <section class="sec">
+    <div class="a box rule" style="--x:140;--y:2840;--w:1640;--h:2"></div>
+    <h2 class="a t tw sub content" style="--x:140;--y:2880;--w:400;--fs:36;--lh:36">Funding</h2>
+    <div class="a t tw body content" style="--x:700;--y:2884;--w:700;--fs:21;--lh:27">
+      <p id="about-funding">This project is funded by the Arts and Humanities Research Council (AHRC).</p>
+      <p>For questions about the research, the creative programme or an upcoming convening, write to the project team.</p>
+    </div>
+    <a class="a t content inline-link" href="contact.html" style="--x:700;--y:3060;--fs:21;--lh:27">Get in touch</a>
+  </section>
+
+  <footer class="sec sec--flush site-footer" style="--y:3223">
+    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:197"></div>
+    <div class="a box deco" style="--x:968;--y:0;--w:952;--h:350"></div>
+    <div class="a box deco deco--deep" style="--x:1571;--y:0;--w:209;--h:197"></div>
+
+    <div class="footer-cols">
+      <a class="a t logo content" href="index.html" style="--x:0;--y:53.9;--w:399;--fs:44;--lh:36">
+        When<br>You See<br>Me
+      </a>
+
+      <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
+        <a href="about.html">About</a>
+        <a href="publications.html">Publications</a>
+        <a href="creative-interventions.html">Creative Interventions</a>
+        <a href="convenings.html">Convenings</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <nav class="a t stack content" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">Youtube</a>
+      </nav>
+
+      <div class="a t stack content" style="--x:1211;--y:61.7;--fs:26;--lh:33">
+        <a id="footer-email" href="mailto:info@whenyouseeme.com">info@whenyouseeme.com</a>
+        <a id="footer-phone" href="tel:+2334579890">+233 457 9890</a>
+      </div>
+    </div>
+
+    <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
+    <div class="legal-bar">
+      <p class="a t legal content" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b>ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sanity.js"></script>
+<script>
+/* About page content ----------------------------------------------- */
+SANITY.query(`*[_type == "about"][0]{
+  introParagraph1, introParagraph2, focusParagraph1, focusParagraph2, funding,
+  "team": team[]{ name, role }
+}`).then(function (a) {
+  if (!a) return;
+  SANITY.text('about-intro-1', a.introParagraph1);
+  SANITY.text('about-intro-2', a.introParagraph2);
+  SANITY.text('about-focus-1', a.focusParagraph1);
+  SANITY.text('about-focus-2', a.focusParagraph2);
+  SANITY.text('about-funding', a.funding);
+  (a.team || []).slice(0, 4).forEach(function (m, i) {
+    SANITY.text('team-' + (i + 1) + '-name', m.name);
+    SANITY.text('team-' + (i + 1) + '-role', m.role);
+  });
+});
+</script>
 </body>
 </html>
