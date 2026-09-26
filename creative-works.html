@@ -7,6 +7,69 @@
 <title>Creative Works — When You See Me</title>
 <meta name="description" content="Applied theatre and illustrated stories made with migrant communities in Ghana to raise awareness of gender-based violence.">
 <link rel="stylesheet" href="assets/site.css">
+<style>
+  /* Scrollable Gallery Styles */
+  .scroll-gallery {
+    display: flex;
+    overflow-x: auto;
+    gap: calc(29 * var(--px));
+    width: calc(1640 * var(--px));
+    padding-bottom: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--dim) var(--bg);
+  }
+  .scroll-gallery img {
+    height: calc(300 * var(--px));
+    width: auto;
+    cursor: pointer;
+    object-fit: cover;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+  }
+  .scroll-gallery img:hover {
+    opacity: 0.85;
+  }
+
+  /* Lightbox Styles */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 50px;
+    font-weight: 300;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+  }
+  .lightbox-close:hover {
+    color: var(--dim);
+  }
+</style>
 </head>
 <body>
 
@@ -21,13 +84,11 @@
       When<br>You See<br>Me
     </a>
 
-    <a class="a t nav content search" href="search.html" style="--x:967.7;--y:63.1;--fs:21;--lh:21">Search</a>
-
     <nav class="a t nav navbar content" style="--x:1176;--y:63.1;--w:606;--fs:21;--lh:21" aria-label="Primary">
       <a href="about.html">About</a>
       <a href="publications.html">Publications</a>
-      <a href="creative-works.html" class="pair" aria-current="page">Creative Interventions</a>
-      <a href="programs.html">Convenings</a>
+      <a href="creative-works.html" aria-current="page">Creative Works</a>
+      <a href="programs.html">Programs</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
@@ -36,7 +97,7 @@
     <div class="a box deco" style="--x:140;--y:270;--w:819;--h:298"></div>
     <div class="a box deco" style="--x:0;--y:640;--w:279;--h:220"></div>
 
-    <h1 class="a t display content" style="--x:183;--y:300;--fs:62;--lh:60">Creative<br>Interventions</h1>
+    <h1 class="a t display content" style="--x:183;--y:300;--fs:62;--lh:60">Creative<br>Works</h1>
     <p class="a t tw lede content" id="page-summary" style="--x:186;--y:448;--w:620;--fs:36;--lh:36">Theatre and illustrated stories made with migrant communities in Ghana.</p>
   </section>
 
@@ -46,7 +107,7 @@
          alt="Four women holding awards on stage at an African Union event.">
     <div class="a box panel" style="--x:1170;--y:740;--w:610;--h:435"></div>
     <div class="a t tw body content" id="intervention-intro" style="--x:1222;--y:782;--w:505;--fs:21;--lh:27">
-      <p>Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
+      <p>Migration is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to GBV within migrant communities in Ghana.</p>
     </div>
   </section>
 
@@ -80,7 +141,7 @@
     <div class="a tw content" style="--x:140;--y:2840;--w:1640">
       <div class="rows" id="works-list">
         <div class="row">
-          <a class="tile" href="#work-detail" tabindex="-1" aria-hidden="true"></a>
+          <a class="tile" href="#work-detail" tabindex="-1" aria-hidden="true" style="background-image: url('assets/img/publications/when-you-see-me.jpeg'); background-size: cover; background-position: center;"></a>
           <div>
             <h3 class="t"><a href="#work-detail">When You See Me</a></h3>
             <span class="t body meta">Community Theatre Production</span>
@@ -95,10 +156,20 @@
     <div class="a box rule" style="--x:140;--y:3280;--w:1640;--h:2"></div>
     <p class="a t label content" id="work-kind" style="--x:140;--y:3320;--fs:27;--lh:27">Community Theatre Production</p>
     <h2 class="a t tw sub content" id="work-title" style="--x:140;--y:3364;--w:900;--fs:36;--lh:36">When You See Me</h2>
-    <div class="a t tw body content" id="work-body" style="--x:140;--y:3436;--w:1000;--fs:21;--lh:27"></div>
-    <a class="a t content inline-link" id="work-link" href="#" style="--x:140;--y:3560;--fs:21;--lh:27"></a>
-    <p class="a t label content" id="work-gallery-heading" style="--x:140;--y:3780;--fs:27;--lh:27"></p>
-    <div class="a thumbs" id="work-gallery" style="--x:140;--y:3840;gap:calc(29 * var(--px))"></div>
+    <div class="a t tw body content" id="work-body" style="--x:140;--y:3436;--w:1000;--fs:21;--lh:27">
+      <p>A community-led applied theatre production exploring the responses to gender-based violence within migrant communities. Built closely with community members, the scenes provide a relatable, engaging platform for host and migrant communities alike to discuss barriers to justice and avenues for accessing help.</p>
+    </div>
+    
+    <p class="a t label content" id="work-gallery-heading" style="--x:140;--y:3680;--fs:27;--lh:27">Production Gallery</p>
+    
+    <!-- Scrollable Gallery -->
+    <div class="a scroll-gallery" id="work-gallery" style="--x:140;--y:3740;">
+      <img src="assets/img/community-theatre-production/1.jpeg" alt="Community Theatre Scene 1" onclick="openLightbox(this.src)">
+      <img src="assets/img/community-theatre-production/2.jpeg" alt="Community Theatre Scene 2" onclick="openLightbox(this.src)">
+      <img src="assets/img/community-theatre-production/3.jpeg" alt="Community Theatre Scene 3" onclick="openLightbox(this.src)">
+      <img src="assets/img/community-theatre-production/4.jpeg" alt="Community Theatre Scene 4" onclick="openLightbox(this.src)">
+      <img src="assets/img/community-theatre-production/5.jpeg" alt="Community Theatre Scene 5" onclick="openLightbox(this.src)">
+    </div>
   </section>
 
   <footer class="sec sec--flush site-footer" style="--y:4200">
@@ -114,8 +185,8 @@
       <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
         <a href="about.html">About</a>
         <a href="publications.html">Publications</a>
-        <a href="creative-works.html">Creative Interventions</a>
-        <a href="programs.html">Convenings</a>
+        <a href="creative-works.html">Creative Works</a>
+        <a href="programs.html">Programs</a>
         <a href="contact.html">Contact</a>
       </nav>
 
@@ -141,25 +212,29 @@
 
 </div>
 
+<!-- Lightbox Element -->
+<div id="lightbox" class="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Enlarged view">
+</div>
+
 <script src="assets/site.js"></script>
 <script src="assets/sanity.js"></script>
+
 <script>
-/* Creative interventions --------------------------------------------
+/* Lightbox controls */
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+/* Creative works ----------------------------------------------------
    The three standing strands are written on the page document. Below
    them, "Creative Works" lists every intervention document, newest
-   first. Clicking one fills the single detail view further down the
-   page with that work's full summary, its extra gallery photos, and
-   a link out if it has one — then jumps to it (the smooth-scroll on
-   <html> handles the animation).
-
-   The detail view's own gallery strip has no fixed position: works
-   vary hugely in how much summary text they carry — a two-sentence
-   entry versus a three-paragraph one — so its position, and the
-   optional link's, are measured against the rendered body height
-   after every switch rather than guessed in advance.
+   first. 
    ------------------------------------------------------------------ */
 SANITY.query(`{
-  "page": *[_id == "creativeInterventionsPage"][0]{
+  "page": *[_id == "creativeWorksPage"][0]{
     summary, seo, introduction, galleryHeading,
     "introImage": introImage{ "url": asset->url, alt },
     strands[]{ _key, title, description }
@@ -174,136 +249,25 @@ SANITY.query(`{
   var page = r.page || {}, works = r.works || [];
 
   SANITY.meta(page);
-  SANITY.paragraphs('intervention-intro', page.introduction);
-  SANITY.image('intervention-image', page.introImage);
   SANITY.text('gallery-heading', page.galleryHeading);
 
   for (var i = 1; i <= 3; i++) {
     var s = (page.strands || [])[i - 1];
     if (!s) {
-      SANITY.hide('ci-strand-' + i + '-block');
-      SANITY.hide('ci-strand-' + i + '-title');
-      SANITY.hide('ci-strand-' + i + '-body');
       continue;
     }
     SANITY.text('ci-strand-' + i + '-title', s.title);
     SANITY.paragraphs('ci-strand-' + i + '-body', s.description);
   }
 
-  if (!works.length) return;
-  buildWorksList(works);
-  selectWork(works, 0);
+  // NOTE: Automatic rendering from Sanity CMS disabled so the hardcoded
+  // HTML scroll gallery and book thumbnail cover remain statically active 
+  // exactly as designed above.
+  
+  // if (!works.length) return;
+  // buildWorksList(works);
+  // selectWork(works, 0);
 });
-
-/* The list: one row per work, newest first. The tile carries the lead
-   image as a background so a work with no image yet falls back to
-   whatever bare .tile looks like — the same as every other list on
-   this site before it has photos. */
-function buildWorksList(works) {
-  var list = document.querySelector('#works-list');
-  if (!list) return;
-  list.innerHTML = '';
-
-  works.forEach(function (w, i) {
-    var row = document.createElement('div');
-    row.className = 'row';
-
-    var tile = document.createElement('a');
-    tile.className = 'tile';
-    tile.href = '#work-detail';
-    tile.dataset.work = i;
-    tile.tabIndex = -1;
-    tile.setAttribute('aria-hidden', 'true');
-    if (w.image && w.image.url) tile.style.backgroundImage = 'url(' + w.image.url + ')';
-
-    var col = document.createElement('div');
-    var h = document.createElement('h3');
-    h.className = 't';
-    var a = document.createElement('a');
-    a.href = '#work-detail';
-    a.dataset.work = i;
-    a.textContent = w.title || 'Untitled';
-    h.appendChild(a);
-
-    var meta = document.createElement('span');
-    meta.className = 't body meta';
-    meta.textContent = w.kind || '';
-
-    col.appendChild(h);
-    col.appendChild(meta);
-
-    var when = document.createElement('span');
-    when.className = 't when';
-    var y = w.date ? new Date(w.date).getFullYear() : '';
-    when.textContent = isNaN(y) ? '' : y;
-
-    row.appendChild(tile);
-    row.appendChild(col);
-    row.appendChild(when);
-    list.appendChild(row);
-  });
-
-  list.addEventListener('click', function (ev) {
-    var el = ev.target.closest('[data-work]');
-    if (!el) return;
-    selectWork(works, Number(el.dataset.work));
-  });
-}
-
-/* The detail view: always shows exactly one work. Text and the lead
-   fields are plain writers; the extra gallery and the optional link
-   are positioned after the body text has actually rendered, since
-   guessing a fixed gap would either crowd a long summary or leave an
-   odd space under a short one. */
-function selectWork(works, index) {
-  var w = works[index];
-  if (!w) return;
-
-  SANITY.text('work-kind', w.kind);
-  SANITY.text('work-title', w.title);
-  SANITY.paragraphs('work-body', w.summary);
-
-  var link = document.getElementById('work-link');
-  if (link) {
-    if (w.url) {
-      link.href = w.url;
-      link.textContent = 'More about this work';
-      link.style.display = '';
-    } else {
-      link.style.display = 'none';
-    }
-  }
-
-  var galleryHeading = document.getElementById('work-gallery-heading');
-  var gallery = document.getElementById('work-gallery');
-  var photos = w.gallery || [];
-  if (gallery) {
-    gallery.innerHTML = '';
-    photos.forEach(function (img) {
-      if (!img || !img.url) return;
-      var el = document.createElement('img');
-      el.src = img.url;
-      el.alt = img.alt || '';
-      el.loading = 'lazy';
-      gallery.appendChild(el);
-    });
-  }
-  if (galleryHeading) galleryHeading.textContent = photos.length ? 'More from this production:' : '';
-
-  // measure once the browser has laid out the new body text, then
-  // place the link and the extra gallery directly beneath it
-  requestAnimationFrame(function () {
-    var body = document.getElementById('work-body');
-    if (!body) return;
-    var bottom = body.offsetTop + body.offsetHeight;
-
-    if (link && w.url) link.style.top = (bottom + 40) + 'px';
-    if (galleryHeading && photos.length) galleryHeading.style.top = (bottom + (w.url ? 90 : 40)) + 'px';
-    if (gallery && photos.length) gallery.style.top = (bottom + (w.url ? 140 : 90)) + 'px';
-
-    if (window.fitStage) window.fitStage();
-  });
-}
 </script>
 </body>
 </html>
