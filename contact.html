@@ -26,8 +26,8 @@
     <nav class="a t nav navbar content" style="--x:1176;--y:63.1;--w:606;--fs:21;--lh:21" aria-label="Primary">
       <a href="about.html">About</a>
       <a href="publications.html">Publications</a>
-      <a href="creative-interventions.html" class="pair">Creative Interventions</a>
-      <a href="convenings.html">Convenings</a>
+      <a href="creative-works.html">Creative Works</a>
+      <a href="programs.html">Programs</a>
       <a href="contact.html" aria-current="page">Contact</a>
     </nav>
   </header>
@@ -37,13 +37,13 @@
     <div class="a box deco" style="--x:1780;--y:240;--w:140;--h:197"></div>
 
     <h1 class="a t display content" style="--x:161;--y:304;--fs:62;--lh:60">Contact</h1>
-    <p class="a t tw lede content" style="--x:161;--y:400;--w:340;--fs:36;--lh:36">Write to the project about the research, the creative programme or a convening.</p>
+    <p class="a t tw lede content" id="page-summary" style="--x:161;--y:400;--w:340;--fs:36;--lh:36">Write to the project about the research, our creative works or an upcoming event.</p>
   </section>
 
   <section class="sec">
     <div class="a box deco" style="--x:440;--y:500;--w:1131;--h:606"></div>
 
-    <label class="a t label content" for="message" style="--x:516;--y:645;--fs:27;--lh:27">Send feedback/inquiry</label>
+    <label class="a t label content" id="form-prompt" for="message" style="--x:516;--y:645;--fs:27;--lh:27">Send feedback/inquiry</label>
     <textarea class="a box field" id="message" name="message" placeholder="Type here"
               style="--x:517;--y:699;--w:671;--h:330"></textarea>
 
@@ -57,13 +57,13 @@
     <div class="a box rule" style="--x:140;--y:1240;--w:1640;--h:2"></div>
 
     <h2 class="a t tw sub content" style="--x:140;--y:1284;--w:400;--fs:36;--lh:36">Email</h2>
-    <a class="a t content inline-link" href="mailto:info@whenyouseeme.com" style="--x:140;--y:1338;--fs:26;--lh:33">info@whenyouseeme.com</a>
+    <a class="a t content inline-link" id="contact-email" href="mailto:info@whenyouseeme.com" style="--x:140;--y:1338;--fs:26;--lh:33">info@whenyouseeme.com</a>
 
     <h2 class="a t tw sub content" style="--x:700;--y:1284;--w:400;--fs:36;--lh:36">Phone</h2>
-    <a class="a t content inline-link" href="tel:+2334579890" style="--x:700;--y:1338;--fs:26;--lh:33">+233 457 9890</a>
+    <a class="a t content inline-link" id="contact-phone" href="tel:+2334579890" style="--x:700;--y:1338;--fs:26;--lh:33">+233 457 9890</a>
 
     <h2 class="a t tw sub content" style="--x:1260;--y:1284;--w:400;--fs:36;--lh:36">Follow</h2>
-    <nav class="a t stack content" style="--x:1260;--y:1338;--fs:26;--lh:33" aria-label="Social">
+    <nav class="a t stack content" id="contact-social" style="--x:1260;--y:1338;--fs:26;--lh:33" aria-label="Social">
       <a href="#">LinkedIn</a>
       <a href="#">Instagram</a>
       <a href="#">Facebook</a>
@@ -84,12 +84,12 @@
       <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
         <a href="about.html">About</a>
         <a href="publications.html">Publications</a>
-        <a href="creative-interventions.html">Creative Interventions</a>
-        <a href="convenings.html">Convenings</a>
+        <a href="creative-works.html">Creative Works</a>
+        <a href="programs.html">Programs</a>
         <a href="contact.html">Contact</a>
       </nav>
 
-      <nav class="a t stack content" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
         <a href="#">LinkedIn</a>
         <a href="#">Instagram</a>
         <a href="#">Facebook</a>
@@ -104,8 +104,8 @@
 
     <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
     <div class="legal-bar">
-      <p class="a t legal content" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
-      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b>ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+      <p class="a t legal content" id="legal-copyright" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b id="legal-funder">ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
     </div>
   </footer>
 
@@ -113,5 +113,19 @@
 
 <script src="assets/site.js"></script>
 <script src="assets/sanity.js"></script>
+<script>
+/* Contact page ------------------------------------------------------
+   The address and social links come from Site settings, handled in
+   sanity.js. This is the page's own wording.
+   ------------------------------------------------------------------ */
+SANITY.query(`*[_id == "contactPage"][0]{ summary, seo, formPrompt, formPlaceholder }`)
+  .then(function (p) {
+    if (!p) return;
+    SANITY.meta(p);
+    SANITY.text('form-prompt', p.formPrompt);
+    var box = document.getElementById('message');
+    if (box && p.formPlaceholder) box.placeholder = p.formPlaceholder;
+  });
+</script>
 </body>
 </html>

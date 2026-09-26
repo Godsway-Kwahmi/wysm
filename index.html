@@ -5,21 +5,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>When You See Me</title>
-<meta name="description" content="Research and creative interventions on the prevention of and responses to gender-based violence within migrant communities in Ghana.">
+<meta name="description" content="Research and creative works on the prevention of and responses to gender-based violence within migrant communities in Ghana.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="stage" id="main" style="--stage:5462">
+<div class="stage" id="main" style="--stage:3000">
 
   <!-- ==========================================================
-       DECORATIVE + STRUCTURAL BLOCKS
+       DECORATIVE BLOCKS FRAMING THE HERO
        ========================================================== -->
   <div class="a box deco" style="--x:1780;--y:177;--w:140;--h:363"></div>
   <div class="a box deco" style="--x:0;--y:358;--w:279;--h:359"></div>
-  <div class="a box deco" style="--x:0;--y:1443;--w:185;--h:232"></div>
 
   <!-- ==========================================================
        HEADER
@@ -36,144 +35,89 @@
     <nav class="a t nav navbar content" style="--x:1176;--y:63.1;--w:606;--fs:21;--lh:21" aria-label="Primary">
       <a href="about.html">About</a>
       <a href="publications.html">Publications</a>
-      <a href="#interventions" class="pair">Creative Interventions</a>
-      <a href="convenings.html">Convenings</a>
+      <a href="creative-works.html">Creative Works</a>
+      <a href="programs.html">Programs</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
 
   <!-- ==========================================================
-       HERO — photo-filled display type
+       HERO — display type filled with photographs
        ========================================================== -->
-  <img class="a box photo hero" src="assets/img/hero.webp"
+  <img class="a box photo hero" id="hero-image" src="assets/img/hero.webp"
        style="--x:420;--y:150;--w:1130;--h:640"
        alt="When You See Me, set in display type filled with photographs of women in West African dress.">
 
   <!-- ==========================================================
-       WELCOME
+       WELCOME — mission statement, replacing the old two-column intro
        ========================================================== -->
   <section class="sec">
-    <span class="a anchor" id="about" style="--x:0;--y:775"></span>
-    <h2 class="a t sub content" style="--x:138;--y:775.4;--fs:36;--lh:36">Welcome</h2>
-    <div class="a box rule" style="--x:140;--y:830;--w:1640;--h:2"></div>
+    <div class="a box rule" style="--x:140;--y:850;--w:1640;--h:2"></div>
+    <p class="a t label content" style="--x:140;--y:900;--fs:27;--lh:27">Welcome</p>
+    <p class="a t tw lede content" id="welcome-message" style="--x:140;--y:952;--w:900;--fs:36;--lh:46">When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they prioritise and see victims of violence.</p>
+  </section>
 
-    <div class="welcome-grid">
-      <div class="a t tw body content" id="about-text-1" style="--x:140;--y:845.1;--w:766;--fs:21;--lh:27">
-        Migration is a significant risk factor to experiencing gender-based violence (GBV) and women&nbsp; who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to GBV within migrant communities in Ghana.
+  <!-- ==========================================================
+       FEATURED — three entry points into the project's work
+       ========================================================== -->
+  <section class="sec">
+    <div class="a box rule" style="--x:140;--y:1260;--w:1640;--h:2"></div>
+    <div class="a box deco" style="--x:1780;--y:1300;--w:140;--h:240"></div>
+    <h2 class="a t tw sub content" style="--x:140;--y:1320;--w:700;--fs:36;--lh:36">Featured</h2>
+
+    <div class="a tw feature-grid" style="--x:140;--y:1420;--w:1640">
+      <a class="feature-card content" href="publications.html">
+        <img src="assets/img/publication.webp" loading="lazy" alt="A speaker addresses an audience beside a Pitch Zone 2022 banner.">
+        <span class="cap t sub">Publication</span>
+      </a>
+      <a class="feature-card content" href="creative-works.html">
+        <img src="assets/img/intervention.webp" loading="lazy" alt="Four women holding awards on stage at an African Union event.">
+        <span class="cap t sub">Community Theatre</span>
+      </a>
+      <a class="feature-card content" href="programs.html">
+        <img src="assets/img/convening.webp" loading="lazy" alt="A panel of women speaking at a program event, with a presentation slide behind them.">
+        <span class="cap t sub">Training Workshop</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       NEWSLETTER — mailing list signup
+       ========================================================== -->
+  <section class="sec">
+    <div class="a box rule" style="--x:140;--y:1940;--w:1640;--h:2"></div>
+    <div class="a box deco" style="--x:0;--y:1980;--w:185;--h:200"></div>
+    <h2 class="a t tw sub content" style="--x:140;--y:1990;--w:900;--fs:36;--lh:44">Be the first to know about new creative works and upcoming events</h2>
+
+    <form id="newsletter-form">
+      <label class="visually-hidden" for="newsletter-email">Email address</label>
+      <input class="a box field field--line" id="newsletter-email" name="email" type="email"
+             required autocomplete="email" placeholder="Enter your email address"
+             style="--x:140;--y:2090;--w:640;--h:84">
+      <div class="a t stack actions content" style="--x:820;--y:2098;--fs:21;--lh:26">
+        <button type="submit" id="btn-subscribe">subscribe</button>
       </div>
-      <div class="a t tw body content" id="about-text-2" style="--x:966;--y:845.1;--w:840;--fs:21;--lh:27">
-        We will employ narrative methodology to study the help- and justice-seeking behaviours of female Nigerian immigrants in response to two forms of GBV &ndash; intimate partner violence (IPV) and non-partner perpetrated sexual violence. We will then use applied theatre and educational illustrated stories (comics) to raise awareness of how survivors can access services and justice and how their host community and female traditional leaders &ndash; &lsquo;queenmothers&rsquo; &ndash; can assist them.
-      </div>
-    </div>
+    </form>
+    <p class="a t body content" id="newsletter-status" style="--x:140;--y:2210;--fs:16;--lh:22" role="status" aria-live="polite"></p>
   </section>
 
   <!-- ==========================================================
-       PUBLICATIONS
+       SUPPORTED BY — funding and partner institutions
        ========================================================== -->
   <section class="sec">
-    <span class="a anchor" id="publications" style="--x:0;--y:1007"></span>
-    <div class="a box deco" style="--x:140;--y:1007;--w:761;--h:436"></div>
-
-    <h2 class="a t display content" style="--x:184;--y:1113.6;--fs:62;--lh:60">Publications</h2>
-    <p class="a t sub content" id="pub-subtitle" style="--x:186;--y:1187.4;--fs:36;--lh:36">Publication Title Goes Here</p>
-
-    <img class="a box photo" id="pub-image" src="assets/img/publication.webp"
-         style="--x:681;--y:1193;--w:1099;--h:671"
-         alt="A speaker addresses an audience beside a Pitch Zone 2022 banner.">
-
-    <div class="a box panel" style="--x:339;--y:1725;--w:610;--h:435"></div>
-    <div class="a t tw body content" style="--x:379;--y:1758.1;--w:505;--fs:21;--lh:27">
-      <p id="pub-body-1">Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
-      <p id="pub-body-2">Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
-    </div>
-
-    <p class="a t tw label content" style="--x:1400;--y:1915;--w:380;--fs:27;--lh:27;text-align:right">More publications:</p>
-    <div class="a thumbs thumbs--dark" id="pub-thumbnails" style="--x:1242;--y:1970;gap:calc(38 * var(--px))">
-      <a href="publications.html" aria-label="More publications 1"></a><a href="publications.html" aria-label="More publications 2"></a><a href="publications.html" aria-label="More publications 3"></a>
-    </div>
-  </section>
-
-  <!-- ==========================================================
-       CREATIVE INTERVENTIONS
-       ========================================================== -->
-  <section class="sec">
-    <span class="a anchor" id="interventions" style="--x:0;--y:2160"></span>
-    <div class="a box deco" style="--x:140;--y:2160;--w:819;--h:298"></div>
-
-    <h2 class="a t display content" style="--x:183;--y:2193.6;--fs:62;--lh:60">Creative<br>Interventions</h2>
-    <p class="a t sub content" id="intervention-subtitle" style="--x:184;--y:2327.4;--fs:36;--lh:36">Title Goes Here</p>
-
-    <img class="a box photo" id="intervention-image" src="assets/img/intervention.webp"
-         style="--x:140;--y:2458;--w:1444;--h:671"
-         alt="Four women holding awards on stage at an African Union event.">
-
-    <div class="a box panel" style="--x:1170;--y:2306;--w:610;--h:435"></div>
-    <div class="a t tw body content" style="--x:1222;--y:2349.1;--w:505;--fs:21;--lh:27">
-      <p id="intervention-body-1">Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
-      <p id="intervention-body-2">Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
-    </div>
-
-    <div class="a box panel" style="--x:1447;--y:2992;--w:473;--h:248"></div>
-    <div class="a box panel" style="--x:350;--y:2897;--w:610;--h:343"></div>
-    <p class="a t label content" style="--x:394;--y:2940;--fs:27;--lh:27">More creative interventions:</p>
-    <div class="a thumbs" style="--x:396;--y:2992;gap:calc(29 * var(--px))">
-      <a href="creative-interventions.html" aria-label="More creative interventions 1"></a><a href="creative-interventions.html" aria-label="More creative interventions 2"></a><a href="creative-interventions.html" aria-label="More creative interventions 3"></a>
-    </div>
-  </section>
-
-  <!-- ==========================================================
-       CONVENINGS
-       ========================================================== -->
-  <section class="sec sec--flush">
-    <span class="a anchor" id="convenings" style="--x:0;--y:3240"></span>
-    <div class="a box deco" style="--x:133;--y:3240;--w:644;--h:189"></div>
-    <div class="a box deco" style="--x:1780;--y:3429;--w:140;--h:197"></div>
-
-    <h2 class="a t display content" style="--x:161;--y:3273.6;--fs:62;--lh:60">Convenings</h2>
-    <p class="a t sub content" id="convening-subtitle" style="--x:162;--y:3347.4;--fs:36;--lh:36">Title Goes Here</p>
-
-    <img class="a box photo" id="convening-image" src="assets/img/convening.webp"
-         style="--x:0;--y:3429;--w:1189;--h:643"
-         alt="A panel of women speaking at a convening, with a presentation slide behind them.">
-
-    <div class="a box panel" style="--x:960;--y:3637;--w:611;--h:435"></div>
-    <div class="a t tw body content" style="--x:997;--y:3665.1;--w:505;--fs:21;--lh:27">
-      <p id="convening-body-1">Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
-      <p id="convening-body-2">Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
-    </div>
-
-    <div class="a box deco" style="--x:1571;--y:3970;--w:349;--h:345"></div>
-    <div class="a box deco" style="--x:1310;--y:4072;--w:610;--h:243"></div>
-    <p class="a t label content" style="--x:133;--y:4146;--fs:27;--lh:27">More convenings:</p>
-    <div class="a thumbs" style="--x:440;--y:4142;gap:calc(29 * var(--px))">
-      <a href="convenings.html" aria-label="More convenings 1"></a><a href="convenings.html" aria-label="More convenings 2"></a><a href="convenings.html" aria-label="More convenings 3"></a>
-    </div>
-  </section>
-
-  <!-- ==========================================================
-       CONTACT
-       ========================================================== -->
-  <section class="sec">
-    <span class="a anchor" id="contact" style="--x:0;--y:4281"></span>
-    <div class="a box deco" style="--x:133;--y:4281;--w:384;--h:357"></div>
-    <div class="a box deco" style="--x:440;--y:4439;--w:1131;--h:606"></div>
-
-    <h2 class="a t display content" style="--x:161;--y:4450.6;--fs:62;--lh:60">Contact</h2>
-
-    <label class="a t label content" for="message" style="--x:516;--y:4584;--fs:27;--lh:27">Send feedback/inquiry</label>
-    <textarea class="a box field" id="message" name="message" placeholder="Type here"
-              style="--x:517;--y:4638;--w:671;--h:330"></textarea>
-
-    <div class="a t stack actions content" style="--x:1212;--y:4915.6;--fs:21;--lh:26">
-      <button type="button" id="btn-reset">start over</button>
-      <button type="button" id="btn-send">send</button>
+    <div class="a box rule" style="--x:140;--y:2300;--w:1640;--h:2"></div>
+    <p class="a t label content" style="--x:140;--y:2350;--fs:21;--lh:27">Supported by</p>
+    <div class="a content logo-row" style="--x:140;--y:2400;--w:1640;--fs:24;--lh:30">
+      <a class="inline-link" href="https://www.ukri.org/councils/ahrc/" target="_blank" rel="noopener">Arts and Humanities Research Council</a>
+      <a class="inline-link" href="https://www.bristol.ac.uk/" target="_blank" rel="noopener">University of Bristol</a>
+      <a class="inline-link" href="https://www.ug.edu.gh/" target="_blank" rel="noopener">University of Ghana</a>
     </div>
   </section>
 
   <!-- ==========================================================
        FOOTER
        ========================================================== -->
-  <footer class="sec sec--flush site-footer" style="--y:5045">
+  <footer class="sec sec--flush site-footer" style="--y:2580">
     <div class="a box deco" style="--x:0;--y:0;--w:440;--h:197"></div>
     <div class="a box deco" style="--x:968;--y:0;--w:952;--h:350"></div>
     <div class="a box deco deco--deep" style="--x:1571;--y:0;--w:209;--h:197"></div>
@@ -186,12 +130,12 @@
       <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
         <a href="about.html">About</a>
         <a href="publications.html">Publications</a>
-        <a href="creative-interventions.html">Creative Interventions</a>
-        <a href="convenings.html">Convenings</a>
+        <a href="creative-works.html">Creative Works</a>
+        <a href="programs.html">Programs</a>
         <a href="contact.html">Contact</a>
       </nav>
 
-      <nav class="a t stack content" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
         <a href="#">LinkedIn</a>
         <a href="#">Instagram</a>
         <a href="#">Facebook</a>
@@ -206,8 +150,8 @@
 
     <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
     <div class="legal-bar">
-      <p class="a t legal content" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
-      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b>ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+      <p class="a t legal content" id="legal-copyright" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b id="legal-funder">ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
     </div>
   </footer>
 
@@ -216,25 +160,21 @@
 <script src="assets/site.js"></script>
 <script src="assets/sanity.js"></script>
 <script>
-/* Home page content ------------------------------------------------ */
-SANITY.query(`{
-  "about": *[_type == "about"][0]{ introParagraph1, introParagraph2 },
-  "publication": *[_type == "publication"] | order(publishedAt desc)[0]{ title, excerpt1, excerpt2, "imageUrl": featuredImage.asset->url },
-  "intervention": *[_type == "intervention"] | order(_createdAt desc)[0]{ title, excerpt1, excerpt2, "imageUrl": featuredMedia.asset->url },
-  "convening": *[_type == "convening"] | order(startDate desc)[0]{ title, excerpt1, excerpt2, "imageUrl": panelImage.asset->url }
-}`).then(function (r) {
-  if (!r) return;
-
-  SANITY.text('about-text-1', r.about && r.about.introParagraph1);
-  SANITY.text('about-text-2', r.about && r.about.introParagraph2);
-
-  ['publication', 'intervention', 'convening'].forEach(function (key) {
-    var d = r[key] || {}, id = key === 'publication' ? 'pub' : key;
-    SANITY.text(id + '-subtitle', d.title);
-    SANITY.text(id + '-body-1', d.excerpt1);
-    SANITY.text(id + '-body-2', d.excerpt2);
-    SANITY.src(id + '-image', d.imageUrl);
-  });
+/* Home page ------------------------------------------------------------
+   The hero image and the welcome statement are the only two fields this
+   page still asks the CMS for. The Featured strip below it is a fixed
+   set of links into the site's three sections rather than a rotating
+   "latest content" pick, so it is written directly into the markup
+   above instead of queried here.
+   ------------------------------------------------------------------ */
+SANITY.query(`*[_id == "homePage"][0]{
+  summary, seo, welcome,
+  "hero": heroImage{ "url": asset->url, alt }
+}`).then(function (page) {
+  if (!page) return;
+  SANITY.meta(page);
+  SANITY.image('hero-image', page.hero);
+  SANITY.paragraphs('welcome-message', page.welcome);
 });
 </script>
 </body>

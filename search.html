@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Search — When You See Me</title>
-<meta name="description" content="Search the When You See Me research, creative programme and convenings.">
+<meta name="description" content="Search the When You See Me research, creative works and programs.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
@@ -26,8 +26,8 @@
     <nav class="a t nav navbar content" style="--x:1176;--y:63.1;--w:606;--fs:21;--lh:21" aria-label="Primary">
       <a href="about.html">About</a>
       <a href="publications.html">Publications</a>
-      <a href="creative-interventions.html" class="pair">Creative Interventions</a>
-      <a href="convenings.html">Convenings</a>
+      <a href="creative-works.html">Creative Works</a>
+      <a href="programs.html">Programs</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
@@ -37,12 +37,12 @@
     <div class="a box deco" style="--x:140;--y:270;--w:761;--h:300"></div>
 
     <h1 class="a t display content" style="--x:184;--y:304;--fs:62;--lh:60">Search</h1>
-    <p class="a t tw lede content" style="--x:186;--y:400;--w:600;--fs:36;--lh:36">Look across the research, the creative programme and the convenings.</p>
+    <p class="a t tw lede content" id="page-summary" style="--x:186;--y:400;--w:600;--fs:36;--lh:36">Look across the research, the creative works and the programs.</p>
   </section>
 
   <section class="sec">
     <form id="search-form" role="search">
-      <label class="a t label content" for="q" style="--x:140;--y:668;--fs:27;--lh:27">What are you looking for?</label>
+      <label class="a t label content" id="search-prompt" for="q" style="--x:140;--y:668;--fs:27;--lh:27">What are you looking for?</label>
       <input class="a box field field--line" id="q" name="q" type="search" autocomplete="off"
              placeholder="Try queenmothers, theatre, or comics"
              style="--x:140;--y:722;--w:1040;--h:84">
@@ -57,8 +57,8 @@
         <button type="button" data-scope="all" aria-pressed="true">Everything</button>
         <button type="button" data-scope="About" aria-pressed="false">About</button>
         <button type="button" data-scope="Publications" aria-pressed="false">Publications</button>
-        <button type="button" data-scope="Creative Interventions" aria-pressed="false">Creative Interventions</button>
-        <button type="button" data-scope="Convenings" aria-pressed="false">Convenings</button>
+        <button type="button" data-scope="Creative Works" aria-pressed="false">Creative Works</button>
+        <button type="button" data-scope="Programs" aria-pressed="false">Programs</button>
         <button type="button" data-scope="Contact" aria-pressed="false">Contact</button>
       </div>
     </div>
@@ -83,12 +83,12 @@
       <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
         <a href="about.html">About</a>
         <a href="publications.html">Publications</a>
-        <a href="creative-interventions.html">Creative Interventions</a>
-        <a href="convenings.html">Convenings</a>
+        <a href="creative-works.html">Creative Works</a>
+        <a href="programs.html">Programs</a>
         <a href="contact.html">Contact</a>
       </nav>
 
-      <nav class="a t stack content" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
         <a href="#">LinkedIn</a>
         <a href="#">Instagram</a>
         <a href="#">Facebook</a>
@@ -103,8 +103,8 @@
 
     <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
     <div class="legal-bar">
-      <p class="a t legal content" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
-      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b>ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+      <p class="a t legal content" id="legal-copyright" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b id="legal-funder">ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
     </div>
   </footer>
 
@@ -128,17 +128,83 @@ var INDEX = [
     text: 'This project is funded by the Arts and Humanities Research Council AHRC.' },
   { title: 'Publications', section: 'Publications', href: 'publications.html',
     text: 'Papers, reports and writing produced by the project.' },
-  { title: 'Applied theatre', section: 'Creative Interventions', href: 'creative-interventions.html',
+  { title: 'Applied theatre', section: 'Creative Works', href: 'creative-works.html',
     text: 'Performances made with and for migrant communities, opening a way to talk about violence and about the help that is available.' },
-  { title: 'Illustrated stories', section: 'Creative Interventions', href: 'creative-interventions.html',
+  { title: 'Illustrated stories', section: 'Creative Works', href: 'creative-works.html',
     text: 'Educational comics that show how survivors can reach services and justice, drawn to be read and passed on.' },
-  { title: 'Queenmothers and neighbours', section: 'Creative Interventions', href: 'creative-interventions.html',
+  { title: 'Queenmothers and neighbours', section: 'Creative Works', href: 'creative-works.html',
     text: 'Working with female traditional leaders, queenmothers, and host communities on what they can do and where they can refer someone on.' },
-  { title: 'Convenings', section: 'Convenings', href: 'convenings.html',
+  { title: 'Programs', section: 'Programs', href: 'programs.html',
     text: 'Meetings, panels and workshops with partners, practitioners and the communities the project works with.' },
   { title: 'Contact the project', section: 'Contact', href: 'contact.html',
     text: 'Email info@whenyouseeme.com, phone +233 457 9890, or send a message from the contact page.' }
 ];
+
+/* The list above is the fallback the page ships with. When the CMS
+   answers, the index is rebuilt from the live content so search covers
+   whatever has actually been published. */
+SANITY.query(`{
+  "page": *[_id == "searchPage"][0]{ summary, seo, prompt, placeholder },
+  "about": *[_id == "aboutPage"][0]{
+    introduction, funding,
+    researchFocus{ heading, body },
+    strands[]{ title, description }
+  },
+  "creative": *[_id == "creativeInterventionsPage"][0]{
+    introduction, strands[]{ title, description }
+  },
+  "publications": *[_type == "publication"] | order(publishedAt desc){ title, publisher, summary },
+  "convenings": *[_type == "convening"] | order(startDate desc){ title, location, summary },
+  "works": *[_type == "intervention"] | order(date desc){ title, location, summary }
+}`).then(function (r) {
+  if (!r) return;
+  var built = [];
+
+  function add(title, section, href, text) {
+    if (!title || !text) return;
+    built.push({ title: title, section: section, href: href, text: String(text) });
+  }
+
+  var a = r.about || {};
+  add('About the project', 'About', 'about.html', a.introduction);
+  add((a.researchFocus && a.researchFocus.heading) || 'What the research looks at',
+      'About', 'about.html', a.researchFocus && a.researchFocus.body);
+  add('Funding', 'About', 'about.html', a.funding);
+  (a.strands || []).forEach(function (s) {
+    add(s.title, 'About', 'about.html', s.description);
+  });
+
+  var c = r.creative || {};
+  add('Creative Works', 'Creative Works', 'creative-works.html', c.introduction);
+  (c.strands || []).forEach(function (s) {
+    add(s.title, 'Creative Works', 'creative-works.html', s.description);
+  });
+  (r.works || []).forEach(function (w) {
+    add(w.title, 'Creative Works', 'creative-works.html',
+        [w.summary, w.location].filter(Boolean).join(' '));
+  });
+
+  (r.publications || []).forEach(function (p) {
+    add(p.title, 'Publications', 'publications.html',
+        [p.summary, p.publisher].filter(Boolean).join(' '));
+  });
+
+  (r.convenings || []).forEach(function (v) {
+    add(v.title, 'Programs', 'programs.html',
+        [v.summary, v.location].filter(Boolean).join(' '));
+  });
+
+  if (!built.length) return;       // empty dataset: keep the shipped index
+  INDEX = built;
+
+  SANITY.meta(r.page);
+  if (r.page) {
+    SANITY.text('search-prompt', r.page.prompt);
+    var box = document.getElementById('q');
+    if (box && r.page.placeholder) box.placeholder = r.page.placeholder;
+  }
+  if (window.rerunSearch) window.rerunSearch();
+});
 
 (function () {
   var form    = document.getElementById('search-form'),
@@ -241,6 +307,7 @@ var INDEX = [
     });
   });
 
+  window.rerunSearch = render;
   input.addEventListener('input', render);
   clear.addEventListener('click', function () { input.value = ''; input.focus(); render(); });
   form.addEventListener('submit', function (ev) { ev.preventDefault(); render(); });

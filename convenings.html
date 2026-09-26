@@ -37,7 +37,7 @@
     <div class="a box deco" style="--x:1780;--y:240;--w:140;--h:197"></div>
 
     <h1 class="a t display content" style="--x:161;--y:304;--fs:62;--lh:60">Convenings</h1>
-    <p class="a t tw lede content" style="--x:162;--y:396;--w:600;--fs:36;--lh:36">Where the project meets partners, practitioners and the communities it works with.</p>
+    <p class="a t tw lede content" id="page-summary" style="--x:162;--y:396;--w:600;--fs:36;--lh:36">Where the project meets partners, practitioners and the communities it works with.</p>
   </section>
 
   <section class="sec sec--flush">
@@ -46,14 +46,14 @@
          alt="A panel of women speaking at a convening, with a presentation slide behind them.">
     <div class="a box panel" style="--x:960;--y:760;--w:611;--h:435"></div>
     <h2 class="a t tw sub content" id="convening-title" style="--x:997;--y:800;--w:505;--fs:36;--lh:36">Title goes here</h2>
-    <div class="a t tw body content" style="--x:997;--y:892;--w:505;--fs:21;--lh:27">
-      <p id="convening-body">Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
+    <div class="a t tw body content" id="convening-body" style="--x:997;--y:892;--w:505;--fs:21;--lh:27">
+      <p>Body text starts here is a significant risk factor to experiencing gender-based violence (GBV) and women who migrate without their relatives often lack help to prevent the problem. This project is on the prevention of and responses to&nbsp; GBV within migrant communities in Ghana.</p>
     </div>
     <a class="a t content inline-link" id="convening-link" href="#" style="--x:997;--y:1036;--fs:21;--lh:27">Read about this convening</a>
   </section>
 
   <section class="sec">
-    <h2 class="a t tw sub content" style="--x:140;--y:1390;--w:800;--fs:36;--lh:36">The full programme</h2>
+    <h2 class="a t tw sub content" style="--x:140;--y:1390;--w:800;--fs:36;--lh:36" id="list-heading">The full programme</h2>
     <div id="convening-list">
 <div class="a tw content" style="--x:140;--y:1470;--w:1640">
     <div class="rows">
@@ -120,7 +120,7 @@
         <a href="contact.html">Contact</a>
       </nav>
 
-      <nav class="a t stack content" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
         <a href="#">LinkedIn</a>
         <a href="#">Instagram</a>
         <a href="#">Facebook</a>
@@ -135,8 +135,8 @@
 
     <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
     <div class="legal-bar">
-      <p class="a t legal content" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
-      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b>ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+      <p class="a t legal content" id="legal-copyright" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b id="legal-funder">ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
     </div>
   </footer>
 
@@ -146,42 +146,80 @@
 <script src="assets/sanity.js"></script>
 <script>
 /* Convenings --------------------------------------------------------- */
-var CONV_LIST = document.querySelector('#convening-list .rows');
+SANITY.query(`{
+  "page": *[_id == "conveningsPage"][0]{
+    summary, seo, listHeading,
+    "featured": coalesce(
+      featured->,
+      *[_type == "convening"] | order(startDate desc)[0]
+    ){ title, summary, url, "image": image{ "url": asset->url, alt } }
+  },
+  "all": *[_type == "convening"] | order(startDate desc){
+    _id, title, location, url, startDate
+  }
+}`).then(function (r) {
+  if (!r) return;
+  var page = r.page || {}, all = r.all || [];
 
-SANITY.query(`*[_type == "convening"] | order(startDate desc){
-  title, excerpt1, location, url, startDate, "panelImage": panelImage.asset->url
-}`).then(function (list) {
-  if (!list || !list.length || !CONV_LIST) return;
+  SANITY.meta(page);
+  SANITY.text('list-heading', page.listHeading);
 
-  var first = list[0];
-  SANITY.text('convening-title', first.title);
-  SANITY.text('convening-body', first.excerpt1);
-  SANITY.src('convening-image', first.panelImage);
-  SANITY.href('convening-link', first.url);
+  var f = page.featured || {};
+  SANITY.text('convening-title', f.title);
+  SANITY.paragraphs('convening-body', f.summary);
+  SANITY.image('convening-image', f.image);
+  SANITY.href('convening-link', f.url);
 
-  var when = function (d) {
-    if (!d) return '';
-    var t = new Date(d);
-    return isNaN(t) ? d : t.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-  };
-
-  CONV_LIST.innerHTML = list.map(function (c) {
-    var href = c.url || '#';
-    return '<div class="row">' +
-             '<a class="tile" href="' + href + '" tabindex="-1" aria-hidden="true"></a>' +
-             '<div><h3 class="t"><a href="' + href + '"></a></h3>' +
-             '<span class="t body meta"></span></div>' +
-             '<span class="t when"></span>' +
-           '</div>';
-  }).join('');
-
-  [].forEach.call(CONV_LIST.children, function (el, i) {
-    el.querySelector('h3 a').textContent = list[i].title || 'Untitled';
-    el.querySelector('.meta').textContent = list[i].location || '';
-    el.querySelector('.when').textContent = when(list[i].startDate);
+  var list = document.querySelector('#convening-list .rows');
+  if (!list || !all.length) return;
+  list.innerHTML = '';
+  all.forEach(function (c) {
+    list.appendChild(row(c.url, c.title, c.location, when(c.startDate)));
   });
   if (window.fitStage) window.fitStage();
 });
+
+function when(d) {
+  if (!d) return '';
+  var t = new Date(d);
+  return isNaN(t) ? d : t.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+}
+
+/* Built through the DOM, never innerHTML: CMS copy is not markup. */
+function row(url, title, meta, label) {
+  var wrap = document.createElement('div');
+  wrap.className = 'row';
+
+  var tile = document.createElement('a');
+  tile.className = 'tile';
+  tile.href = url || '#';
+  tile.tabIndex = -1;
+  tile.setAttribute('aria-hidden', 'true');
+
+  var col = document.createElement('div');
+  var h = document.createElement('h3');
+  h.className = 't';
+  var a = document.createElement('a');
+  a.href = url || '#';
+  a.textContent = title || 'Untitled';
+  h.appendChild(a);
+
+  var m = document.createElement('span');
+  m.className = 't body meta';
+  m.textContent = meta || '';
+
+  col.appendChild(h);
+  col.appendChild(m);
+
+  var w = document.createElement('span');
+  w.className = 't when';
+  w.textContent = label || '';
+
+  wrap.appendChild(tile);
+  wrap.appendChild(col);
+  wrap.appendChild(w);
+  return wrap;
+}
 </script>
 </body>
 </html>
