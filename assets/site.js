@@ -87,6 +87,29 @@
     });
   }
 
+  /* --- newsletter signup -----------------------------------------
+     Client-side only for now: checks the address looks right and
+     lets the visitor know it was received. Point this at a real
+     mailing list (Mailchimp, Buttondown, etc.) once one is wired up.
+     ------------------------------------------------------------- */
+  var newsletterForm   = document.getElementById('newsletter-form'),
+      newsletterEmail  = document.getElementById('newsletter-email'),
+      newsletterStatus = document.getElementById('newsletter-status');
+
+  if (newsletterForm && newsletterEmail && newsletterStatus) {
+    newsletterForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var value = newsletterEmail.value.trim();
+      var looksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!looksValid) {
+        newsletterStatus.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      newsletterStatus.textContent = 'Thanks \u2014 you\u2019re on the list.';
+      newsletterForm.reset();
+    });
+  }
+
   if (reduced) return;
 
   /* --- reveals: tag elements here so a no-JS page never hides content --- */

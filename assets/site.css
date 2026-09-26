@@ -1,7 +1,7 @@
 /* ============================================================
    WHEN YOU SEE ME — site stylesheet
    Shared by index, search, about, publications,
-   creative-interventions, convenings, contact.
+   creative-works, programs, contact.
 
    The comp is drawn at 1920 x N design pixels. Every measurement
    is a literal design-pixel value multiplied by --px. At a 1920px
@@ -181,8 +181,8 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 
 /* ---------- header nav ----------
    The nav is a line of type, so its word spaces come down with the
-   type: both the gap between items and the wide space inside
-   "Creative Interventions" carry --ts, which keeps the row as evenly
+   type: the gap between items, and the word space inside any
+   multi-word label, both carry --ts, which keeps the row as evenly
    spaced as it is drawn. Smaller type makes a shorter row, so the
    nav hangs from the comp's right margin (1920 - 1780) instead of
    its left edge, staying flush with the bar above it. */
@@ -310,6 +310,47 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 }
 .scopes button:hover{ border-color: var(--ink) }
 .scopes button[aria-pressed="true"]{ background: var(--block); border-color: var(--block); color:#fff }
+
+/* ============================================================
+   HOME — FEATURED STRIP, NEWSLETTER, SUPPORTERS
+   The featured strip is three equal editorial cards: a photo with a
+   simple caption underneath, the caption doubling as the link's
+   visible name. Laid out as a flex row inside one absolutely placed
+   wrapper, same pattern as .thumbs — a comp-positioned box whose
+   children flow.
+   ============================================================ */
+.feature-grid{ display:flex; gap: calc(40 * var(--px)) }
+.feature-card{ display:block; flex:1 1 0; min-width:0 }
+.feature-card img{
+  display:block; width:100%; height:calc(380 * var(--px));
+  object-fit:cover;
+  transition: transform .45s cubic-bezier(.22,.61,.36,1), filter .45s ease;
+}
+.feature-card:hover img,
+.feature-card:focus-visible img{ transform: scale(1.035); filter: brightness(1.08) }
+.feature-card .cap{
+  display:inline-block; position:relative; margin-top:calc(22 * var(--px));
+}
+.feature-card .cap::after{
+  content:""; position:absolute; left:0; right:0; bottom:calc(-6 * var(--px));
+  height:calc(1 * var(--px)); background:currentColor;
+  transform:scaleX(0); transform-origin:left;
+  transition: transform .3s cubic-bezier(.22,.61,.36,1);
+}
+.feature-card:hover .cap::after,
+.feature-card:focus-visible .cap::after{ transform:scaleX(1) }
+
+/* screen-reader-only label for the newsletter field */
+.visually-hidden{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* supporter credit line — text-set rather than image logos, so it
+   reads correctly no matter what mark each institution supplies */
+.logo-row{ display:flex; flex-wrap:wrap; align-items:baseline; gap: calc(16 * var(--px)) calc(56 * var(--px)) }
+.logo-row a{ opacity:.82; transition: opacity .25s ease }
+.logo-row a:hover, .logo-row a:focus-visible{ opacity:1 }
 
 /* ============================================================
    MICRO-ANIMATION
@@ -587,4 +628,8 @@ body.is-scrolled .site-header .logo{
   }
   .legal-bar .a{ text-align: left !important }
   .legal-bar .a + .a{ margin-top: 8px }
+
+  .feature-grid{ flex-direction: column; gap: 28px }
+  .feature-card img{ height: 220px }
+  .logo-row{ gap: 10px 28px }
 }
