@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Publications — When You See Me</title>
 <meta name="description" content="Papers, reports and writing produced by the When You See Me project.">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
@@ -64,7 +64,7 @@
         </a>
         <div>
           <h3 class="t"><a href="publication-when-you-see-me.html">When You See Me</a></h3>
-          <span class="t body meta">Short story</span>
+          <span class="t body meta">When You See Me project &middot; Short story</span>
         </div>
         <span class="t when">2026</span>
       </div>
@@ -79,22 +79,22 @@
         <span class="t when">2023</span>
       </div>
       <div class="row">
-        <a class="tile" href="publication-women-and-violence-in-africa.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/img/Publications/Women-and-Violence-in-Africa.jpg" alt="" loading="lazy">
-        </a>
-        <div>
-          <h3 class="t"><a href="publication-women-and-violence-in-africa.html">Women and Violence in Africa</a></h3>
-          <span class="t body meta">Oxford Research Encyclopedia of African History</span>
-        </div>
-        <span class="t when">2019</span>
-      </div>
-      <div class="row">
         <a class="tile" href="publication-introduction-women-gender-change-in-africa.html" tabindex="-1" aria-hidden="true">
           <img src="assets/img/Publications/Introduction-Women-gender-and-change.jpg" alt="" loading="lazy">
         </a>
         <div>
           <h3 class="t"><a href="publication-introduction-women-gender-change-in-africa.html">Introduction: Women, Gender and Change in Africa</a></h3>
-          <span class="t body meta">African Affairs</span>
+          <span class="t body meta">African Affairs &middot; Journal article</span>
+        </div>
+        <span class="t when">2019</span>
+      </div>
+      <div class="row">
+        <a class="tile" href="publication-women-and-violence-in-africa.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/img/Publications/Women-and-Violence-in-Africa.jpg" alt="" loading="lazy">
+        </a>
+        <div>
+          <h3 class="t"><a href="publication-women-and-violence-in-africa.html">Women and Violence in Africa</a></h3>
+          <span class="t body meta">Oxford Research Encyclopedia of African History &middot; Encyclopedia entry</span>
         </div>
         <span class="t when">2019</span>
       </div>
@@ -104,7 +104,7 @@
         </a>
         <div>
           <h3 class="t"><a href="publication-rape-reporting-cote-divoire.html">Rape Reporting in Post-Conflict C&ocirc;te d&rsquo;Ivoire: Accessing Justice and Ending Impunity</a></h3>
-          <span class="t body meta">African Affairs</span>
+          <span class="t body meta">African Affairs &middot; Journal article</span>
         </div>
         <span class="t when">2017</span>
       </div>
@@ -153,18 +153,15 @@
 
 </div>
 
-<script src="assets/site.js"></script>
-<script src="assets/sanity.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/sanity/sanity.js"></script>
 <script>
 /* Publications --------------------------------------------------------
-   The five works above (and their own pages) are written directly into
-   the markup so the site is correct before any CMS document exists for
-   them. The query below still runs: once "publication" documents are
-   added in Sanity — including the pamphlets and policy brief once
-   they're ready — SANITY.query's non-empty "all" array will replace
-   this list wholesale, so add all five here as CMS entries too (with
-   matching images) rather than only the new ones, or the hand-written
-   ones below will disappear the moment the CMS list is non-empty.
+   The list and the featured slot come from the "publication" documents in
+   Sanity, newest first. The five works written into the markup above are the
+   fallback that shows if the CMS cannot be reached, and they match what is
+   published there. The pamphlets and policy brief only need adding as new
+   publication documents: they will appear here on their own.
    ---------------------------------------------------------------- */
 SANITY.query(`{
   "page": *[_id == "publicationsPage"][0]{
@@ -172,13 +169,16 @@ SANITY.query(`{
     "featured": coalesce(
       featured->,
       *[_type == "publication"] | order(publishedAt desc)[0]
-    ){ title, summary, url, "image": image{ "url": asset->url, alt } }
+    ){
+      title, kind, summary, url,
+      "year": string::split(publishedAt, "-")[0],
+      "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format", alt }
+    }
   },
   "all": *[_type == "publication"] | order(publishedAt desc){
-    _id, title, publisher, url,
-    "year": string(publishedAt)[0..3],
-    "authors": authors[]->name,
-    "image": image{ "url": asset->url, alt }
+    _id, title, publisher, kind, url,
+    "year": string::split(publishedAt, "-")[0],
+    "image": image{ "url": asset->url + "?w=400&fit=max&auto=format", alt }
   }
 }`).then(function (r) {
   if (!r) return;
@@ -189,6 +189,7 @@ SANITY.query(`{
 
   var f = page.featured || {};
   SANITY.text('feature-title', f.title);
+  SANITY.text('feature-meta', [f.kind, f.year].filter(Boolean).join(' \u00B7 '));
   SANITY.paragraphs('feature-body', f.summary);
   SANITY.image('feature-image', f.image);
   SANITY.href('feature-link', f.url);
@@ -197,7 +198,7 @@ SANITY.query(`{
   if (!list || !all.length) return;
   list.innerHTML = '';
   all.forEach(function (p) {
-    list.appendChild(row(p.url, p.title, p.publisher || (p.authors || []).join(', '), p.year, p.image));
+    list.appendChild(row(p.url, p.title, [p.publisher, p.kind].filter(Boolean).join(' \u00B7 '), p.year, p.image));
   });
   if (window.fitStage) window.fitStage();
 });

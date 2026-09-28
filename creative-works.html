@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Creative Works — When You See Me</title>
 <meta name="description" content="Applied theatre and illustrated stories made with migrant communities in Ghana to raise awareness of gender-based violence.">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/css/site.css">
 <style>
   /* Scrollable Gallery Styles */
   .scroll-gallery {
@@ -177,7 +177,7 @@
     <div class="a tw content" style="--x:140;--y:2840;--w:1640">
       <div class="rows" id="works-list">
         <div class="row">
-          <a class="tile" href="#work-detail" tabindex="-1" aria-hidden="true" style="background-image: url('assets/img/Publications/when-you-see-me.jpg'); background-size: cover; background-position: center;"></a>
+          <a class="tile" href="#work-detail" tabindex="-1" aria-hidden="true" style="background-image: url('assets/img/Publications/When-You-See-Me.jpg'); background-size: cover; background-position: center;"></a>
           <div>
             <h3 class="t"><a href="#work-detail">When You See Me</a></h3>
             <span class="t body meta">Community Theatre Production</span>
@@ -269,8 +269,8 @@
   <span class="lightbox-next" onclick="changeLightbox(1, event)">&#10095;</span>
 </div>
 
-<script src="assets/site.js"></script>
-<script src="assets/sanity.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/sanity/sanity.js"></script>
 
 <script>
 /* Lightbox controls & Navigation */
@@ -357,6 +357,8 @@ SANITY.query(`{
 
   SANITY.meta(page);
   SANITY.text('gallery-heading', page.galleryHeading);
+  SANITY.paragraphs('intervention-intro', page.introduction);
+  SANITY.image('intervention-image', page.introImage);
 
   for (var i = 1; i <= 3; i++) {
     var s = (page.strands || [])[i - 1];

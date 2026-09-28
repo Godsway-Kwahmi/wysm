@@ -10,13 +10,17 @@
    is a layout decision, so it is made here.
    ============================================================== */
 window.SANITY = (function () {
-  var PROJECT_ID  = "YOUR_SANITY_PROJECT_ID";
+  var PROJECT_ID  = "6071id0c";
   var DATASET     = "production";
   var API_VERSION = "v2026-03-01";
 
-  function query(groq) {
+  /* params is optional: { slug: "nightbloom" } becomes $slug in the GROQ. */
+  function query(groq, params) {
     var url = "https://" + PROJECT_ID + ".apicdn.sanity.io/" + API_VERSION +
               "/data/query/" + DATASET + "?query=" + encodeURIComponent(groq);
+    Object.keys(params || {}).forEach(function (k) {
+      url += "&" + encodeURIComponent("$" + k) + "=" + encodeURIComponent(JSON.stringify(params[k]));
+    });
     return fetch(url)
       .then(function (r) { return r.json(); })
       .then(function (j) { return j.result; })
@@ -24,6 +28,13 @@ window.SANITY = (function () {
         console.warn('Sanity fetch unavailable — showing built-in preview content.', err);
         return null;
       });
+  }
+
+  /* CMS links are typed by people: allow web, mail, phone and on-site paths,
+     never script URLs. */
+  function safeUrl(u) {
+    u = String(u || '').trim();
+    return u && !/^\s*(javascript|data|vbscript):/i.test(u) ? u : '';
   }
 
   function el(id) { return document.getElementById(id); }
@@ -36,6 +47,7 @@ window.SANITY = (function () {
     if (e) e.textContent = value;
   }
   function href(id, value) {
+    value = safeUrl(value);
     if (!value) return;
     var e = el(id);
     if (e) e.href = value;
@@ -101,10 +113,99 @@ window.SANITY = (function () {
     e.innerHTML = '';
     list.forEach(function (item) {
       var a = document.createElement('a');
-      a.href = item.url || '#';
+      a.href = safeUrl(item.url) || '#';
       a.textContent = item.platform || item.title || '';
       a.rel = 'noopener';
       e.appendChild(a);
+    });
+  }
+
+  /** A list of outbound links, one paragraph each: press coverage and the like. */
+  function linkList(id, list, labelKey) {
+    if (!list || !list.length) return;
+    var e = el(id);
+    if (!e) return;
+    e.innerHTML = '';
+    list.forEach(function (item) {
+      var url = safeUrl(item.url);
+      if (!url || !item[labelKey]) return;
+      var p = document.createElement('p');
+      var a = document.createElement('a');
+      a.className = 'inline-link';
+      a.href = url;
+      a.textContent = item[labelKey];
+      a.target = '_blank';
+      a.rel = 'noopener';
+      p.appendChild(a);
+      e.appendChild(p);
+    });
+  }
+
+  /** The "Supported by" row: same links, laid out inline. */
+  function supporters(id, list) {
+    if (!list || !list.length) return;
+    var e = el(id);
+    if (!e) return;
+    e.innerHTML = '';
+    list.forEach(function (item) {
+      var url = safeUrl(item.url);
+      if (!url || !item.name) return;
+      var a = document.createElement('a');
+      a.className = 'inline-link';
+      a.href = url;
+      a.textContent = item.name;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      e.appendChild(a);
+    });
+  }
+
+  /* One publication's own page. The page ships with its content written in,
+     so this only replaces what the CMS actually has for that slug. */
+  function publicationPage(slug) {
+    return query('*[_type == "publication" && slug.current == $slug][0]{\n' +
+      '  title, kind, summary, citation, doi, downloadUrl, externalUrl,\n' +
+      '  "year": string::split(publishedAt, "-")[0],\n' +
+      '  "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format", alt }\n' +
+      '}', { slug: slug }).then(function (p) {
+      if (!p) return;
+
+      text('pub-title', p.title);
+      if (p.title) document.title = p.title + ' \u2014 Publications \u2014 When You See Me';
+      text('pub-meta', [p.kind, p.year].filter(Boolean).join(' \u00B7 '));
+      image('pub-cover', p.image);
+      paragraphs('pub-abstract', p.summary);
+
+      var cite = el('pub-citation');
+      var doi = safeUrl(p.doi);
+      if (cite && (p.citation || doi)) {
+        cite.innerHTML = '';
+        if (p.citation) cite.appendChild(document.createTextNode(p.citation));
+        if (doi) {
+          if (p.citation) cite.appendChild(document.createTextNode(' DOI: '));
+          var a = document.createElement('a');
+          a.href = doi;
+          a.textContent = doi.replace(/^https?:\/\/(dx\.)?doi\.org\//, '');
+          a.target = '_blank';
+          a.rel = 'noopener';
+          cite.appendChild(a);
+        }
+      }
+
+      var cta = el('pub-cta');
+      if (cta) {
+        var file = safeUrl(p.downloadUrl), ext = safeUrl(p.externalUrl);
+        if (file) {
+          cta.href = file;
+          cta.textContent = 'Download PDF';
+          cta.removeAttribute('target');
+        } else if (ext) {
+          cta.href = ext;
+          cta.textContent = 'View at publisher';
+          cta.target = '_blank';
+          cta.rel = 'noopener';
+        }
+      }
     });
   }
 
@@ -126,7 +227,8 @@ window.SANITY = (function () {
   function settings() {
     return query('*[_id == "siteSettings"][0]{\n' +
       '  contactEmail, contactPhone, copyrightHolder, funderName, funderAcronym,\n' +
-      '  socialLinks[]{ _key, platform, url }\n' +
+      '  socialLinks[]{ _key, platform, url },\n' +
+      '  supporters[]{ _key, name, url }\n' +
       '}').then(function (s) {
       if (!s) return;
 
@@ -143,6 +245,8 @@ window.SANITY = (function () {
         text('contact-phone', s.contactPhone);
         href('contact-phone', tel);
       }
+
+      supporters('supporters-list', s.supporters);
 
       links('footer-social', s.socialLinks);
       links('contact-social', s.socialLinks);
@@ -162,6 +266,7 @@ window.SANITY = (function () {
     query: query,
     text: text, href: href, src: src, image: image, hide: hide,
     paragraphs: paragraphs, columns: columns, links: links, meta: meta,
+    linkList: linkList, supporters: supporters, publicationPage: publicationPage,
     settings: settings,
   };
 })();

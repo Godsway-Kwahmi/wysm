@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About — When You See Me</title>
 <meta name="description" content="Who is behind the When You See Me project, what the research looks at, and how the creative works are made.">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
@@ -95,7 +95,7 @@
     <div class="a box rule" style="--x:140;--y:2400;--w:1640;--h:2"></div>
     <h2 class="a t tw sub content" style="--x:140;--y:2460;--w:700;--fs:36;--lh:36">Media coverage</h2>
     
-    <div class="a t tw body content" style="--x:140;--y:2540;--w:1000;--fs:21;--lh:32">
+    <div class="a t tw body content" id="media-list" style="--x:140;--y:2540;--w:1000;--fs:21;--lh:32">
        <p><a href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" class="inline-link" target="_blank" rel="noopener">Ghana News Agency</a></p>
        <p><a href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" class="inline-link" target="_blank" rel="noopener">Ghana Weekend</a></p>
     </div>
@@ -107,7 +107,7 @@
   <section class="sec">
     <div class="a box rule" style="--x:140;--y:2750;--w:1640;--h:2"></div>
     <p class="a t label content" style="--x:140;--y:2800;--fs:21;--lh:27">Supported by</p>
-    <div class="a content logo-row" style="--x:140;--y:2850;--w:1640;--fs:24;--lh:30">
+    <div class="a content logo-row" id="supporters-list" style="--x:140;--y:2850;--w:1640;--fs:24;--lh:30">
       <a class="inline-link" href="https://www.ukri.org/councils/ahrc/" target="_blank" rel="noopener">Arts and Humanities Research Council</a>
       <a class="inline-link" href="https://www.bristol.ac.uk/" target="_blank" rel="noopener">University of Bristol</a>
       <a class="inline-link" href="https://www.ug.edu.gh/" target="_blank" rel="noopener">University of Ghana</a>
@@ -158,7 +158,21 @@
 
 </div>
 
-<script src="assets/site.js"></script>
-<script src="assets/sanity.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/sanity/sanity.js"></script>
+<script>
+/* About ------------------------------------------------------------------
+   The long-form text stays written into the page: it carries inline links
+   that plain CMS text cannot hold. The press list and the "Supported by"
+   row are the parts that grow, so those come from the CMS (the supporters
+   from Site settings, handled in sanity.js).
+   ------------------------------------------------------------------ */
+SANITY.query(`*[_id == "aboutPage"][0]{ seo, mediaCoverage[]{ _key, outlet, url } }`)
+  .then(function (p) {
+    if (!p) return;
+    SANITY.meta(p);
+    SANITY.linkList('media-list', p.mediaCoverage, 'outlet');
+  });
+</script>
 </body>
 </html>

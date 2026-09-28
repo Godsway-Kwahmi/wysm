@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nightbloom — Publications — When You See Me</title>
 <meta name="description" content="Nightbloom, a novel by Peace Adzo Medie — read the summary and find the book at the publisher.">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
@@ -32,20 +32,20 @@
 
   <section class="sec">
     <a class="a t content inline-link" href="publications.html" style="--x:140;--y:230;--fs:18;--lh:24">&larr; All publications</a>
-    <h1 class="a t tw display content" style="--x:140;--y:270;--w:1300;--fs:56;--lh:64">Nightbloom</h1>
-    <p class="a t tw meta content" style="--x:140;--y:460;--w:1300;--fs:21;--lh:27">Novel &middot; 2023</p>
+    <h1 class="a t tw display content" id="pub-title" style="--x:140;--y:270;--w:1300;--fs:56;--lh:64">Nightbloom</h1>
+    <p class="a t tw meta content" id="pub-meta" style="--x:140;--y:460;--w:1300;--fs:21;--lh:27">Novel &middot; 2023</p>
   </section>
 
   <section class="sec">
     <div class="a box rule" style="--x:140;--y:520;--w:1640;--h:2"></div>
-    <img class="a box photo" src="assets/img/Publications/nightbloom.webp" loading="lazy"
+    <img class="a box photo" id="pub-cover" src="assets/img/Publications/nightbloom.webp" loading="lazy"
          style="--x:140;--y:580;--w:460;--h:660"
          alt="Cover of the novel Nightbloom.">
-    <div class="a t tw body content" style="--x:660;--y:580;--w:1060;--fs:21;--lh:30">
+    <div class="a t tw body content" id="pub-abstract" style="--x:660;--y:580;--w:1060;--fs:21;--lh:30">
       <p>A novel about two cousins, Akorfa and Selasi, raised together in Ghana and separated by class, ambition and time. When Akorfa leaves for the United States and Selasi stays behind, a secret from their childhood resurfaces and forces both women to reckon with the choices that shaped their friendship.</p>
     </div>
-    <p class="a t tw meta content" style="--x:660;--y:820;--w:1060;--fs:18;--lh:26">Algonquin Books (US) and Oneworld (UK), 2023. Longlisted for the 2024 Women&rsquo;s Prize for Fiction.</p>
-    <a class="a t content inline-link" href="https://www.hachettebookgroup.com/titles/peace-adzo-medie/nightbloom/9781643752846/" target="_blank" rel="noopener" style="--x:660;--y:900;--fs:21;--lh:27">View at publisher</a>
+    <p class="a t tw meta content" id="pub-citation" style="--x:660;--y:820;--w:1060;--fs:18;--lh:26">Algonquin Books (US) and Oneworld (UK), 2023. Longlisted for the 2024 Women&rsquo;s Prize for Fiction.</p>
+    <a class="a t content inline-link" id="pub-cta" href="https://www.hachettebookgroup.com/titles/peace-adzo-medie/nightbloom/9781643752846/" target="_blank" rel="noopener" style="--x:660;--y:900;--fs:21;--lh:27">View at publisher</a>
   </section>
 
   <footer class="sec sec--flush site-footer" style="--y:1383">
@@ -88,7 +88,8 @@
 
 </div>
 
-<script src="assets/site.js"></script>
-<script src="assets/sanity.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/sanity/sanity.js"></script>
+<script>SANITY.publicationPage('nightbloom');</script>
 </body>
 </html>

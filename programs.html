@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Programs — When You See Me</title>
 <meta name="description" content="Meetings, panels and workshops held by the When You See Me project.">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
@@ -134,8 +134,8 @@
 
 </div>
 
-<script src="assets/site.js"></script>
-<script src="assets/sanity.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/sanity/sanity.js"></script>
 <script>
 /* Programs -----------------------------------------------------------
    The three entries above are a fixed, curated record of programs
@@ -144,7 +144,7 @@
    metadata are still open to a CMS override, matching the contact
    page's pattern.
    ------------------------------------------------------------------ */
-SANITY.query(`*[_id == "conveningsPage"][0]{ summary, seo }`)
+SANITY.query(`*[_id == "programsPage"][0]{ summary, seo }`)
   .then(function (p) { if (p) SANITY.meta(p); });
 </script>
 </body>
