@@ -1,13 +1,20 @@
 /* ============================================================
    WHEN YOU SEE ME — site stylesheet
-   Shared by index, search, about, publications,
-   creative-works, programs, contact.
+   Shared by index, search, about, publications, creative-works,
+   programs, contact and the five publication detail pages.
 
    The comp is drawn at 1920 x N design pixels. Every measurement
    is a literal design-pixel value multiplied by --px. At a 1920px
    viewport --px resolves to 1px, so pages are a 1:1 reproduction;
-   at any other width they scale proportionally. Below 900px the
-   absolute layout is dropped and pages reflow as a single column.
+   at any other width they scale proportionally.
+
+   Proportional scaling is only legible while the type stays big
+   enough to read, and the comp's smallest running text (21 design
+   px x --ts) reaches 12px at --px .857. That is a 1650px viewport,
+   so 1650 is where the comp stops and the reflow begins. Media
+   queries cannot read a custom property, so the number is written
+   out at each of the four places it is used: the scrollbar block,
+   the stage clip, fitStage in site.js, and the reflow block below.
    ============================================================ */
 
 :root{
@@ -92,7 +99,7 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 .field::-webkit-scrollbar-track{ background: var(--block) }
 .field::-webkit-scrollbar-thumb{ border-color: var(--block) }
 
-@media (max-width: 900px){
+@media (max-width: 1650px){
   ::-webkit-scrollbar{ width: 8px; height: 8px }
   ::-webkit-scrollbar-thumb{ border-width: 2px }
 }
@@ -109,7 +116,7 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
    if CMS content runs past the drawn height, so the clip is only
    applied once the script is there to measure. The fixed header
    escapes the clip. */
-@media (min-width: 901px){ .js .stage{ overflow: hidden } }
+@media (min-width: 1651px){ .js .stage{ overflow: hidden } }
 
 .a{                                    /* absolutely placed at design x / y */
   position: absolute;
@@ -170,7 +177,7 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
   font-weight: 400; color: var(--dim); --lead: 1.25; letter-spacing: .05em;
   /* 13 design px x 2/3 lands at 8.7 — under the legibility floor,
      so the legal strip stops at 10 and takes tracking instead. */
-  font-size: max(calc(10 * var(--px)), calc(var(--fs) * var(--px) * var(--ts)));
+  font-size: max(10px, calc(var(--fs) * var(--px) * var(--ts)));
 }
 .legal b{ font-weight: 700; letter-spacing: .06em }
 
@@ -195,10 +202,8 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
   right: calc(140 * var(--px));
 }
 .navbar .pair{ word-spacing: calc(12.5 * var(--px) * var(--ts)) }
-.navbar a[aria-current="page"],
-.search[aria-current="page"]{ color:#fff }
-.navbar a[aria-current="page"]::after,
-.search[aria-current="page"]::after{ transform: scaleX(1) }
+.navbar a[aria-current="page"]{ color:#fff }
+.navbar a[aria-current="page"]::after{ transform: scaleX(1) }
 
 /* ---------- link stacks ---------- */
 .stack{ display: flex; flex-direction: column; --lead: 1.12; letter-spacing: .01em }
@@ -275,7 +280,7 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 .row .meta,
 .row .when{ --fs: 21; --lh: 27 }
 .row .meta{ display: block; margin-top: calc(10 * var(--px)); color: var(--dim) }
-.row .body{ margin-top: calc(12 * var(--px)) }
+.row .body{ --fs: 21; --lh: 27; margin-top: calc(12 * var(--px)) }
 .row .when{ text-align: right; color: var(--dim); white-space: nowrap }
 .row a:hover .tile{ opacity: .85 }
 .row a:hover h3{ color:#fff }
@@ -310,6 +315,85 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 }
 .scopes button:hover{ border-color: var(--ink) }
 .scopes button[aria-pressed="true"]{ background: var(--block); border-color: var(--block); color:#fff }
+
+/* ============================================================
+   PHOTO GALLERIES
+   A comp-positioned strip of frames that scrolls sideways. The strip
+   and its dot rail are two separate placed elements: the rail names
+   the strip it drives with data-gallery, so a page can hold several
+   galleries without the script having to guess which is which.
+   Frames open in a lightbox for full-size viewing.
+   ============================================================ */
+.scroll-gallery{
+  display: flex;
+  overflow-x: auto;
+  width: calc(1640 * var(--px));
+  gap: calc(29 * var(--px));
+  padding-bottom: calc(20 * var(--px));
+  scrollbar-width: thin;
+  scrollbar-color: var(--bar-thumb) var(--block);
+  z-index: 4;
+}
+.scroll-gallery img{
+  height: calc(300 * var(--px));
+  width: auto;
+  cursor: pointer;
+  object-fit: cover;
+  transition: opacity .3s ease, filter .3s ease;
+}
+.scroll-gallery img:hover,
+.scroll-gallery img:focus-visible{ opacity: .85; filter: brightness(1.1) }
+
+.gallery-pagination{
+  display: flex;
+  justify-content: center;
+  gap: calc(12 * var(--px));
+  width: calc(1640 * var(--px));
+  z-index: 4;
+}
+.gallery-pagination .dot{
+  width: calc(12 * var(--px));
+  height: calc(12 * var(--px));
+  border-radius: 50%;
+  background: var(--bar-thumb);
+  cursor: pointer;
+  transition: background-color .3s ease;
+}
+.gallery-pagination .dot.active,
+.gallery-pagination .dot:hover{ background: var(--ink) }
+
+/* ---------- lightbox ----------
+   Fixed to the viewport, so it sits outside the comp grid and takes
+   plain pixel measurements like the scrollbar and the skip link. */
+.lightbox{
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, .92);
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.is-open{ display: flex }
+body.gallery-open{ overflow: hidden }
+.lightbox img{ max-width: 90vw; max-height: 90vh; object-fit: contain }
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next{
+  position: absolute;
+  background: none; border: 0; padding: 20px;
+  font: 300 50px/1 var(--sans);
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  transition: color .2s ease, opacity .2s ease;
+}
+.lightbox-close{ top: 12px; right: 28px }
+.lightbox-prev { top: 50%; transform: translateY(-50%); left: 16px }
+.lightbox-next { top: 50%; transform: translateY(-50%); right: 16px }
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover{ color: var(--dim) }
 
 /* ============================================================
    HOME — FEATURED STRIP, NEWSLETTER, SUPPORTERS
@@ -365,15 +449,31 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 .js .site-header .deco{ transform:scaleX(0); transform-origin:left;  animation: wipeIn .75s cubic-bezier(.22,.61,.36,1) forwards }
 .js .site-header .deco--bar{ transform-origin:right; animation-delay:.1s }
 .js .site-header .logo{ opacity:0; animation: fadeIn .8s .2s ease forwards }
-.js .search,
 .js .navbar a{ opacity:0; animation: riseIn .55s cubic-bezier(.22,.61,.36,1) forwards }
-.js .search{ animation-delay:.26s }
 .js .navbar a:nth-child(1){ animation-delay:.32s }
 .js .navbar a:nth-child(2){ animation-delay:.38s }
 .js .navbar a:nth-child(3){ animation-delay:.44s }
 .js .navbar a:nth-child(4){ animation-delay:.50s }
 .js .navbar a:nth-child(5){ animation-delay:.56s }
 .js .hero{ opacity:0; animation: heroIn 1.05s .3s cubic-bezier(.22,.61,.36,1) forwards }
+
+/* hero glow — a soft warm light that trails the pointer across the wordmark.
+   The letterforms of the photograph are transparent, so the light reads
+   through them; site.js re-centres it on mousemove and holds it to the
+   hero's box. 430 design px of reach ≈ two thirds of the hero's height. */
+.hero-glow{
+  position: absolute;
+  left: 0; top: 0;
+  width:  calc(860 * var(--px));
+  height: calc(860 * var(--px));
+  z-index: 1;                    /* behind the photograph, over the stage */
+  pointer-events: none;
+  transform: translate(calc(985 * var(--px)), calc(470 * var(--px))) translate(-50%,-50%);
+  background: radial-gradient(circle closest-side,
+              rgba(255,243,226,.34) 0%,
+              rgba(255,243,226,.10) 55%,
+              rgba(255,243,226,0)   100%);
+}
 
 /* scroll reveals — classes are applied by script, so a no-JS page shows everything */
 .js .reveal{
@@ -395,7 +495,6 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 /* ---------- hover + focus detail ---------- */
 .navbar a, .stack a, .inline-link{ position: relative }
 .navbar a::after,
-.search::after,
 .inline-link::after,
 .stack a::after{
   content:"";
@@ -410,8 +509,6 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 }
 .navbar a:hover::after,
 .navbar a:focus-visible::after,
-.search:hover::after,
-.search:focus-visible::after,
 .inline-link:hover::after,
 .inline-link:focus-visible::after,
 .stack a:hover::after,
@@ -493,7 +590,6 @@ body.is-scrolled .site-header .logo{
   .js .reveal,
   .js .site-header .deco,
   .js .site-header .logo,
-  .js .search,
   .js .navbar a,
   .js .hero{
     opacity: 1 !important;
@@ -510,25 +606,47 @@ body.is-scrolled .site-header .logo{
   .actions button,
   .scopes button,
   .navbar a::after,
-  .search::after,
   .inline-link::after,
   .stack a::after{ transition: none !important }
 }
 
 /* ============================================================
-   MOBILE — below 900px the comp's absolute grid is abandoned
-   and everything reflows in DOM order.
+   REFLOW — at 1650px and below the comp's absolute grid is
+   abandoned and everything reflows in DOM order. See the note at
+   the top of this file for why that is the line.
 
    The two-thirds reduction is carried through here as far as
    legibility allows: headings take it in full, running text and
    controls stop at their floors (14px for body, 16px for the
    textarea so iOS doesn't zoom the page on focus).
+
+   This block therefore serves phones, tablets and laptops alike,
+   so it is tiered: the base rules are the phone layout, and a
+   nested (min-width: 901px) block near the bottom gives the wide
+   band its columns and measure back rather than shipping an
+   enlarged phone page across a 1440px screen.
    ============================================================ */
-@media (max-width: 900px){
+@media (max-width: 1650px){
   :root{ --px: 1px }
 
   .stage{ height: auto; min-height: 0; padding-bottom: 0 }
-  .deco, .panel, .rule{ display: none }
+  /* The comp's flat blocks are compositional: they sit behind text at
+     drawn coordinates, so in a single column there is nothing for them
+     to be behind. They come back where they still carry the design —
+     .rule as the hairline it is, .panel as the ground under the text run
+     it grounded, and the footer's two tones as real bands. */
+  .deco, .panel{ display: none }
+  .rule{
+    display: block;
+    width: auto; height: 1px;
+    background: var(--hair);
+    margin: 34px 0;
+  }
+  .panel + .content,
+  .panel + .photo + .content{
+    background: var(--block);
+    padding: 26px 24px;
+  }
   .a{ position: static }
   .box, .tw{ width: auto; height: auto }
 
@@ -554,14 +672,19 @@ body.is-scrolled .site-header .logo{
     display: none;
     transform: none;
   }
-  .anchor{ position: static; display: block; width: 0; height: 0; scroll-margin-top: 92px }
-  .site-footer{ position: static; height: auto; top: auto }
-  .sec--flush{ padding-left: 0; padding-right: 0 }
-  header.sec{ padding: 0 0 30px }
+  .anchor{ position: static; display: block; width: 0; height: 0; scroll-margin-top: var(--hdr, 92px) }
+  .site-footer{ position: static; height: auto; top: auto; background: var(--block) }
+  /* .sec--flush marks the sections the comp lets bleed. In the reflow
+     nothing bleeds but the legal strip: its own negative margin does that
+     job, so these keep the gutter and no text lands on the screen edge. */
+  header.sec{ padding: 22px 24px 30px }
   footer.sec{ padding-bottom: 0 }
 
   .t{ font-size: 14px; line-height: 1.5 }
-  .logo{ width: auto; font-size: 20px; line-height: 21px; text-align: left; padding: 22px 24px 0 }
+  /* the wordmark is an <a> on every page but the home one: left inline it
+     ignores its padding and rides out of the sticky bar, so it is blockified
+     and the header's own padding takes over the inset */
+  .logo{ width: auto; display: block; font-size: 20px; line-height: 21px; text-align: left; padding: 0 }
   .navbar{ left: auto; right: auto }
   .navbar{
     flex-wrap: wrap;
@@ -572,19 +695,34 @@ body.is-scrolled .site-header .logo{
     line-height: 1.6;
   }
   .navbar .pair{ word-spacing: normal }
-  .search{ display: block; padding: 16px 24px 0; font-size: 14px }  /* inline padding would overflow the sticky bar */
   .display{ font-size: 24px; line-height: 1.12; margin-bottom: 6px }
   .sub{ font-size: 16px; line-height: 1.32; margin-bottom: 20px }
   .lede{ font-size: 16px; line-height: 1.45 }
   .body{ font-size: 14px; line-height: 1.6 }
   .body p + p{ margin-top: 14px }
-  .label{ font-size: 14px; margin: 24px 0 12px; text-align: left !important }
+  .label{ display: block; font-size: 14px; margin: 24px 0 12px; text-align: left !important }
 
   .hero{ width: 100%; height: auto; padding: 26px 16px 34px }
   /* the hero's 1.025 entrance scales the full-bleed image a few pixels past
      a phone's width and briefly offers a sideways scroll, so on mobile it
      arrives by fade alone */
   .js .hero{ animation-name: fadeIn }
+
+  /* the glow centres on the reflowed hero until the pointer moves (--px is
+     1px here, so the one gradient serves every width); phones have no
+     pointer, so there it stays home. When the pointer rides the hero's
+     right side the pool reaches past the stage, so clip horizontally —
+     clip, not hidden, which would turn the stage into a scroll container
+     and strand the sticky header. */
+  .stage{ overflow-x: clip }
+  .hero-glow{
+    left: 50%;
+    top: calc(420 * var(--px));
+    transform: translate(-50%,-50%);
+  }
+  @media (max-width: 900px){
+    .hero-glow{ display: none }
+  }
   .photo{ width: 100%; height: auto; margin-bottom: 22px }
 
   .welcome-grid{ display: block }
@@ -613,23 +751,115 @@ body.is-scrolled .site-header .logo{
   .tile{ width: 84px; height: 76px }
   /* tiles drawn at a comp size (the team portraits) reflow full width */
   .tile.box{ width: 100%; height: 220px }
+
+  /* the strip keeps scrolling sideways on a phone, which is what it is
+     for, but sheds its comp width so it cannot push the page wider */
+  .scroll-gallery{ width: auto; gap: 12px; margin-bottom: 14px }
+  .scroll-gallery img{ height: 150px }
+  .gallery-pagination{ width: auto; justify-content: flex-start; gap: 8px }
+  .gallery-pagination .dot{ width: 8px; height: 8px }
+  .lightbox-prev{ left: 0 } .lightbox-next{ right: 0 }
+
   .scopes{ gap: 8px }
   .scopes button{ padding: 9px 14px; font-size: 14px }
 
-  .footer-cols{ display: block }
+  .footer-cols{ display: block; padding: 46px 0 0 }
   .footer-cols > * + *{ margin-top: 26px }
   .stack{ font-size: 14px; line-height: 1.8 }
+  /* the strip's band is the one thing that still runs edge to edge, so it
+     steps back out of the section gutter and hands it to its own padding */
   .legal-bar{
     display: block;
-    background: var(--block);
+    background: var(--deep);
+    margin: 0 -24px;
     padding: 18px 24px;
-    font-size: 10.5px;
-    line-height: 1.6;
   }
+  /* the strip's own type is on the .legal children, and .t's 14px floor
+     would otherwise set the copyright line at body size */
+  .legal{ font-size: 11px; line-height: 1.6; letter-spacing: .06em }
   .legal-bar .a{ text-align: left !important }
   .legal-bar .a + .a{ margin-top: 8px }
 
   .feature-grid{ flex-direction: column; gap: 28px }
   .feature-card img{ height: 220px }
   .logo-row{ gap: 10px 28px }
+
+  /* ---------- wide reflow, 901–1650px -------------------------
+     The phone rules above stretch badly across a tablet in
+     landscape or a laptop: a 1380px line of 14px text is not a
+     measure, and the structures that were always multi-item —
+     thumbnails, list rows, feature cards, the footer — want their
+     tracks back.
+
+     --gutter does the work in one place. It is the phone gutter
+     until the viewport is wide enough that 1160px of content plus
+     the gutter fills it, and from there it grows equally on both
+     sides, so every section, the header and the footer land on the
+     same two edges without any of them needing a max-width. Full
+     bleed is given up in this band: the photos inset with
+     everything else, which reads as one column rather than two
+     competing systems.
+     ------------------------------------------------------------- */
+  @media (min-width: 901px){
+    :root{ --gutter: max(40px, calc((100vw - 1160px) / 2)) }
+
+    .sec{ padding: 0 var(--gutter) 84px }
+    footer.sec{ padding-bottom: 0 }
+    /* the header is a .sec too, but it is sticky: the section's 84px
+       close would make the bar tall enough to cover what it scrolls over.
+       At 77px scrolled it still clears the 92px anchor offset above. */
+    header.sec{ padding: 0 var(--gutter) 26px }
+
+    /* the header returns to the comp's single line */
+    .site-header{ display: flex; align-items: flex-start; gap: 30px }
+    .site-header .logo{ padding: 20px 0 0; font-size: 22px; line-height: 23px }
+    /* the Search link lives in the footer now, so the navbar takes the
+       comp's right edge for itself */
+    .site-header .navbar{ margin-left: auto; padding: 27px 0 0; flex-wrap: nowrap; gap: 22px; font-size: 15px }
+
+    /* type steps up with the column, but never past the comp's own
+       two-thirds reduction at 1920 */
+    .display{ font-size: clamp(30px, 2.7vw, 41px) }
+    .sub{ font-size: clamp(19px, 1.6vw, 24px) }
+    .lede{ font-size: clamp(17px, 1.4vw, 21px) }
+    .body{ font-size: 15px; line-height: 1.62 }
+    .label{ font-size: 15px; margin: 30px 0 14px }
+    .stack{ font-size: 15px }
+
+    .hero{ padding: 44px 0 52px }
+    .photo{ margin-bottom: 30px }
+    .rule{ margin: 44px 0 }
+    .panel + .content,
+    .panel + .photo + .content{ padding: 36px 40px }
+
+    .thumbs{ gap: 20px !important }
+    .thumbs span, .thumbs a{ flex-basis: calc(20% - 16px); height: 132px }
+
+    /* list rows take the comp's three tracks: tile, text, year */
+    .row{ grid-template-columns: 132px 1fr auto; column-gap: 30px; padding: 26px 0 }
+    .row .when{ grid-column: 3; text-align: right; margin-top: 0 }
+    .row--plain{ grid-template-columns: 1fr auto }
+    .tile{ width: 132px; height: 119px }
+    .tile.box{ width: 100%; height: 320px }
+
+    .feature-grid{ flex-direction: row; gap: 30px }
+    .feature-card img{ height: 300px }
+    .scroll-gallery img{ height: 232px }
+    .field{ height: 210px; padding: 16px }
+    .actions{ margin-top: 18px; font-size: 15px }
+
+    .footer-cols{
+      display: flex; flex-wrap: wrap; gap: 48px 72px;
+      padding: 64px 0 0;
+    }
+    .footer-cols > * + *{ margin-top: 0 }
+    .legal-bar{
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 40px;
+      margin: 0 calc(var(--gutter) * -1);
+      padding: 24px var(--gutter);
+    }
+    .legal-bar .a + .a{ margin-top: 0 }
+    .legal-bar .a:last-child{ text-align: right !important }
+  }
 }

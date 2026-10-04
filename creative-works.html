@@ -7,105 +7,6 @@
 <title>Creative Works — When You See Me</title>
 <meta name="description" content="Applied theatre and illustrated stories made with migrant communities in Ghana to raise awareness of gender-based violence.">
 <link rel="stylesheet" href="assets/css/site.css">
-<style>
-  /* Scrollable Gallery Styles */
-  .scroll-gallery {
-    display: flex;
-    overflow-x: auto;
-    gap: calc(29 * var(--px));
-    width: calc(1640 * var(--px));
-    padding-bottom: 20px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--dim) var(--bg);
-  }
-  .scroll-gallery img {
-    height: calc(300 * var(--px));
-    width: auto;
-    cursor: pointer;
-    object-fit: cover;
-    border-radius: 4px;
-    transition: opacity 0.2s ease;
-  }
-  .scroll-gallery img:hover {
-    opacity: 0.85;
-  }
-
-  /* Gallery Pagination Styles */
-  .gallery-pagination .dot {
-    width: 12px;
-    height: 12px;
-    background-color: rgba(242, 229, 228, 0.28);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .gallery-pagination .dot.active, .gallery-pagination .dot:hover {
-    background-color: #F2E5E4;
-  }
-
-  /* Lightbox Styles */
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9);
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .lightbox.active {
-    display: flex;
-    opacity: 1;
-  }
-  .lightbox img {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  }
-  .lightbox-close {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    color: white;
-    font-size: 50px;
-    font-weight: 300;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.2s;
-  }
-  .lightbox-close:hover {
-    color: var(--dim);
-  }
-
-  /* Lightbox Arrow Navigation */
-  .lightbox-prev, .lightbox-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: white;
-    font-size: 50px;
-    font-weight: 300;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.2s;
-    padding: 20px;
-  }
-  .lightbox-prev {
-    left: 20px;
-  }
-  .lightbox-next {
-    right: 20px;
-  }
-  .lightbox-prev:hover, .lightbox-next:hover {
-    color: var(--dim);
-  }
-</style>
 </head>
 <body>
 
@@ -205,20 +106,20 @@
     
     <!-- Scrollable Gallery -->
     <div class="a scroll-gallery" id="work-gallery" style="--x:140;--y:4240;">
-      <img src="assets/img/Creative-Works/community-theatre-production/02-gallery.jpg" alt="Community Theatre Scene 2" onclick="openLightbox(0)">
-      <img src="assets/img/Creative-Works/community-theatre-production/03-gallery.jpg" alt="Community Theatre Scene 3" onclick="openLightbox(1)">
-      <img src="assets/img/Creative-Works/community-theatre-production/04-gallery.jpg" alt="Community Theatre Scene 4" onclick="openLightbox(2)">
-      <img src="assets/img/Creative-Works/community-theatre-production/05-gallery.jpg" alt="Community Theatre Scene 5" onclick="openLightbox(3)">
-      <img src="assets/img/Creative-Works/community-theatre-production/06-gallery.jpg" alt="Community Theatre Scene 6" onclick="openLightbox(4)">
-      <img src="assets/img/Creative-Works/community-theatre-production/07-gallery.jpg" alt="Community Theatre Scene 7" onclick="openLightbox(5)">
-      <img src="assets/img/Creative-Works/community-theatre-production/08-gallery.jpg" alt="Community Theatre Scene 8" onclick="openLightbox(6)">
-      <img src="assets/img/Creative-Works/community-theatre-production/09-gallery.jpg" alt="Community Theatre Scene 9" onclick="openLightbox(7)">
-      <img src="assets/img/Creative-Works/community-theatre-production/10-gallery.jpg" alt="Community Theatre Scene 10" onclick="openLightbox(8)">
-      <img src="assets/img/Creative-Works/community-theatre-production/11-gallery.jpg" alt="Community Theatre Scene 11" onclick="openLightbox(9)">
+      <img src="assets/img/Creative-Works/community-theatre-production/02-gallery.jpg" alt="Community Theatre Scene 2">
+      <img src="assets/img/Creative-Works/community-theatre-production/03-gallery.jpg" alt="Community Theatre Scene 3">
+      <img src="assets/img/Creative-Works/community-theatre-production/04-gallery.jpg" alt="Community Theatre Scene 4">
+      <img src="assets/img/Creative-Works/community-theatre-production/05-gallery.jpg" alt="Community Theatre Scene 5">
+      <img src="assets/img/Creative-Works/community-theatre-production/06-gallery.jpg" alt="Community Theatre Scene 6">
+      <img src="assets/img/Creative-Works/community-theatre-production/07-gallery.jpg" alt="Community Theatre Scene 7">
+      <img src="assets/img/Creative-Works/community-theatre-production/08-gallery.jpg" alt="Community Theatre Scene 8">
+      <img src="assets/img/Creative-Works/community-theatre-production/09-gallery.jpg" alt="Community Theatre Scene 9">
+      <img src="assets/img/Creative-Works/community-theatre-production/10-gallery.jpg" alt="Community Theatre Scene 10">
+      <img src="assets/img/Creative-Works/community-theatre-production/11-gallery.jpg" alt="Community Theatre Scene 11">
     </div>
 
     <!-- Gallery Pagination Dots -->
-    <div class="a gallery-pagination" id="gallery-pagination" style="--x:140;--y:4570;--w:1640; display:flex; justify-content:center; gap:12px;"></div>
+    <div class="a gallery-pagination" id="gallery-pagination" data-gallery="work-gallery" style="--x:140;--y:4570;"></div>
   </section>
 
   <footer class="sec sec--flush site-footer" style="--y:4700">
@@ -237,6 +138,7 @@
         <a href="creative-works.html">Creative Works</a>
         <a href="programs.html">Programs</a>
         <a href="contact.html">Contact</a>
+        <a href="search.html">Search</a>
       </nav>
 
       <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
@@ -261,84 +163,22 @@
 
 </div>
 
-<!-- Lightbox Element with Navigation Arrows -->
-<div id="lightbox" class="lightbox" onclick="this.classList.remove('active')">
-  <span class="lightbox-close">&times;</span>
-  <span class="lightbox-prev" onclick="changeLightbox(-1, event)">&#10094;</span>
-  <img id="lightbox-img" src="" alt="Enlarged view" onclick="event.stopPropagation()">
-  <span class="lightbox-next" onclick="changeLightbox(1, event)">&#10095;</span>
+<!-- Lightbox: opened by the gallery script in site.js -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photograph">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-prev" aria-label="Previous photograph">&#10094;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-next" aria-label="Next photograph">&#10095;</button>
 </div>
 
 <script src="assets/js/site.js"></script>
 <script src="assets/sanity/sanity.js"></script>
 
 <script>
-/* Lightbox controls & Navigation */
-let currentLightboxIndex = 0;
-const galleryImages = document.querySelectorAll('#work-gallery img');
-
-function openLightbox(index) {
-  currentLightboxIndex = index;
-  document.getElementById('lightbox-img').src = galleryImages[index].src;
-  document.getElementById('lightbox').classList.add('active');
-}
-
-function changeLightbox(direction, event) {
-  event.stopPropagation(); // Prevents the lightbox from closing when an arrow is clicked
-  currentLightboxIndex += direction;
-  
-  // Loop logic
-  if (currentLightboxIndex < 0) {
-    currentLightboxIndex = galleryImages.length - 1;
-  } else if (currentLightboxIndex >= galleryImages.length) {
-    currentLightboxIndex = 0;
-  }
-  
-  document.getElementById('lightbox-img').src = galleryImages[currentLightboxIndex].src;
-}
-
-/* Gallery Pagination Logic */
-const paginationContainer = document.getElementById('gallery-pagination');
-const scrollGallery = document.getElementById('work-gallery');
-
-if (galleryImages.length > 0 && paginationContainer && scrollGallery) {
-  // Generate dots
-  galleryImages.forEach((_, index) => {
-    const dot = document.createElement('div');
-    dot.className = 'dot' + (index === 0 ? ' active' : '');
-    dot.onclick = () => {
-      // Calculate scroll offset dynamically
-      const scrollLeft = galleryImages[index].offsetLeft - scrollGallery.offsetLeft;
-      scrollGallery.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-    };
-    paginationContainer.appendChild(dot);
-  });
-
-  // Track active dot on scroll
-  scrollGallery.addEventListener('scroll', () => {
-    let minDiff = Infinity;
-    let activeIndex = 0;
-    const center = scrollGallery.scrollLeft + scrollGallery.clientWidth / 2;
-    
-    galleryImages.forEach((img, index) => {
-      const imgCenter = img.offsetLeft - scrollGallery.offsetLeft + img.clientWidth / 2;
-      const diff = Math.abs(center - imgCenter);
-      if (diff < minDiff) {
-        minDiff = diff;
-        activeIndex = index;
-      }
-    });
-    
-    document.querySelectorAll('#gallery-pagination .dot').forEach((dot, index) => {
-      dot.classList.toggle('active', index === activeIndex);
-    });
-  });
-}
-
 /* Creative works ----------------------------------------------------
    The three standing strands are written on the page document. Below
    them, "Creative Works" lists every intervention document, newest
-   first. 
+   first.
    ------------------------------------------------------------------ */
 SANITY.query(`{
   "page": *[_id == "creativeWorksPage"][0]{

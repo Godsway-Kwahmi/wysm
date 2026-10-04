@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<script>document.documentElement.classList.add("js")</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search — When You See Me</title>
+<meta name="description" content="Search the publications, creative works, programs and pages of the When You See Me project.">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The drawn height is the empty state, not the full list: the row
+     count changes with every keystroke, so the comp can only pin the
+     page up to the results. fitStage places the footer from there. -->
+<div class="stage" id="main" style="--stage:1717">
+
+  <header class="sec site-header">
+    <div class="a box deco deco--white" style="--x:0;--y:0;--w:295;--h:59"></div>
+    <div class="a box deco deco--bar" style="--x:960;--y:0;--w:820;--h:23"></div>
+    <a class="a t logo content" href="index.html" style="--x:0;--y:70.9;--w:289;--fs:44;--lh:36">
+      When<br>You See<br>Me
+    </a>
+
+
+    <nav class="a t nav navbar content" style="--x:1176;--y:63.1;--w:606;--fs:21;--lh:21" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="publications.html">Publications</a>
+      <a href="creative-works.html">Creative Works</a>
+      <a href="programs.html">Programs</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="sec">
+    <div class="a box deco" style="--x:133;--y:270;--w:644;--h:240"></div>
+    <div class="a box deco" style="--x:1780;--y:240;--w:140;--h:197"></div>
+
+    <h1 class="a t display content" style="--x:161;--y:304;--fs:62;--lh:60">Search</h1>
+    <p class="a t tw lede content" id="page-summary" style="--x:162;--y:396;--w:600;--fs:36;--lh:36">Everything the project has published, staged and held in one list.</p>
+  </section>
+
+  <!-- ==========================================================
+       SEARCH
+       The whole corpus is fetched once and filtered in the
+       browser: the site is a few dozen documents, so a query per
+       keystroke would cost more than it saves, and filtering
+       locally is what lets the scope buttons and the text box
+       narrow the same result set together.
+       ========================================================== -->
+  <section class="sec">
+    <div class="a box rule" style="--x:140;--y:660;--w:1640;--h:2"></div>
+
+    <label class="visually-hidden" for="q">Search the site</label>
+    <input class="a box field field--line" id="q" type="search" autocomplete="off"
+           placeholder="Search publications, creative works and programs"
+           style="--x:140;--y:720;--w:1300;--h:84">
+
+    <div class="a t stack actions content" style="--x:1492;--y:748;--fs:21;--lh:26">
+      <button type="button" id="btn-clear">clear</button>
+    </div>
+
+    <div class="a t tw scopes" id="scopes" role="group" aria-label="Filter by section"
+         style="--x:140;--y:850;--w:1640;--fs:21;--lh:27"></div>
+
+    <p class="a t tw status content" id="status" style="--x:140;--y:930;--w:1640;--fs:21;--lh:27"
+       role="status" aria-live="polite"></p>
+
+    <div class="a tw content" style="--x:140;--y:1000;--w:1640">
+      <div class="rows" id="results"></div>
+    </div>
+  </section>
+
+  <footer class="sec sec--flush site-footer" style="--y:1300">
+    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:197"></div>
+    <div class="a box deco" style="--x:968;--y:0;--w:952;--h:350"></div>
+    <div class="a box deco deco--deep" style="--x:1571;--y:0;--w:209;--h:197"></div>
+
+    <div class="footer-cols">
+      <a class="a t logo content" href="index.html" style="--x:0;--y:53.9;--w:399;--fs:44;--lh:36">
+        When<br>You See<br>Me
+      </a>
+
+      <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
+        <a href="about.html">About</a>
+        <a href="publications.html">Publications</a>
+        <a href="creative-works.html">Creative Works</a>
+        <a href="programs.html">Programs</a>
+        <a href="contact.html">Contact</a>
+        <a href="search.html" aria-current="page">Search</a>
+      </nav>
+
+      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">Youtube</a>
+      </nav>
+
+      <div class="a t stack content" style="--x:1211;--y:61.7;--fs:26;--lh:33">
+        <a id="footer-email" href="mailto:info@whenyouseeme.com">info@whenyouseeme.com</a>
+        <a id="footer-phone" href="tel:+2334579890">+233 457 9890</a>
+      </div>
+    </div>
+
+    <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
+    <div class="legal-bar">
+      <p class="a t legal content" id="legal-copyright" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b id="legal-funder">ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/sanity/sanity.js"></script>
+<script>
+/* Search -------------------------------------------------------------
+   The entries below are what the site holds that is not in the CMS:
+   the three programs, and the pages themselves. They also stand as
+   the fallback corpus when Sanity cannot be reached, so the page is
+   never an empty box. Publications and creative works are replaced
+   wholesale by whatever the CMS returns for those two types.
+   ------------------------------------------------------------------ */
+var STATIC = [
+  { section: 'Publications', kind: 'Short story', year: '2026',
+    title: 'When You See Me', href: 'publication-when-you-see-me.html',
+    text: 'A short story about the people around a survivor of gender-based violence: the neighbours, friends and traditional leaders whose response can open a path to safety, or close it off. It gives its name to the research and creative programme this website presents.' },
+  { section: 'Publications', kind: 'Novel', year: '2023',
+    title: 'Nightbloom', href: 'publication-nightbloom.html',
+    text: 'A novel about two cousins, Akorfa and Selasi, raised together in Ghana and separated by class, ambition and time. When Akorfa leaves for the United States and Selasi stays behind, a secret from their childhood resurfaces and forces both women to reckon with what they have become.' },
+  { section: 'Publications', kind: 'Journal article', year: '2019',
+    title: 'Introduction: Women, Gender and Change in Africa', href: 'publication-introduction-women-gender-change-in-africa.html',
+    text: 'The introduction to a themed collection in African Affairs bringing together new research on gender, politics and social change across the continent, framing the questions the collected articles go on to address.' },
+  { section: 'Publications', kind: 'Encyclopedia entry', year: '2019',
+    title: 'Women and Violence in Africa', href: 'publication-women-and-violence-in-africa.html',
+    text: 'A peer-reviewed overview of research on violence against women across Africa: its forms and drivers, the toll it takes on survivors, and how states, communities and international actors have responded to it.' },
+  { section: 'Publications', kind: 'Journal article', year: '2017',
+    title: 'Rape Reporting in Post-Conflict Côte d’Ivoire: Accessing Justice and Ending Impunity',
+    href: 'publication-rape-reporting-cote-divoire.html',
+    text: 'Drawing on interviews with survivors, police officers and gendarmes, this article asks why women who were raped during and after Côte d’Ivoire’s civil conflict did, or did not, report it to the authorities. It finds that support from family and community was decisive in whether a survivor came forward.' },
+
+  { section: 'Creative Works', kind: 'Community Theatre Production', year: '2026',
+    title: 'When You See Me', href: 'creative-works.html#work-detail',
+    text: 'A community-led applied theatre production exploring the responses to gender-based violence within migrant communities. Built closely with community members, the scenes provide a relatable, engaging platform for host and migrant communities alike to discuss barriers to justice and avenues for accessing help.' },
+  { section: 'Creative Works', kind: 'Strand', year: '',
+    title: 'Applied theatre', href: 'creative-works.html',
+    text: 'Scenes are built with performers and community members rather than written for them, so what happens on stage is recognisable to the people watching it. Each performance ends in conversation: what help exists here, who to ask, and what usually gets in the way.' },
+  { section: 'Creative Works', kind: 'Strand', year: '',
+    title: 'Illustrated stories', href: 'creative-works.html',
+    text: 'Short comics follow a survivor through the steps of getting help, drawn so they can be read and passed on without much text. They are made to be used – in clinics, markets and community meetings – not to sit in a report.' },
+  { section: 'Creative Works', kind: 'Strand', year: '',
+    title: 'Queenmothers and neighbours', href: 'creative-works.html',
+    text: 'Female traditional leaders are often the first people a woman turns to, so the programme works with queenmothers on what they can do and where they can refer someone on. The same material is shared with host communities, because a survivor’s neighbours decide a great deal about what happens next.' },
+
+  { section: 'Programs', kind: 'Training Workshop', year: '2026',
+    title: 'Two-Day Training Workshop for Traditional Leaders and Community Leaders', href: 'programs.html',
+    text: 'Queenmothers from the Greater Accra and Volta Regions, as well as Nigerian community leaders, participated in the training. In addition to discussing the relevant laws, role play exercises were used to model how traditional and community leaders should treat survivors of violence. Accra, 27–28 August 2026, Cedi Conference Centre, University of Ghana. Ho, 30–31 July 2026, Hotel Stevens.' },
+  { section: 'Programs', kind: 'Policy Workshop', year: '2026',
+    title: 'Policy Workshop', href: 'programs.html',
+    text: 'Representatives from the Ghana Immigration Service, the Domestic Violence and Victim Support Unit of the Ghana Police Service, the Centre for Gender Studies and Advocacy, the Ark Foundation, the Migration Advocacy Centre, the DA Foundation and Drama Queens discussed how the findings of the research project can inform policy and practice. 13 July 2026, ISSER Conference Centre, University of Ghana.' },
+  { section: 'Programs', kind: 'Launch', year: '2026',
+    title: 'Launch of Short Story', href: 'programs.html',
+    text: 'The launch of the short story featured a reading by Peace Adzo Medie and performances by the poet, Twita, and the vocalist, falè. The Lododo Art Foundation also performed excerpts from the play adaptation. 16 July 2026, Kata Garden Bistro.' },
+
+  { section: 'Pages', kind: 'Page', year: '',
+    title: 'About', href: 'about.html',
+    text: 'The research programme and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors, its activities and outputs, and the press coverage it has received.' },
+  { section: 'Pages', kind: 'Page', year: '',
+    title: 'Publications', href: 'publications.html',
+    text: 'Everything the project has published: short stories, novels, journal articles, book chapters and encyclopedia entries on gender-based violence in Ghana and across Africa.' },
+  { section: 'Pages', kind: 'Page', year: '',
+    title: 'Creative Works', href: 'creative-works.html',
+    text: 'Applied theatre, illustrated stories and work with queenmothers and host communities, made with migrant communities in Ghana.' },
+  { section: 'Pages', kind: 'Page', year: '',
+    title: 'Programs', href: 'programs.html',
+    text: 'Where the project meets partners, practitioners and the communities it works with: training workshops, policy workshops and launches.' },
+  { section: 'Pages', kind: 'Page', year: '',
+    title: 'Contact', href: 'contact.html',
+    text: 'Send feedback or an enquiry to the project, and find its email address, telephone number and social accounts.' }
+];
+
+/* Publications that have a page of their own. Anything the CMS adds
+   beyond these lands on the Publications list instead of a 404. */
+var PUB_PAGES = {
+  'when-you-see-me': 'publication-when-you-see-me.html',
+  'nightbloom': 'publication-nightbloom.html',
+  'introduction-women-gender-and-change-in-africa': 'publication-introduction-women-gender-change-in-africa.html',
+  'women-and-violence-in-africa': 'publication-women-and-violence-in-africa.html',
+  'rape-reporting-in-post-conflict-cote-divoire': 'publication-rape-reporting-cote-divoire.html'
+};
+
+var SECTIONS = ['All', 'Publications', 'Creative Works', 'Programs', 'Pages'];
+var index = STATIC;
+var scope = 'All';
+
+var input    = document.getElementById('q'),
+    results  = document.getElementById('results'),
+    statusEl = document.getElementById('status'),
+    scopes   = document.getElementById('scopes');
+
+SECTIONS.forEach(function (name) {
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.textContent = name;
+  b.setAttribute('aria-pressed', String(name === scope));
+  b.addEventListener('click', function () {
+    scope = name;
+    [].forEach.call(scopes.children, function (o) {
+      o.setAttribute('aria-pressed', String(o === b));
+    });
+    render();
+  });
+  scopes.appendChild(b);
+});
+
+function tokens() {
+  return input.value.toLowerCase().split(/\s+/).filter(Boolean);
+}
+
+/* Every term must appear somewhere; a hit in the title counts for
+   more than a hit in the body, which is enough to put the obvious
+   match at the top of a list this small. */
+function score(entry, words) {
+  var title = entry.title.toLowerCase(),
+      body  = (entry.text + ' ' + entry.kind).toLowerCase(),
+      total = 0;
+
+  for (var i = 0; i < words.length; i++) {
+    var w = words[i], hit = false;
+    if (title.indexOf(w) >= 0) { total += 3; hit = true; }
+    if (body.indexOf(w) >= 0)  { total += 1; hit = true; }
+    if (!hit) return 0;
+  }
+  return total;
+}
+
+/* A run of text with every matched term wrapped in <b>. Built out of
+   text nodes rather than innerHTML, because the terms come from
+   whoever is typing. */
+function marked(text, words) {
+  var frag = document.createDocumentFragment(), at = 0;
+  while (at < text.length) {
+    var hit = -1, found = '';
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i], j = text.toLowerCase().indexOf(w, at);
+      if (j >= 0 && (hit < 0 || j < hit)) { hit = j; found = w; }
+    }
+    if (hit < 0) break;
+    if (hit > at) frag.appendChild(document.createTextNode(text.slice(at, hit)));
+    var b = document.createElement('b');
+    b.textContent = text.slice(hit, hit + found.length);
+    frag.appendChild(b);
+    at = hit + found.length;
+  }
+  if (at < text.length) frag.appendChild(document.createTextNode(text.slice(at)));
+  return frag;
+}
+
+/* A window of the body centred on the earliest term, so the match is
+   on screen rather than buried past the cut. */
+function snippet(entry, words) {
+  var text = entry.text, lower = text.toLowerCase(), best = -1;
+  for (var i = 0; i < words.length; i++) {
+    var j = lower.indexOf(words[i]);
+    if (j >= 0 && (best < 0 || j < best)) best = j;
+  }
+  if (best < 0) return text.slice(0, 180);
+
+  var from = Math.max(0, best - 60);
+  return (from ? '…' : '') + text.slice(from, from + 220);
+}
+
+function render() {
+  var words = tokens();
+  results.innerHTML = '';
+
+  var hits = index
+    .filter(function (e) { return scope === 'All' || e.section === scope; })
+    .map(function (e) { return { e: e, s: words.length ? score(e, words) : 1 }; })
+    .filter(function (r) { return r.s > 0; })
+    .sort(function (a, b) { return b.s - a.s || a.e.title.localeCompare(b.e.title); });
+
+  hits.forEach(function (r) {
+    var entry = r.e;
+
+    var row = document.createElement('div');
+    row.className = 'row row--plain';
+
+    var col = document.createElement('div');
+    var h3 = document.createElement('h3');
+    h3.className = 't';
+    var a = document.createElement('a');
+    a.href = entry.href;
+    if (words.length) a.appendChild(marked(entry.title, words));
+    else a.textContent = entry.title;
+    h3.appendChild(a);
+    col.appendChild(h3);
+
+    var meta = document.createElement('span');
+    meta.className = 't body meta';
+    meta.textContent = [entry.kind, entry.year].filter(Boolean).join(' · ');
+    col.appendChild(meta);
+
+    if (words.length) {
+      var body = document.createElement('p');
+      body.className = 't body';
+      body.appendChild(marked(snippet(entry, words), words));
+      col.appendChild(body);
+    }
+    row.appendChild(col);
+
+    var when = document.createElement('span');
+    when.className = 't when';
+    when.textContent = entry.section;
+    row.appendChild(when);
+
+    results.appendChild(row);
+  });
+
+  statusEl.textContent = !words.length
+    ? 'Showing everything. Type to narrow it down.'
+    : hits.length
+      ? hits.length + (hits.length === 1 ? ' result' : ' results') + ' for “' + input.value.trim() + '”'
+      : 'No results for “' + input.value.trim() + '”. Try a shorter word, or clear the filter.';
+
+  if (window.fitStage) window.fitStage();
+}
+
+input.addEventListener('input', render);
+document.getElementById('btn-clear').addEventListener('click', function () {
+  input.value = '';
+  render();
+  input.focus();
+});
+
+render();
+
+SANITY.query(`{
+  "publications": *[_type == "publication"]{
+    title, kind, summary, "slug": slug.current,
+    "year": string::split(publishedAt, "-")[0]
+  },
+  "works": *[_type == "intervention"]{
+    kind, title, summary, location,
+    "year": string::split(date, "-")[0]
+  }
+}`).then(function (r) {
+  if (!r) return;
+  var fromCms = [];
+
+  (r.publications || []).forEach(function (p) {
+    fromCms.push({
+      section: 'Publications', kind: p.kind, year: p.year, title: p.title,
+      href: PUB_PAGES[p.slug] || 'publications.html', text: p.summary || ''
+    });
+  });
+  (r.works || []).forEach(function (w) {
+    fromCms.push({
+      section: 'Creative Works', kind: w.kind, year: w.year, title: w.title,
+      href: 'creative-works.html', text: [w.summary, w.location].filter(Boolean).join(' ')
+    });
+  });
+
+  if (!fromCms.length) return;
+  index = STATIC.filter(function (e) {
+    return e.section === 'Programs' || e.section === 'Pages';
+  }).concat(fromCms);
+  render();
+});
+</script>
+</body>
+</html>
