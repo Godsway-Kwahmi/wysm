@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# https://wysm.vercel.app is the origin the site is served from today.
+# If a custom domain is pointed at the deployment, change this line and the
+# canonical/og:url values in the pages.
+Sitemap: https://wysm.vercel.app/sitemap.xml

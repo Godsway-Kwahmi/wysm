@@ -6,6 +6,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Publications — When You See Me</title>
 <meta name="description" content="Papers, reports and writing produced by the When You See Me project.">
+<link rel="canonical" href="https://wysm.vercel.app/publications">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#4F3737">
+
+<!-- Links to this page render with the wordmark on a card. The image is
+     the hero itself, flattened onto the page's field colour. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="When You See Me">
+<meta property="og:title" content="Publications — When You See Me">
+<meta property="og:description" content="Papers, reports and writing produced by the When You See Me project.">
+<meta property="og:url" content="https://wysm.vercel.app/publications">
+<meta property="og:image" content="https://wysm.vercel.app/assets/img/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The words When You See Me, set in display type filled with photographs of women performing the community theatre production.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Publications — When You See Me">
+<meta name="twitter:description" content="Papers, reports and writing produced by the When You See Me project.">
+<meta name="twitter:image" content="https://wysm.vercel.app/assets/img/og-cover.jpg">
+<meta name="twitter:image:alt" content="The words When You See Me, set in display type filled with photographs of women performing the community theatre production.">
+
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -60,7 +83,7 @@
     <div class="rows">
       <div class="row">
         <a class="tile" href="publication-when-you-see-me.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/img/Publications/When-You-See-Me.jpg" alt="" loading="lazy">
+          <img src="assets/img/Publications/When-You-See-Me.jpg" width="1748" height="2480" alt="" loading="lazy">
         </a>
         <div>
           <h3 class="t"><a href="publication-when-you-see-me.html">When You See Me</a></h3>
@@ -70,7 +93,7 @@
       </div>
       <div class="row">
         <a class="tile" href="publication-nightbloom.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/img/Publications/nightbloom.webp" alt="" loading="lazy">
+          <img src="assets/img/Publications/nightbloom.webp" width="678" height="1024" alt="" loading="lazy">
         </a>
         <div>
           <h3 class="t"><a href="publication-nightbloom.html">Nightbloom</a></h3>
@@ -80,7 +103,7 @@
       </div>
       <div class="row">
         <a class="tile" href="publication-introduction-women-gender-change-in-africa.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/img/Publications/Introduction-Women-gender-and-change.jpg" alt="" loading="lazy">
+          <img src="assets/img/Publications/Introduction-Women-gender-and-change.jpg" width="1842" height="2764" alt="" loading="lazy">
         </a>
         <div>
           <h3 class="t"><a href="publication-introduction-women-gender-change-in-africa.html">Introduction: Women, Gender and Change in Africa</a></h3>
@@ -90,7 +113,7 @@
       </div>
       <div class="row">
         <a class="tile" href="publication-women-and-violence-in-africa.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/img/Publications/Women-and-Violence-in-Africa.jpg" alt="" loading="lazy">
+          <img src="assets/img/Publications/Women-and-Violence-in-Africa.jpg" width="2479" height="3508" alt="" loading="lazy">
         </a>
         <div>
           <h3 class="t"><a href="publication-women-and-violence-in-africa.html">Women and Violence in Africa</a></h3>
@@ -100,7 +123,7 @@
       </div>
       <div class="row">
         <a class="tile" href="publication-rape-reporting-cote-divoire.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/img/Publications/Rape-reporting-in-post-conflict-CI.jpg" alt="" loading="lazy">
+          <img src="assets/img/Publications/Rape-reporting-in-post-conflict-CI.jpg" width="1842" height="2764" alt="" loading="lazy">
         </a>
         <div>
           <h3 class="t"><a href="publication-rape-reporting-cote-divoire.html">Rape Reporting in Post-Conflict C&ocirc;te d&rsquo;Ivoire: Accessing Justice and Ending Impunity</a></h3>
@@ -219,6 +242,11 @@ function row(url, title, meta, when, image) {
     img.src = image.url;
     img.alt = '';
     img.loading = 'lazy';
+    /* The tile is only given a width, so the cover's own ratio has to be
+       known before the file arrives or the row jumps as it loads. Sanity
+       writes the original size into every asset URL (-1748x2480.jpg). */
+    var dims = /-(\d+)x(\d+)\.(?:jpe?g|png|webp|gif|avif|tiff)(?:[?#]|$)/i.exec(image.url);
+    if (dims) { img.width = +dims[1]; img.height = +dims[2]; }
     tile.appendChild(img);
   }
 

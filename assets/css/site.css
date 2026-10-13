@@ -297,6 +297,16 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 /* a tile drawn at its own comp size rather than the thumbnail default */
 .tile.box{ width: calc(var(--w) * var(--px)); height: calc(var(--h) * var(--px)) }
 
+/* Publications list: the artwork is the whole cover, so it is shown entire
+   and scaled to the tile's width instead of cropped to the thumbnail's
+   154x139 box. The width is unchanged at every breakpoint — the tile keeps
+   the comp's 154 / 132 / 84 tracks — and only the height follows the
+   artwork. Each image declares its own ratio (width/height in the markup,
+   read off the asset URL for the CMS rows), so the rows are laid out once
+   and fitStage has the list's true height before the covers arrive. */
+#pub-list .tile{ height: auto }
+#pub-list .tile img{ width: 100%; height: auto; object-fit: contain }
+
 /* ---------- search results ---------- */
 .status{ color: var(--dim) }
 .status strong{ font-weight: 400; color: var(--ink) }
