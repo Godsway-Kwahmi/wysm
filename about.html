@@ -29,19 +29,31 @@
 <meta name="twitter:image" content="https://wysm.vercel.app/assets/img/og-cover.jpg">
 <meta name="twitter:image:alt" content="The words When You See Me, set in display type filled with photographs of women performing the community theatre production.">
 
+<!-- The three faces the page cannot render without: display, text, and the
+     Bodoni Moda accent that sets the wordmark and every eyebrow. All three are
+     preloaded, because all three are above the fold and a didone arriving late
+     moves the wordmark’s metrics rather than just its colour. -->
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/literata-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bodoni-moda-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="stage" id="main" style="--stage:3550">
+<div class="stage" id="main" style="--stage:3095">
 
   <!-- ==========================================================
        DECORATIVE BLOCKS FRAMING THE HERO
        ========================================================== -->
   <div class="a box deco" style="--x:1780;--y:177;--w:140;--h:363"></div>
-  <div class="a box deco" style="--x:0;--y:358;--w:279;--h:359"></div>
+  <!-- 295, not the 279 this was drawn at: the rail's right edge is the line the
+       cream card over the wordmark ends on, so the header and the block under
+       it read as one column. The wordmark's own box is 289 and sits 6 inside
+       that line, exactly as it does at the top. -->
+  <div class="a box deco" style="--x:0;--y:358;--w:295;--h:359"></div>
 
   <!-- ==========================================================
        HEADER
@@ -58,7 +70,7 @@
       <a href="publications.html">Publications</a>
       <a href="creative-works.html">Creative Works</a>
       <a href="programs.html">Programs</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="nav-cta">Contact</a>
     </nav>
   </header>
 
@@ -74,16 +86,28 @@
        ========================================================== -->
   <section class="sec">
     <div class="a box rule" style="--x:140;--y:850;--w:1640;--h:2"></div>
-    <h1 class="a t label content" style="--x:140;--y:900;--fs:27;--lh:27">About</h1>
+    <h1 class="a t display content" style="--x:140;--y:900;--fs:62;--lh:60">About</h1>
     
-    <div class="a t tw body content" style="--x:140;--y:960;--w:1200;--fs:21;--lh:32">
-      <p>When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they recognize the severity of gender-based violence and see survivors, particularly girls and women, who are disproportionately affected. This initiative is community-centred and informed by <a href="https://doi.org/10.1093/afraf/adx008" class="inline-link" target="_blank" rel="noopener">research</a> that demonstrates the pivotal role that ordinary people can play in addressing gender-based violence. It produces original research, artistic works, policy papers, and educational pamphlets. It also convenes policy workshops with relevant institutions in the state and civil society and provides training to stakeholders.</p>
-      
-      <p>When You See Me is led by <a href="https://www.peacemedie.com/" class="inline-link" target="_blank" rel="noopener">Peace A. Medie</a>. She is Professor of Politics and International Relations at the University of Bristol. Her award-winning research has shown how women’s movements can shape how the state responds to <a href="https://global.oup.com/academic/product/global-norms-and-local-action-9780190922962?cc=gb&lang=en" class="inline-link" target="_blank" rel="noopener">violence against women</a> and how <a href="assets/pdf/publications/Rape-reporting-in-post-conflict-CI.pdf" class="inline-link" target="_blank" rel="noopener">relatives and friends</a> can influence survivors’ help-seeking behaviours.</p>
-      
-      <p>This project has been funded by an Arts and Humanities Research Council grant since 2024. Peace A. Medie serves as principal investigator on the grant and Nana Akua Anyidoho and Ekua Ekumah of University of Ghana serve as co-investigators.</p>
-      
-      <p>Earlier research on this theme was funded by a 2014 grant from the Harry Frank Guggenheim Foundation.</p>
+    <!-- Two columns, one measure. The mission paragraph holds the left and the
+         people-and-money paragraphs go to the right, flush to the 1780 gutter
+         every rule and panel on the page ends at. Both carry the site's own
+         62ch measure, which is 680px here, so the split costs no re-typesetting.
+         .about-cols is display:contents above 1650 — the two blocks sit on the
+         page exactly as they did as one — and a real block below it, where the
+         pair stacks and the wrapper puts back the paragraph gap the four
+         paragraphs used to share inside a single block. -->
+    <div class="about-cols">
+      <div class="a t tw body content" style="--x:140;--y:1006;--w:680;--fs:21;--lh:32">
+        <p>When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they recognize the severity of gender-based violence and see survivors, particularly girls and women, who are disproportionately affected. This initiative is community-centred and informed by <a href="https://doi.org/10.1093/afraf/adx008" class="inline-link" target="_blank" rel="noopener">research</a> that demonstrates the pivotal role that ordinary people can play in addressing gender-based violence. It produces original research, artistic works, policy papers, and educational pamphlets. It also convenes policy workshops with relevant institutions in the state and civil society and provides training to stakeholders.</p>
+      </div>
+
+      <div class="a t tw body content" style="--x:1100;--y:1006;--w:680;--fs:21;--lh:32">
+        <p>When You See Me is led by <a href="https://www.peacemedie.com/" class="inline-link" target="_blank" rel="noopener">Peace A. Medie</a>. She is Professor of Politics and International Relations at the University of Bristol. Her award-winning research has shown how women’s movements can shape how the state responds to <a href="https://global.oup.com/academic/product/global-norms-and-local-action-9780190922962?cc=gb&lang=en" class="inline-link" target="_blank" rel="noopener">violence against women</a> and how <a href="assets/pdf/publications/Rape-reporting-in-post-conflict-CI.pdf" class="inline-link" target="_blank" rel="noopener">relatives and friends</a> can influence survivors’ help-seeking behaviours.</p>
+
+        <p>This project has been funded by an Arts and Humanities Research Council grant since 2024. Peace A. Medie serves as principal investigator on the grant and Nana Akua Anyidoho and Ekua Ekumah of University of Ghana serve as co-investigators.</p>
+
+        <p>Earlier research on this theme was funded by a 2014 grant from the Harry Frank Guggenheim Foundation.</p>
+      </div>
     </div>
   </section>
 
@@ -91,11 +115,11 @@
        SECTION 2: OUR ACTIVITIES AND OUTPUTS
        ========================================================== -->
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:1650;--w:1640;--h:2"></div>
-    <div class="a box deco" style="--x:1780;--y:1690;--w:140;--h:240"></div>
-    <h2 class="a t tw sub content" style="--x:140;--y:1710;--w:700;--fs:36;--lh:36">Our activities and outputs</h2>
+    <div class="a box rule" style="--x:140;--y:1552;--w:1640;--h:2"></div>
+    <div class="a box deco" style="--x:1780;--y:1592;--w:140;--h:240"></div>
+    <h2 class="a t tw sub content" style="--x:140;--y:1612;--w:700;--fs:36;--lh:36">Our activities and outputs</h2>
 
-    <div class="a tw feature-grid" style="--x:140;--y:1790;--w:1640">
+    <div class="a tw feature-grid" style="--x:140;--y:1692;--w:1640">
       <a class="feature-card content" href="publications.html">
         <img src="assets/img/About/publications.jpg" loading="lazy" alt="Publications">
         <span class="cap t sub">Publications</span>
@@ -115,44 +139,30 @@
        SECTION 3: MEDIA COVERAGE
        ========================================================== -->
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:2400;--w:1640;--h:2"></div>
-    <h2 class="a t tw sub content" style="--x:140;--y:2460;--w:700;--fs:36;--lh:36">Media coverage</h2>
+    <div class="a box rule" style="--x:140;--y:2302;--w:1640;--h:2"></div>
+    <h2 class="a t tw sub content" style="--x:140;--y:2362;--w:700;--fs:36;--lh:36">Media coverage</h2>
     
-    <div class="a t tw body content" id="media-list" style="--x:140;--y:2540;--w:1000;--fs:21;--lh:32">
+    <div class="a t tw body content" id="media-list" style="--x:140;--y:2442;--w:1000;--fs:21;--lh:32">
        <p><a href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" class="inline-link" target="_blank" rel="noopener">Ghana News Agency</a></p>
        <p><a href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" class="inline-link" target="_blank" rel="noopener">Ghana Weekend</a></p>
     </div>
   </section>
 
   <!-- ==========================================================
-       SECTION 4: SUPPORTED BY
-       ========================================================== -->
-  <section class="sec">
-    <div class="a box rule" style="--x:140;--y:2750;--w:1640;--h:2"></div>
-    <p class="a t label content" style="--x:140;--y:2800;--fs:21;--lh:27">Supported by</p>
-    <div class="a content logo-row" id="supporters-list" style="--x:140;--y:2850;--w:1640;--fs:24;--lh:30">
-      <a class="inline-link" href="https://www.ukri.org/councils/ahrc/" target="_blank" rel="noopener">Arts and Humanities Research Council</a>
-      <a class="inline-link" href="https://www.bristol.ac.uk/" target="_blank" rel="noopener">University of Bristol</a>
-      <a class="inline-link" href="https://www.ug.edu.gh/" target="_blank" rel="noopener">University of Ghana</a>
-      <a class="inline-link" href="https://www.hfg.org/" target="_blank" rel="noopener">Harry Frank Guggenheim Foundation</a>
-    </div>
-  </section>
-
-  <!-- ==========================================================
        FOOTER
        ========================================================== -->
-  <footer class="sec sec--flush site-footer" style="--y:3050">
-    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:197"></div>
-    <div class="a box deco" style="--x:968;--y:0;--w:952;--h:350"></div>
-    <div class="a box deco deco--deep" style="--x:1571;--y:0;--w:209;--h:197"></div>
+  <footer class="sec sec--flush site-footer" style="--y:2678">
+    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:228"></div>
+    <div class="a box deco" style="--x:968;--y:0;--w:560;--h:228"></div>
+    <div class="a box deco deco--deep" style="--x:1528;--y:0;--w:252;--h:228"></div>
 
     <div class="footer-cols">
-      <a class="a t logo content" href="index.html" style="--x:0;--y:53.9;--w:399;--fs:44;--lh:36">
+      <a class="a t logo content" href="index.html" style="--x:0;--y:50;--w:399;--fs:44;--lh:36">
         When<br>You See<br>Me
       </a>
 
-      <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
-        <a href="about.html">About</a>
+      <nav class="a t stack content" style="--x:516;--y:41;--fs:24;--lh:34" aria-label="Footer">
+        <a href="about.html" aria-current="page">About</a>
         <a href="publications.html">Publications</a>
         <a href="creative-works.html">Creative Works</a>
         <a href="programs.html">Programs</a>
@@ -160,23 +170,66 @@
         <a href="search.html">Search</a>
       </nav>
 
-      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:41;--fs:24;--lh:34" aria-label="Social">
         <a href="#">LinkedIn</a>
         <a href="#">Instagram</a>
         <a href="#">Facebook</a>
-        <a href="#">Youtube</a>
+        <a href="#">YouTube</a>
       </nav>
 
-      <div class="a t stack content" style="--x:1211;--y:61.7;--fs:26;--lh:33">
+      <div class="a t stack content" style="--x:1211;--y:42;--fs:24;--lh:34">
         <a id="footer-email" href="mailto:info@whenyouseeme.com">info@whenyouseeme.com</a>
         <a id="footer-phone" href="tel:+2334579890">+233 457 9890</a>
       </div>
     </div>
 
-    <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
+    <!-- One band for the credits and the legal line. It used to be a 67px
+         strip under a panel that stopped 150px short of its own content. -->
+    <div class="a box deco" style="--x:0;--y:228;--w:1920;--h:189"></div>
+
+    <!-- ============================================================
+         FUNDING — the one acknowledgement on the site, in one place.
+
+         UKRI's "acknowledging your funding" guidance asks for the funder
+         named in full, with the grant number in square brackets, and says
+         nothing about logos. The plates below name every funder in full
+         and link out, so they carry it. The sentence that used to sit
+         under them said the same thing a second time and came off the
+         page on 2026-10-14.
+
+         What that gave up: with no sentence there is nowhere on the page
+         for a grant reference. When the real number exists, put it in the
+         AHRC plate rather than reinstating the line —
+
+           <span class="funder__name">Arts and Humanities Research
+           Council [grant reference XXX]</span>
+
+         — and the row re-flows on its own. The plates are equal columns,
+         so a fifth funder needs no markup maths either.
+
+         A mark is still optional: drop the file in assets/img/funders/
+         and put
+
+           <img class="funder__mark" src="assets/img/funders/ahrc-ukri.svg"
+                alt="UK Research and Innovation">
+
+         inside the matching <a class="funder">, above the name. sanity.js
+         reads a `logo` field the same way, so a studio upload needs no
+         markup at all.
+
+         These four anchors are the fallback. The live row is built by the
+         `supporters` list in the studio.
+         ============================================================ -->
+    <p class="a t label content" style="--x:140;--y:254;--fs:27;--lh:27">Funded and supported by</p>
+    <div class="a t content logo-row" id="supporters-list" style="--x:140;--y:286;--w:1640;--fs:24;--lh:34">
+      <a class="funder" href="https://www.ukri.org/councils/ahrc/" target="_blank" rel="noopener"><span class="funder__name">Arts and Humanities Research Council</span></a>
+      <a class="funder" href="https://www.bristol.ac.uk/" target="_blank" rel="noopener"><span class="funder__name">University of Bristol</span></a>
+      <a class="funder" href="https://www.ug.edu.gh/" target="_blank" rel="noopener"><span class="funder__name">University of Ghana</span></a>
+      <a class="funder" href="https://www.hfg.org/" target="_blank" rel="noopener"><span class="funder__name">Harry Frank Guggenheim Foundation</span></a>
+    </div>
+    <div class="a box rule" style="--x:140;--y:372;--w:1640;--h:2"></div>
     <div class="legal-bar">
-      <p class="a t legal content" id="legal-copyright" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
-      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b id="legal-funder">ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+      <p class="a t legal content" id="legal-copyright" style="--x:140;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
     </div>
   </footer>
 
@@ -187,9 +240,9 @@
 <script>
 /* About ------------------------------------------------------------------
    The long-form text stays written into the page: it carries inline links
-   that plain CMS text cannot hold. The press list and the "Supported by"
-   row are the parts that grow, so those come from the CMS (the supporters
-   from Site settings, handled in sanity.js).
+   that plain CMS text cannot hold. The press list is the part that grows,
+   so that comes from the CMS (the funding row in the footer comes from
+   Site settings, handled in sanity.js).
    ------------------------------------------------------------------ */
 SANITY.query(`*[_id == "aboutPage"][0]{ seo, mediaCoverage[]{ _key, outlet, url } }`)
   .then(function (p) {

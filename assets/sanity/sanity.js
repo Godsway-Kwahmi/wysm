@@ -141,7 +141,12 @@ window.SANITY = (function () {
     });
   }
 
-  /** The "Supported by" row: same links, laid out inline. */
+  /** The funding row. The page draws each funder as a plate — the name
+   *  now, a supplied mark later — so this rebuilds that structure instead
+   *  of a plain run of links. A supporter document that carries a `logo`
+   *  image puts the mark above the name inside the same plate; the ones
+   *  live now do not, so they render as names, which is what UKRI's rule
+   *  actually asks for. */
   function supporters(id, list) {
     if (!list || !list.length) return;
     var e = el(id);
@@ -151,11 +156,22 @@ window.SANITY = (function () {
       var url = safeUrl(item.url);
       if (!url || !item.name) return;
       var a = document.createElement('a');
-      a.className = 'inline-link';
+      a.className = 'funder';
       a.href = url;
-      a.textContent = item.name;
       a.target = '_blank';
       a.rel = 'noopener';
+      var mark = item.logo && (item.logo.url || (item.logo.asset && item.logo.asset.url));
+      if (mark) {
+        var img = document.createElement('img');
+        img.className = 'funder__mark';
+        img.src = mark;
+        img.alt = item.logo.alt || item.name;
+        a.appendChild(img);
+      }
+      var name = document.createElement('span');
+      name.className = 'funder__name';
+      name.textContent = item.name;
+      a.appendChild(name);
       e.appendChild(a);
     });
   }
@@ -226,9 +242,9 @@ window.SANITY = (function () {
      document ID, which is the cheapest way to read a singleton. */
   function settings() {
     return query('*[_id == "siteSettings"][0]{\n' +
-      '  contactEmail, contactPhone, copyrightHolder, funderName, funderAcronym,\n' +
+      '  contactEmail, contactPhone, copyrightHolder,\n' +
       '  socialLinks[]{ _key, platform, url },\n' +
-      '  supporters[]{ _key, name, url }\n' +
+      '  supporters[]{ _key, name, url, logo{ "url": asset->url, alt } }\n' +
       '}').then(function (s) {
       if (!s) return;
 
@@ -255,10 +271,12 @@ window.SANITY = (function () {
         text('legal-copyright',
           '\u00A9 ' + new Date().getFullYear() + ' ' + s.copyrightHolder + '. All rights reserved.');
       }
-      if (s.funderName) {
-        text('legal-funder',
-          (s.funderName + (s.funderAcronym ? ' (' + s.funderAcronym + ')' : '')).toUpperCase());
-      }
+      /* No funderName here any more. The footer's acknowledgement sentence
+         was retired on 2026-10-14 — the `supporters` plates above name the
+         funders in full — so `funderName` and `funderAcronym` are projected
+         by nothing and read by nothing. They stay in the schema in case the
+         sentence comes back with a grant reference; until then this is the
+         only place that would have written to #legal-funder. */
     });
   }
 

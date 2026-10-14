@@ -105,22 +105,25 @@
   window.addEventListener('load', sizeHeader);
 
   /* --- contact form ---------------------------------------------
-     Wire these to your endpoint of choice; the mailto keeps the page
-     working until there is one.
+     There is no endpoint yet, so submitting hands the message to the
+     visitor's own email app — which is what the page tells them. The name
+     and address they type go inside the body rather than as a Reply-To:
+     a mailto cannot carry one, and the account their app sends from is
+     the address a reply will actually reach.
      ------------------------------------------------------------- */
-  var message = document.getElementById('message'),
-      reset   = document.getElementById('btn-reset'),
-      send    = document.getElementById('btn-send');
+  var contactForm = document.getElementById('contact-form');
 
-  if (message && reset && send) {
-    reset.addEventListener('click', function () {
-      message.value = '';
-      message.focus();
-    });
-    send.addEventListener('click', function () {
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var val  = function (id) { return ((document.getElementById(id) || {}).value || '').trim(); };
       var mail = (document.getElementById('footer-email') || {}).textContent || 'info@whenyouseeme.com';
+      var body = val('message') + '\n\n—\n' +
+                 'From: ' + (val('name') || '—') + '\n' +
+                 'Reply to: ' + (val('email') || '—');
       window.location.href = 'mailto:' + mail.trim() +
-        '?subject=Website%20enquiry&body=' + encodeURIComponent(message.value);
+        '?subject=' + encodeURIComponent('Website enquiry') +
+        '&body=' + encodeURIComponent(body);
     });
   }
 

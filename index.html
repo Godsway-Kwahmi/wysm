@@ -29,13 +29,21 @@
 <meta name="twitter:image" content="https://wysm.vercel.app/assets/img/og-cover.jpg">
 <meta name="twitter:image:alt" content="The words When You See Me, set in display type filled with photographs of women performing the community theatre production.">
 
+<!-- The three faces the page cannot render without: display, text, and the
+     Bodoni Moda accent that sets the wordmark and every eyebrow. All three are
+     preloaded, because all three are above the fold and a didone arriving late
+     moves the wordmark’s metrics rather than just its colour. -->
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/literata-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bodoni-moda-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="stage" id="main" style="--stage:7400">
+<div class="stage" id="main" style="--stage:7381">
 
   <!-- The homepage has no set heading of its own — the wordmark is the hero
        image — so the page title is here for the document outline and for
@@ -46,7 +54,11 @@
        DECORATIVE BLOCKS FRAMING THE HERO
        ========================================================== -->
   <div class="a box deco" style="--x:1780;--y:177;--w:140;--h:363"></div>
-  <div class="a box deco" style="--x:0;--y:358;--w:279;--h:359"></div>
+  <!-- 295, not the 279 this was drawn at: the rail's right edge is the line the
+       cream card over the wordmark ends on, so the header and the block under
+       it read as one column. The wordmark's own box is 289 and sits 6 inside
+       that line, exactly as it does at the top. -->
+  <div class="a box deco" style="--x:0;--y:358;--w:295;--h:359"></div>
 
   <!-- ==========================================================
        HEADER
@@ -63,7 +75,7 @@
       <a href="publications.html">Publications</a>
       <a href="creative-works.html">Creative Works</a>
       <a href="programs.html">Programs</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="nav-cta">Contact</a>
     </nav>
   </header>
 
@@ -81,7 +93,7 @@
   <section class="sec">
     <div class="a box rule" style="--x:140;--y:850;--w:1640;--h:2"></div>
     <p class="a t label content" style="--x:140;--y:900;--fs:27;--lh:27">Welcome</p>
-    <p class="a t tw lede content" id="welcome-message" style="--x:140;--y:952;--w:900;--fs:36;--lh:46">When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they prioritise and see victims of violence.</p>
+    <p class="a t tw lede content" id="welcome-message" style="--x:140;--y:952;--w:900;--fs:36;--lh:46">When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they prioritise and see survivors of violence.</p>
   </section>
 
   <!-- ==========================================================
@@ -90,7 +102,7 @@
   <section class="sec">
     <div class="a box rule" style="--x:140;--y:1260;--w:1640;--h:2"></div>
     <div class="a box deco" style="--x:1780;--y:1300;--w:140;--h:240"></div>
-    <h2 class="a t tw sub content" style="--x:140;--y:1320;--w:700;--fs:36;--lh:36">Featured</h2>
+    <h2 class="a t tw display content" style="--x:140;--y:1320;--w:700;--fs:62;--lh:60">Featured</h2>
 
     <div class="a tw feature-grid" style="--x:140;--y:1420;--w:1640">
       <a class="feature-card content" href="publications.html">
@@ -115,8 +127,8 @@
     <span class="a anchor" id="publications" style="--x:0;--y:1900"></span>
     <div class="a box deco" style="--x:140;--y:1900;--w:761;--h:436"></div>
 
-    <h2 class="a t display content" style="--x:184;--y:2006.6;--fs:62;--lh:60">Publications</h2>
-    <p class="a t sub content" style="--x:186;--y:2080.4;--fs:36;--lh:36">When You See Me</p>
+    <h2 class="a t display content" style="--x:183;--y:1933.6;--fs:62;--lh:60">Publications</h2>
+    <p class="a t sub content" style="--x:184;--y:2007.4;--fs:36;--lh:36">When You See Me</p>
 
     <img class="a box photo" src="assets/img/Publications/When-You-See-Me.jpg" loading="lazy"
          style="--x:681;--y:2086;--w:1099;--h:671"
@@ -168,8 +180,8 @@
     <span class="a anchor" id="programs" style="--x:0;--y:4300"></span>
     <div class="a box deco" style="--x:1019;--y:4300;--w:761;--h:436"></div>
 
-    <h2 class="a t display content" style="--x:1063;--y:4406.6;--fs:62;--lh:60">Programs</h2>
-    <p class="a t sub content" style="--x:1065;--y:4480.4;--fs:36;--lh:36">Training Workshops</p>
+    <h2 class="a t display content" style="--x:1062;--y:4333.6;--fs:62;--lh:60">Programs</h2>
+    <p class="a t sub content" style="--x:1063;--y:4407.4;--fs:36;--lh:36">Training Workshops</p>
 
     <img class="a box photo" src="assets/img/convening.webp" loading="lazy"
          style="--x:140;--y:4486;--w:1099;--h:671"
@@ -192,68 +204,77 @@
   <section class="sec">
     <span class="a anchor" id="contact" style="--x:0;--y:5500"></span>
     <div class="a box rule" style="--x:140;--y:5500;--w:1640;--h:2"></div>
-    <div class="a box deco" style="--x:440;--y:5550;--w:1131;--h:606"></div>
+    <div class="a box deco" style="--x:440;--y:5550;--w:1131;--h:780"></div>
 
     <h2 class="a t display content" style="--x:140;--y:5550;--fs:62;--lh:60">Contact</h2>
 
-    <label class="a t label content" id="form-prompt" for="message" style="--x:516;--y:5695;--fs:27;--lh:27">Send feedback/inquiry</label>
-    <textarea class="a box field" id="message" name="message" placeholder="Type here"
-              style="--x:517;--y:5749;--w:671;--h:330"></textarea>
+    <form id="contact-form">
+      <p class="a t label content" id="form-prompt" style="--x:517;--y:5595;--fs:27;--lh:27">Send feedback/inquiry</p>
 
-    <div class="a t stack actions content" style="--x:1212;--y:6026.6;--fs:21;--lh:26">
-      <button type="button" id="btn-reset">start over</button>
-      <button type="button" id="btn-send">send</button>
-    </div>
+      <!-- The two notices the contact page carries, in the same order: what
+           this channel is not, before anyone starts typing, and what happens
+           to what they type. The project works on gender-based violence, and a
+           form that looks like a helpline will be read as one by the person who
+           most needs it not to be. No numbers are quoted because none are
+           verified. The handler in site.js reads #name and #email as well as
+           #message, so the two extra fields are what put a real address in the
+           Reply-to line of the draft instead of a dash. -->
+      <p class="a t tw body notice notice--alert content" style="--x:517;--y:5630;--w:977;--fs:21;--lh:27">This form is not a reporting or crisis line. The team reads messages on ordinary working days, not in real time. If you need help now, contact your local emergency services or a domestic violence helpline.</p>
+
+      <label class="a t label content" for="name" style="--x:517;--y:5740;--fs:27;--lh:27">Your name (optional)</label>
+      <input class="a box field field--line" id="name" name="name" type="text" autocomplete="name"
+             placeholder="Akorfa Mensah" style="--x:517;--y:5763;--w:477;--h:84">
+
+      <label class="a t label content" for="email" style="--x:1017;--y:5740;--fs:27;--lh:27">Email (optional)</label>
+      <input class="a box field field--line" id="email" name="email" type="email" autocomplete="email"
+             placeholder="you@example.com" style="--x:1017;--y:5763;--w:477;--h:84">
+
+      <label class="a t label content" for="message" style="--x:517;--y:5876;--fs:27;--lh:27">Your message</label>
+      <textarea class="a box field" id="message" name="message" required placeholder="Tell us what you would like to know."
+                style="--x:517;--y:5899;--w:977;--h:250"></textarea>
+
+      <div class="a t stack actions content" style="--x:517;--y:6173;--fs:24;--lh:34">
+        <button type="submit" id="btn-send" class="btn btn--primary">Send message</button>
+      </div>
+
+      <p class="a t tw body notice content" id="form-privacy" style="--x:517;--y:6245;--w:977;--fs:21;--lh:27;color:var(--dim)">Sending opens a new message in your own email app: nothing you type is stored on this website. We use what you send to reply, and to follow up on the project where it is relevant.</p>
+    </form>
   </section>
 
   <!-- ==========================================================
        NEWSLETTER — mailing list signup
        ========================================================== -->
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:6300;--w:1640;--h:2"></div>
-    <div class="a box deco" style="--x:0;--y:6340;--w:185;--h:200"></div>
-    <h2 class="a t tw sub content" style="--x:140;--y:6350;--w:900;--fs:36;--lh:44">Be the first to know about new creative works and upcoming events</h2>
+    <div class="a box rule" style="--x:140;--y:6474;--w:1640;--h:2"></div>
+    <div class="a box deco" style="--x:0;--y:6514;--w:185;--h:284"></div>
+    <h2 class="a t tw display content" style="--x:140;--y:6524;--w:900;--fs:62;--lh:60">Be the first to know about new creative works and upcoming events</h2>
 
     <form id="newsletter-form">
       <label class="visually-hidden" for="newsletter-email">Email address</label>
       <input class="a box field field--line" id="newsletter-email" name="email" type="email"
              required autocomplete="email" placeholder="Enter your email address"
-             style="--x:140;--y:6450;--w:640;--h:84">
-      <div class="a t stack actions content" style="--x:820;--y:6458;--fs:21;--lh:26">
-        <button type="submit" id="btn-subscribe">subscribe</button>
+             style="--x:140;--y:6714;--w:640;--h:84">
+      <div class="a t stack actions content" style="--x:820;--y:6714;--fs:24;--lh:34">
+        <button type="submit" id="btn-subscribe" class="btn btn--primary btn--row">subscribe</button>
       </div>
     </form>
-    <p class="a t body content" id="newsletter-status" style="--x:140;--y:6570;--fs:16;--lh:22" role="status" aria-live="polite"></p>
-  </section>
-
-  <!-- ==========================================================
-       SUPPORTED BY — funding and partner institutions
-       ========================================================== -->
-  <section class="sec">
-    <div class="a box rule" style="--x:140;--y:6700;--w:1640;--h:2"></div>
-    <p class="a t label content" style="--x:140;--y:6750;--fs:21;--lh:27">Supported by</p>
-    <div class="a content logo-row" id="supporters-list" style="--x:140;--y:6800;--w:1640;--fs:24;--lh:30">
-      <a class="inline-link" href="https://www.ukri.org/councils/ahrc/" target="_blank" rel="noopener">Arts and Humanities Research Council</a>
-      <a class="inline-link" href="https://www.bristol.ac.uk/" target="_blank" rel="noopener">University of Bristol</a>
-      <a class="inline-link" href="https://www.ug.edu.gh/" target="_blank" rel="noopener">University of Ghana</a>
-      <a class="inline-link" href="https://www.hfg.org/" target="_blank" rel="noopener">Harry Frank Guggenheim Foundation</a>
-    </div>
+    <p class="a t body content" id="newsletter-status" style="--x:140;--y:6824;--fs:21;--lh:27" role="status" aria-live="polite"></p>
   </section>
 
   <!-- ==========================================================
        FOOTER
        ========================================================== -->
-  <footer class="sec sec--flush site-footer" style="--y:7000">
-    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:197"></div>
-    <div class="a box deco" style="--x:968;--y:0;--w:952;--h:350"></div>
-    <div class="a box deco deco--deep" style="--x:1571;--y:0;--w:209;--h:197"></div>
+  <footer class="sec sec--flush site-footer" style="--y:6964">
+    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:228"></div>
+    <div class="a box deco" style="--x:968;--y:0;--w:560;--h:228"></div>
+    <div class="a box deco deco--deep" style="--x:1528;--y:0;--w:252;--h:228"></div>
 
     <div class="footer-cols">
-      <a class="a t logo content" href="index.html" style="--x:0;--y:53.9;--w:399;--fs:44;--lh:36">
+      <a class="a t logo content" href="index.html" style="--x:0;--y:50;--w:399;--fs:44;--lh:36">
         When<br>You See<br>Me
       </a>
 
-      <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
+      <nav class="a t stack content" style="--x:516;--y:41;--fs:24;--lh:34" aria-label="Footer">
         <a href="about.html">About</a>
         <a href="publications.html">Publications</a>
         <a href="creative-works.html">Creative Works</a>
@@ -262,23 +283,66 @@
         <a href="search.html">Search</a>
       </nav>
 
-      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:41;--fs:24;--lh:34" aria-label="Social">
         <a href="#">LinkedIn</a>
         <a href="#">Instagram</a>
         <a href="#">Facebook</a>
-        <a href="#">Youtube</a>
+        <a href="#">YouTube</a>
       </nav>
 
-      <div class="a t stack content" style="--x:1211;--y:61.7;--fs:26;--lh:33">
+      <div class="a t stack content" style="--x:1211;--y:42;--fs:24;--lh:34">
         <a id="footer-email" href="mailto:info@whenyouseeme.com">info@whenyouseeme.com</a>
         <a id="footer-phone" href="tel:+2334579890">+233 457 9890</a>
       </div>
     </div>
 
-    <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
+    <!-- One band for the credits and the legal line. It used to be a 67px
+         strip under a panel that stopped 150px short of its own content. -->
+    <div class="a box deco" style="--x:0;--y:228;--w:1920;--h:189"></div>
+
+    <!-- ============================================================
+         FUNDING — the one acknowledgement on the site, in one place.
+
+         UKRI's "acknowledging your funding" guidance asks for the funder
+         named in full, with the grant number in square brackets, and says
+         nothing about logos. The plates below name every funder in full
+         and link out, so they carry it. The sentence that used to sit
+         under them said the same thing a second time and came off the
+         page on 2026-10-14.
+
+         What that gave up: with no sentence there is nowhere on the page
+         for a grant reference. When the real number exists, put it in the
+         AHRC plate rather than reinstating the line —
+
+           <span class="funder__name">Arts and Humanities Research
+           Council [grant reference XXX]</span>
+
+         — and the row re-flows on its own. The plates are equal columns,
+         so a fifth funder needs no markup maths either.
+
+         A mark is still optional: drop the file in assets/img/funders/
+         and put
+
+           <img class="funder__mark" src="assets/img/funders/ahrc-ukri.svg"
+                alt="UK Research and Innovation">
+
+         inside the matching <a class="funder">, above the name. sanity.js
+         reads a `logo` field the same way, so a studio upload needs no
+         markup at all.
+
+         These four anchors are the fallback. The live row is built by the
+         `supporters` list in the studio.
+         ============================================================ -->
+    <p class="a t label content" style="--x:140;--y:254;--fs:27;--lh:27">Funded and supported by</p>
+    <div class="a t content logo-row" id="supporters-list" style="--x:140;--y:286;--w:1640;--fs:24;--lh:34">
+      <a class="funder" href="https://www.ukri.org/councils/ahrc/" target="_blank" rel="noopener"><span class="funder__name">Arts and Humanities Research Council</span></a>
+      <a class="funder" href="https://www.bristol.ac.uk/" target="_blank" rel="noopener"><span class="funder__name">University of Bristol</span></a>
+      <a class="funder" href="https://www.ug.edu.gh/" target="_blank" rel="noopener"><span class="funder__name">University of Ghana</span></a>
+      <a class="funder" href="https://www.hfg.org/" target="_blank" rel="noopener"><span class="funder__name">Harry Frank Guggenheim Foundation</span></a>
+    </div>
+    <div class="a box rule" style="--x:140;--y:372;--w:1640;--h:2"></div>
     <div class="legal-bar">
-      <p class="a t legal content" id="legal-copyright" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
-      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b id="legal-funder">ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+      <p class="a t legal content" id="legal-copyright" style="--x:140;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
     </div>
   </footer>
 

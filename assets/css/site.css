@@ -8,38 +8,117 @@
    viewport --px resolves to 1px, so pages are a 1:1 reproduction;
    at any other width they scale proportionally.
 
-   Proportional scaling is only legible while the type stays big
-   enough to read, and the comp's smallest running text (21 design
-   px x --ts) reaches 12px at --px .857. That is a 1650px viewport,
-   so 1650 is where the comp stops and the reflow begins. Media
+   Proportional scaling stops being kind when the columns get too
+   narrow to hold a measure. The comp's drawn text column is 505
+   design px; at --px .857 that is 433px, which is a little over
+   70 characters of the body rung — the point where a line stops
+   being a measure. That is a 1650px viewport, so 1650 is where the
+   comp stops and the reflow begins. The type itself still clears
+   the floor there (the body rung is 16.3px at --px .857), so the
+   breakpoint is about the columns, not about legibility. Media
    queries cannot read a custom property, so the number is written
-   out at each of the four places it is used: the scrollbar block,
-   the stage clip, fitStage in site.js, and the reflow block below.
+   out at each of the three places it is used: the stage clip,
+   fitStage in site.js, and the reflow block below.
    ============================================================ */
 
 :root{
   --px: calc(100vw / 1920);
+  /* One height for every single-line control — the field and the button
+     beside it. They are one object on the page, so they take one number,
+     restated once per tier below rather than per element. */
+  --ctl-h: calc(84 * var(--px));
 
+  /* ---- COLOUR ------------------------------------------------
+     The field is the brown of the comp texture. Everything else
+     is lifted from the project's own artwork, so the accents
+     belong to the site rather than sitting on it.
+
+       cream     the lettering cream of the cover (measured off
+                 the artwork at #F7F2E6; this is the same white
+                 pulled down a touch so it holds at 14px)
+       marigold  the kente and the hero's yellow cloth — the
+                 "you can act here" colour
+       stage     the red of the theatre backdrop in convening.webp
+                 (measured #890706, brightened to read as a state)
+
+     Contrast on the field, measured:
+       cream on #4F3737    9.6:1   body and headings
+       marigold on #4F3737 5.9:1   links, buttons, focus
+       cream on stage      5.2:1   pressed chips
+       stage on #4F3737    1.9:1   NOT text — line and fill only
+     ------------------------------------------------------------- */
   --bg:    #4F3737;   /* page field (flat average of the comp texture) */
-  --block: #3A2222;   /* flat accent + content blocks   */
-  --deep:  #281010;   /* deepest block, footer only     */
+  --block: #2A1818;   /* flat accent + content blocks   */
+  --deep:  #1A0D0D;   /* deepest block, footer only — a step below the
+                         panels now that the panels came down to #2A1818,
+                         so the footer still reads as a different ground */
   --field: #543A3B;   /* textarea fill                  */
-  --ink:   #F2E5E4;   /* primary text                   */
-  --dim:   #D8C6C6;   /* legal strip                    */
+  --ink:   #F7F1DC;   /* primary text — the cover's cream */
+  --dim:   #D8C6C6;   /* secondary text, legal strip    */
 
-  --hair:  rgba(242,229,228,.13);   /* rules, row dividers      */
-  --hair-2:rgba(242,229,228,.26);   /* the same rule, emphasised */
+  --cream:    #F7F1DC;
+  --marigold: #F2B632;
+  --gold-hi:  #FFCD53;   /* the brightest marigold actually in the photos,
+                            held back to this for hover, where it should
+                            read as lit rather than as a different colour */
+  --stage:    #C1272D;
+
+  --hair:  rgba(247,241,220,.13);   /* rules, row dividers      */
+  --hair-2:rgba(247,241,220,.26);   /* the same rule, emphasised */
+  /* A control's outline has to clear 3:1 against BOTH the panel behind it
+     and the field's own fill, which are only 1.65:1 apart. At 55% cream the
+     border measures 5.4:1 on the panel and 3.3:1 on the fill — the faintest
+     value that satisfies both. */
+  --edge:  rgba(247,241,220,.55);   /* control boundaries       */
+
+  /* ---- FAMILIES ----------------------------------------------
+     Three voices, one job each:
+
+       display  Bricolage Grotesque — the structure. Titles, decks,
+                nav, buttons, list heads. Its uneven widths and tall
+                x-height carry the poster voice the cover sets by hand.
+       text     Literata — the reading. Body, lede, running copy.
+                Sturdy at 19px on a dark field, where a lighter serif
+                starts to shimmer.
+       accent   Bodoni Moda — the accent, and only the accent: the
+                wordmark and the eyebrows. A didone, which is the other
+                thing the cover's lettering is closer to than a body
+                serif is: stroke that goes from hairline to stem inside
+                one letter, so the word reads as a mark rather than as
+                text. Optical sizing stays on, which is what keeps the
+                hairlines on screen when the eyebrow is 14px.
+
+     Each stack names a real fallback, so a blocked font request
+     degrades to the system's own grotesque or serif rather than
+     to nothing. */
+  --display-face: "Bricolage Grotesque", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --text-face: "Literata", Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --accent-face: "Bodoni Moda", "Bodoni MT", Didot, "Playfair Display", Georgia, serif;
 
   --sans: "Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;
 
   /* ---- TYPE SCALE ------------------------------------------
-     --ts is the single knob: all comp type sizes are multiplied
-     by it. 0.6667 = two thirds of the drawn size.
-     Leading is NOT scaled by the same factor. Type set smaller
-     needs proportionally more leading to hold a line, so each
-     role carries a --lead correction applied on top of --ts.
+     Three knobs, and every size on the site comes from them.
+
+     --ts   the one global reduction. The comp is drawn with a
+            21px body; --ts carries that to the reading size.
+     --tsr  a role's step on top of --ts (see the role table
+            below). Defaults to 1, so anything not in the table
+            — list rows, tiles, one-off captions — keeps the
+            size the comp drew for it.
+     --lead leading correction. Type set small needs
+            proportionally more air to hold a line, so leading
+            is not scaled by the same factor as the size.
+
+     A role's rendered size is therefore
+            comp --fs  x  --px  x  --ts  x  --tsr
+     which at a 1920 viewport is the px figure in the table.
+     The reflow tiers below repeat the same roles in viewport
+     px, and they aim at the same numbers so the scale is one
+     system read at three sizes, not three systems.
      --------------------------------------------------------- */
-  --ts: .6667;
+  --ts: .86;
+  --tsr: 1;
   --lead: 1;
 }
 
@@ -55,7 +134,7 @@ body{
   margin:0;
   background-color: var(--bg);
   color: var(--ink);
-  font-family: var(--sans);
+  font-family: var(--text-face);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -63,9 +142,12 @@ body{
 
 img{ display:block; max-width:100%; }
 a{ color: inherit; text-decoration: none }
-a:hover{ color:#fff }
+/* Marigold is the affordance colour: anything that is a link or a
+   control answers to it, and a hover lights it to the brighter gold
+   measured off the cloth in the photographs. */
+a:hover{ color: var(--marigold) }
 a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visible{
-  outline: 2px solid #fff;
+  outline: 2px solid var(--marigold);
   outline-offset: 3px;
 }
 
@@ -74,19 +156,41 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
    Squared off like every block in the comp, sunk into the
    deepest maroon, with the thumb drawn in the same translucent
    ink used for the hairline rules. No rounding anywhere.
+
+   The bar is the platform's standard width now, and it takes
+   that width in one of two ways depending on the engine:
+
+     • Chrome, Edge and Firefox read `scrollbar-color` below and
+       paint their own standard bar with these colours. Naming a
+       colour there makes Chrome ignore ::-webkit-scrollbar
+       sizing entirely — measured: 15px here with the colour set,
+       17px with it removed, 30px if the rule asks for 30.
+     • Safari before 26 has no scrollbar-color, so it falls to the
+       ::-webkit rules, where 17px is the Windows standard.
+
+   Both paths land on a standard-width bar, which is the point.
+   Before this, `scrollbar-width: thin` on the root pinned the
+   page to a 10px sliver in every engine, and the narrow tiers
+   asked for 8px on top of that. A scrollbar is the browser's
+   furniture rather than part of the drawing, so it no longer
+   scales with --px either, and one width serves every tier.
+
+   The :hover and :active thumb states only reach engines on the
+   ::-webkit path. That is the honest trade for keeping the
+   palette in the two engines that paint their own bar.
    ============================================================ */
 :root{
   --bar-track: var(--deep);
-  --bar-thumb: rgba(242,229,228,.28);
-  --bar-thumb-hover: rgba(242,229,228,.55);
-  scrollbar-width: thin;                              /* Firefox */
-  scrollbar-color: rgba(242,229,228,.28) #281010;
+  --bar-thumb: rgba(247,241,220,.28);
+  --bar-thumb-hover: rgba(247,241,220,.55);
+  scrollbar-width: auto;                              /* Firefox: the OS bar */
+  scrollbar-color: rgba(247,241,220,.28) var(--deep);
 }
-::-webkit-scrollbar{ width: calc(14 * var(--px)); height: calc(14 * var(--px)) }
+::-webkit-scrollbar{ width: 17px; height: 17px }
 ::-webkit-scrollbar-track{ background: var(--bar-track) }
 ::-webkit-scrollbar-thumb{
   background: var(--bar-thumb);
-  border: calc(4 * var(--px)) solid var(--bar-track);  /* sets the thumb into the trough */
+  border: 3px solid var(--bar-track);                 /* sets the thumb into the trough */
   border-radius: 0;
   transition: background-color .25s ease;
 }
@@ -95,14 +199,9 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 ::-webkit-scrollbar-corner{ background: var(--bar-track) }
 
 /* the textarea sits on a lighter fill, so its trough follows it */
-.field{ scrollbar-color: rgba(242,229,228,.28) #3A2222 }
+.field{ scrollbar-color: rgba(247,241,220,.28) var(--block) }
 .field::-webkit-scrollbar-track{ background: var(--block) }
 .field::-webkit-scrollbar-thumb{ border-color: var(--block) }
-
-@media (max-width: 1650px){
-  ::-webkit-scrollbar{ width: 8px; height: 8px }
-  ::-webkit-scrollbar-thumb{ border-width: 2px }
-}
 
 /* ---------- positioning primitives ---------- */
 
@@ -129,10 +228,14 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
   height: calc(var(--h) * var(--px));
 }
 .tw{ width: calc(var(--w) * var(--px)) }   /* measure-constrained text */
+/* The funding row carries a --w too, and it means the same thing here: the
+   plates are meant to run to the end of the rule under them, not to the
+   last letter of the longest name. */
+.logo-row{ width: calc(var(--w) * var(--px)) }
 
 .t{                                    /* type sized in design px */
-  font-size:   calc(var(--fs) * var(--px) * var(--ts));
-  line-height: calc(var(--lh) * var(--px) * var(--ts) * var(--lead));
+  font-size:   calc(var(--fs) * var(--px) * var(--ts) * var(--tsr));
+  line-height: calc(var(--lh) * var(--px) * var(--ts) * var(--tsr) * var(--lead));
 }
 
 .sec{ position: static }               /* sections don't create a containing block */
@@ -150,63 +253,171 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 
 /* ---------- layers ---------- */
 .deco{ background: var(--block); z-index: 1 }
-.deco--white{ background:#fff }
+.deco--white{ background: var(--cream) }   /* the card the wordmark sits on */
+/* The bar across the top right of the comp is the one piece of furniture
+   on every page, so it carries the accent: marigold says there is colour
+   here without any single element having to shout. */
+.deco--bar{ background: var(--marigold) }
 .deco--deep{ background: var(--deep) }
 .photo{ z-index: 2; object-fit: cover }
 .panel{ background: var(--block); z-index: 3 }   /* blocks that sit over photos */
 .content{ z-index: 4 }
 
 /* ---------- type roles ----------
-   Tracking is set per role. Helvetica needs pulling in at display
-   sizes and opening up once it drops under ~15 design px.        */
+   One ladder, six rungs, and each rung names its family. At a 1920
+   viewport these render as:
+
+     eyebrow  14  Bodoni Moda, tracked caps    .label
+     chrome   16  Bricolage — nav, footer links, list meta, supporters
+     body     19  Literata — running text
+     deck     22  Bricolage — the line under a title, list titles
+     lede     31  Literata — the opening statement
+     title    53  Bricolage 800 — h1 / h2, .display
+
+   Tracking is set per rung and per family: Bricolage needs pulling in
+   at display sizes, Literata needs none at all, and caps need opening
+   up. Helvetica wanted -.018em at 41px; the grotesque is already
+   tighter, so the titles take it gently.                        */
 .logo{
-  font-weight: 300; text-align: right; --lead: 1.06; letter-spacing: -.02em;
+  /* 500. Rastered against the marker face it replaced at the wordmark's own
+     size, Bodoni 400 put down 22% less ink and 500 lands 13% under it — the
+     marker was a heavy face and matching it would mean 600, which costs the
+     didone its contrast. Synthesis stays off: the family has real weights and
+     a faked bold smears the hairlines this face exists for.
+     --lead 1.08 -> 1.14 because the ink stands 30px where the marker's stood
+     24, which closed the air between the wordmark's three lines from 9.4px
+     to 3.4px at the old leading. */
+  font-family: var(--accent-face); font-weight: 500; font-synthesis-weight: none;
+  text-align: right; --lead: 1.14; letter-spacing: -.005em;
   width: calc(var(--w) * var(--px));   /* right edge sits under the white bar */
 }
-.nav{ font-weight: 400; --lead: 1.05; letter-spacing: .01em }
-.display{ font-weight: 700; --lead: 1.05; letter-spacing: -.018em }
-.sub{ font-weight: 400; --lead: 1.10; letter-spacing: -.008em }
-/* Measure caps. Dropping the type to two thirds inside columns
-   drawn for the larger size would push running text past 100
-   characters a line, so the text holds its own measure and lets
-   the drawn column become the gutter. ch is set from the font's
-   own "0", so these stay true at any viewport. */
-.body{ font-weight: 400; --lead: 1.13; letter-spacing: .005em; max-width: 62ch }
-.label{ font-weight: 400; --lead: 1.10; letter-spacing: .01em }
+.nav{ font-family: var(--display-face); font-weight: 500; --tsr: .88; --lead: 1.05; letter-spacing: .005em }
+.display{ font-family: var(--display-face); font-weight: 800; --lead: 1.05; letter-spacing: -.014em }
+.sub{ font-family: var(--display-face); font-weight: 500; --tsr: .70; --lead: 1.14; letter-spacing: 0 }
+/* Measure caps. The columns are drawn around the type, so the text
+   holds its own measure and lets the drawn column become the gutter.
+   ch is set from the font's own "0", so these stay true at any
+   viewport — the measure follows the type when the type moves. */
+.body{ font-family: var(--text-face); font-weight: 400; --tsr: 1.05; --lead: 1.20; letter-spacing: 0; max-width: 62ch }
+/* An eyebrow is not a heading: it names the block under it. This is the
+   one place the accent face meets the ladder, and it is set as caps so the
+   didone reads as a label rather than as a heading that lost its sentence.
+   400 and no heavier: at 14px the face already lays down 7% more ink than the
+   marker did, with caps 11px against 10, so the rung keeps its place in the
+   ladder without turning into a second title. */
+.label{
+  font-family: var(--accent-face); font-weight: 400; font-synthesis-weight: none;
+  --tsr: .60; --lead: 1.10;
+  text-transform: uppercase; letter-spacing: .10em;
+}
 .legal{
+  font-family: var(--display-face);
   font-weight: 400; color: var(--dim); --lead: 1.25; letter-spacing: .05em;
-  /* 13 design px x 2/3 lands at 8.7 — under the legibility floor,
-     so the legal strip stops at 10 and takes tracking instead. */
-  font-size: max(10px, calc(var(--fs) * var(--px) * var(--ts)));
+  /* 13 design px x --ts is 11.2 at the comp's own width and 10 at the
+     edge of the reflow — under what tracked caps need to read, so the
+     legal strip stops at 13 and only grows above the comp's width. */
+  font-size: max(13px, calc(var(--fs) * var(--px) * var(--ts) * 1.05));
 }
 .legal b{ font-weight: 700; letter-spacing: .06em }
 
 .body p{ margin: 0 }
-.body p + p{ margin-top: calc(27 * var(--px)) }
+/* Paragraph air follows the type, not the comp: at 19px on 29px
+   leading the drawn 21px gap no longer separates two paragraphs. */
+.body p + p{ margin-top: 1.4em }
 
-.lede{ font-weight: 400; --lead: 1.12; letter-spacing: -.004em; max-width: 52ch }
+.lede{ font-family: var(--text-face); font-weight: 450; --lead: 1.12; letter-spacing: -.004em; max-width: 52ch }
+
+/* The comp sizes these inline but never gave them a rung: a citation,
+   a byline or a date (.meta), a link set as its own line
+   (.inline-link outside a paragraph), the scope filters. All chrome —
+   16 — so each takes --tsr .88 over a normalised 21 px comp size.
+   Where .inline-link sits inside running text it has no .t of its own
+   and simply takes the body's size, which is right. */
+.meta,
+.scopes,
+.inline-link{ --tsr: .88; --lead: 1.14; color: var(--marigold) }
+.inline-link:hover, .inline-link:focus-visible{ color: var(--gold-hi) }
+/* the search status line is a sentence the visitor reads, not a label
+   over a block, so it takes the body rung */
+.status{ --tsr: 1.05; --lead: 1.20 }
+/* the filter row is a container of buttons with no type of its own, so
+   it carries the comp pair the rest of the rung gets inline in the markup */
+.scopes{ font-family: var(--display-face); --fs: 21; --lh: 27 }
 
 /* ---------- header nav ----------
    The nav is a line of type, so its word spaces come down with the
    type: the gap between items, and the word space inside any
    multi-word label, both carry --ts, which keeps the row as evenly
-   spaced as it is drawn. Smaller type makes a shorter row, so the
-   nav hangs from the comp's right margin (1920 - 1780) instead of
-   its left edge, staying flush with the bar above it. */
+   spaced as it is drawn. Smaller type makes a shorter row, so it is
+   right-aligned inside the bar's own measure rather than starting from
+   its left edge. */
 .navbar{
   display: flex;
+  /* the last item is a button now: baseline alignment keeps its type on
+     the same line as the rest instead of hanging it off the top */
+  align-items: baseline;
   justify-content: flex-end;
   gap: calc(18 * var(--px) * var(--ts));
   white-space: nowrap;
-  left: auto;
-  right: calc(140 * var(--px));
+  /* The row takes the marigold bar's own box (960 -> 1780) rather than
+     hanging from right:140. --px comes from 100vw, which includes the
+     scrollbar, while `right` measures the header's content box, which does
+     not — so a right-anchored row sat 10px inside the bar on every page
+     that scrolls. Anchored left and sized in --px, the two share an edge at
+     any viewport. */
+  left: calc(960 * var(--px));
+  width: calc(820 * var(--px));
+  right: auto;
 }
 .navbar .pair{ word-spacing: calc(12.5 * var(--px) * var(--ts)) }
-.navbar a[aria-current="page"]{ color:#fff }
-.navbar a[aria-current="page"]::after{ transform: scaleX(1) }
 
-/* ---------- link stacks ---------- */
-.stack{ display: flex; flex-direction: column; --lead: 1.12; letter-spacing: .01em }
+/* ---- the active page ----
+   Colour alone was too quiet a signal at nav size, and it is the one
+   signal a colour-blind visitor does not get. The current page now
+   carries three: the affordance colour, a step up in weight, and the
+   rule held open underneath it. */
+.navbar a[aria-current="page"]{ color: var(--marigold); font-weight: 700 }
+.navbar a[aria-current="page"]::after{ transform: scaleX(1) }
+/* The footer repeats the same list, so it marks the same place — without
+   the rule underneath, because a column of links does not need one and the
+   underline there would read as a hover that never left. */
+.stack a[aria-current="page"]{ color: var(--marigold); font-weight: 700 }
+
+/* ---- Contact as a button ----
+   The one nav item that is an ask rather than a section, so it takes the
+   ghost treatment everywhere and fills to the primary when you are
+   already on it — which is also how its active state reads. */
+.navbar .nav-cta{
+  display: inline-block;
+  padding: calc(9 * var(--px)) calc(20 * var(--px));
+  border: 1px solid var(--hair-2);
+  color: var(--marigold);
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+.navbar .nav-cta::after{ display: none }        /* the border is its rule */
+.navbar .nav-cta:hover,
+.navbar .nav-cta:focus-visible{ border-color: var(--marigold); color: var(--gold-hi) }
+.navbar .nav-cta[aria-current="page"]{
+  background: var(--marigold); border-color: var(--marigold); color: var(--deep);
+}
+.navbar .nav-cta[aria-current="page"]:hover,
+.navbar .nav-cta[aria-current="page"]:focus-visible{ background: var(--gold-hi); color: var(--deep) }
+/* The bar condenses from 200 to 120 on scroll, and a button has body the
+   plain links do not: at the drawn 63.1 it cleared the condensed bar by
+   only 18px and read as bottom-heavy. The row rides up with the height,
+   on the header's own curve, and lands centred in the slim bar. */
+.navbar{ transition: top .42s cubic-bezier(.4,0,.2,1) }
+body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
+
+/* ---------- link stacks ----------
+   Footer columns and the form's buttons. One rung (16), whatever
+   the comp drew the line height as. These are navigational, so they
+   take the display face with the nav. */
+.stack{
+  display: flex; flex-direction: column;
+  font-family: var(--display-face); font-weight: 500;
+  --tsr: .78; --lead: 1.12; letter-spacing: .005em;
+}
 
 /* ---------- thumbnails ---------- */
 .thumbs{ display: flex; z-index: 4 }
@@ -214,14 +425,16 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
   display: block;
   width:  calc(154 * var(--px));
   height: calc(139 * var(--px));
-  background: #fff;
+  background: var(--cream);
   cursor: pointer;
 }
 .thumbs--dark span, .thumbs--dark a{ background: var(--block) }
 .thumbs span:hover, .thumbs a:hover{ opacity: .85 }
 
-/* wrappers exist only for the mobile reflow */
-.welcome-grid, .footer-cols, .legal-bar{ display: contents }
+/* wrappers exist only for the mobile reflow: at the comp's width they generate
+   no box, so their children stay placed against the stage exactly as if the
+   wrapper were not there */
+.welcome-grid, .about-cols, .footer-cols, .legal-bar{ display: contents }
 
 /* ---------- rules ---------- */
 .rule{
@@ -230,21 +443,28 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
   z-index: 4;
 }
 
-/* ---------- form controls ---------- */
+/* ---------- form controls ----------
+   The field takes the body rung (21 x --ts x 1.05): what you type is
+   the same size as what you read. The border is the whole reason the
+   control reads as a control: the fill alone sits 1.65:1 from the panel
+   it stands on, which is not an edge anybody can see. */
 .field{
   background: var(--field);
-  border: 0;
+  border: 1px solid var(--edge);
   color: var(--ink);
   font-family: inherit;
-  font-size: calc(27 * var(--px) * var(--ts));
-  line-height: calc(34 * var(--px) * var(--ts) * 1.1);
+  font-size: calc(21 * var(--px) * var(--ts) * 1.05);
+  line-height: calc(27 * var(--px) * var(--ts) * 1.05 * 1.20);
   letter-spacing: .005em;
   padding: calc(22 * var(--px)) calc(16 * var(--px));
   resize: none;
   z-index: 4;
 }
+/* The placeholder is an example of what to write, never the label: it
+   vanishes on the first keystroke, so it cannot be the thing a person
+   re-reads to work out what a field was for. Quieter than the input. */
 .field::placeholder{ color: var(--ink); opacity: .62 }
-.field--line{ height: calc(84 * var(--px)); padding-top:0; padding-bottom:0 }
+.field--line{ height: var(--ctl-h); padding-top:0; padding-bottom:0 }
 /* the page supplies its own clear control, so the browser's search
    decorations (which come in the UA's blue) are turned off */
 .field[type="search"]{ -webkit-appearance: none; appearance: none }
@@ -254,10 +474,52 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 .field[type="search"]::-webkit-search-results-decoration{
   -webkit-appearance: none; appearance: none; display: none;
 }
-.actions button{
-  background: none; border: 0; padding: 0;
-  font: inherit; color: inherit; text-align: left; cursor: pointer;
+
+/* ---------- form notices ----------
+   Two lines a visitor has to read before they type, not after: what the
+   channel is not, and what happens to what they send. They take the body
+   rung and drop the 62ch measure so a callout does not hang a ragged
+   column inside a block that is drawn twice as wide. */
+.notice{ max-width: none }
+.notice--alert{
+  border-left: calc(2 * var(--px)) solid var(--marigold);
+  padding-left: calc(20 * var(--px));
 }
+/* The UA reset for these stays to font and alignment only. Anything
+   visual — background, border, padding — must NOT live here: this
+   selector (.actions button) outranks .btn on specificity, and last
+   time it did the primary button lost its fill and showed up as dark
+   text on a dark field. */
+.actions button{
+  font: inherit; text-align: left; cursor: pointer;
+}
+/* The site's only real controls. A plain verb in body type gave nothing
+   away, so the primary action takes a marigold block — 9.8:1 against its
+   own text, 5.9:1 against the field — and the secondary stays a ghost:
+   marigold type and a hairline until you touch it. */
+.actions{ gap: calc(14 * var(--px)) }
+.btn{
+  /* 44px is the floor the review asks for and it holds at every width:
+     --px shrinks below 1 on the comp's own slope, so the height takes the
+     larger of the drawn size and the floor rather than scaling away. */
+  display: inline-flex; align-items: center;
+  min-height: max(44px, calc(52 * var(--px)));
+  background: none; border: 1px solid transparent;
+  padding: calc(13 * var(--px)) calc(26 * var(--px));
+  font-family: var(--display-face); font-weight: 600; letter-spacing: .01em;
+  transition: background-color .25s ease, color .25s ease,
+              border-color .25s ease, transform .25s cubic-bezier(.22,.61,.36,1);
+}
+.btn--primary{ background: var(--marigold); color: var(--deep) }
+.btn--primary:hover,
+.btn--primary:focus-visible{ background: var(--gold-hi); color: var(--deep); transform: translateX(calc(4 * var(--px))) }
+.btn--ghost{ background: transparent; border-color: var(--hair-2); color: var(--marigold) }
+.btn--ghost:hover,
+.btn--ghost:focus-visible{ border-color: var(--stage); color: var(--gold-hi); transform: none }
+/* A button that stands beside a single-line field takes the field's height,
+   so the pair reads as one control rather than a tall box and a short
+   caption next to it. */
+.btn--row{ min-height: var(--ctl-h) }
 
 /* ============================================================
    LIST PRIMITIVES
@@ -276,14 +538,16 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 }
 .row:last-child{ border-bottom: 1px solid var(--hair) }
 .row--plain{ grid-template-columns: 1fr auto }
-.row h3{ margin: 0; font-weight: 400; --fs: 30; --lh: 34; --lead: 1.08; letter-spacing: -.006em }
+/* A row title takes the deck rung, its meta the chrome rung, so a list
+   reads at the same two steps as a section does. */
+.row h3{ margin: 0; font-family: var(--display-face); font-weight: 600; --fs: 30; --lh: 34; --tsr: .85; --lead: 1.10; letter-spacing: -.008em }
 .row .meta,
-.row .when{ --fs: 21; --lh: 27 }
+.row .when{ --fs: 21; --lh: 27; --tsr: .88 }
 .row .meta{ display: block; margin-top: calc(10 * var(--px)); color: var(--dim) }
 .row .body{ --fs: 21; --lh: 27; margin-top: calc(12 * var(--px)) }
 .row .when{ text-align: right; color: var(--dim); white-space: nowrap }
 .row a:hover .tile{ opacity: .85 }
-.row a:hover h3{ color:#fff }
+.row a:hover h3{ color: var(--marigold) }
 
 .tile{
   display:block;
@@ -292,7 +556,7 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
   background: var(--block);
   transition: opacity .3s ease;
 }
-.tile--light{ background:#fff }
+.tile--light{ background: var(--cream) }
 .tile img{ width:100%; height:100%; object-fit: cover }
 /* a tile drawn at its own comp size rather than the thumbnail default */
 .tile.box{ width: calc(var(--w) * var(--px)); height: calc(var(--h) * var(--px)) }
@@ -324,7 +588,7 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
   transition: background-color .25s ease, border-color .25s ease, color .25s ease;
 }
 .scopes button:hover{ border-color: var(--ink) }
-.scopes button[aria-pressed="true"]{ background: var(--block); border-color: var(--block); color:#fff }
+.scopes button[aria-pressed="true"]{ background: var(--stage); border-color: var(--stage); color: var(--cream) }
 
 /* ============================================================
    PHOTO GALLERIES
@@ -340,8 +604,7 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
   width: calc(1640 * var(--px));
   gap: calc(29 * var(--px));
   padding-bottom: calc(20 * var(--px));
-  scrollbar-width: thin;
-  scrollbar-color: var(--bar-thumb) var(--block);
+  scrollbar-color: var(--bar-thumb) var(--block);   /* the page's bar, on the strip's own fill */
   z-index: 4;
 }
 .scroll-gallery img{
@@ -403,7 +666,7 @@ body.gallery-open{ overflow: hidden }
 .lightbox-next { top: 50%; transform: translateY(-50%); right: 16px }
 .lightbox-close:hover,
 .lightbox-prev:hover,
-.lightbox-next:hover{ color: var(--dim) }
+.lightbox-next:hover{ color: var(--marigold) }
 
 /* ============================================================
    HOME — FEATURED STRIP, NEWSLETTER, SUPPORTERS
@@ -422,8 +685,11 @@ body.gallery-open{ overflow: hidden }
 }
 .feature-card:hover img,
 .feature-card:focus-visible img{ transform: scale(1.035); filter: brightness(1.08) }
+/* the caption is a deck: it names the card the way a sub-head names a
+   section, so it takes that rung (--sub 22) rather than a size of its own */
 .feature-card .cap{
   display:inline-block; position:relative; margin-top:calc(22 * var(--px));
+  --fs: 36; --lh: 44;
 }
 .feature-card .cap::after{
   content:""; position:absolute; left:0; right:0; bottom:calc(-6 * var(--px));
@@ -440,11 +706,42 @@ body.gallery-open{ overflow: hidden }
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-/* supporter credit line — text-set rather than image logos, so it
-   reads correctly no matter what mark each institution supplies */
-.logo-row{ display:flex; flex-wrap:wrap; align-items:baseline; gap: calc(16 * var(--px)) calc(56 * var(--px)) }
+/* ---------- funders -------------------------------------------
+   The credit line is text-set by choice, not for want of artwork.
+   UKRI's "acknowledging your funding" rule is a statement in words
+   naming the council, with the grant reference; the logo is offered
+   on their brand page, and their guidance forbids recreating or
+   recolouring it. So each funder is a plate that carries the name
+   now and takes a mark later — drop the supplied file in
+   assets/img/funders/ and put
+
+     <img class="funder__mark" src="assets/img/funders/ahrc-ukri.svg"
+          alt="UK Research and Innovation">
+
+   inside the matching <a class="funder">, above the name. Nothing
+   else changes: the plate is the same box either way. Every
+   dimension is in em, so the reflow tiers — which restate
+   .logo-row's font size — scale the plate with its type instead of
+   leaving a fixed box around small text. */
+.logo-row{ display:flex; flex-wrap:wrap; align-items:stretch; font-family: var(--display-face); font-weight:500; --tsr:.78; --lead:1.12; gap: calc(16 * var(--px)) calc(32 * var(--px)) }
 .logo-row a{ opacity:.82; transition: opacity .25s ease }
 .logo-row a:hover, .logo-row a:focus-visible{ opacity:1 }
+.funder{
+  /* equal plates across the full measure, the way a funder wall reads: the
+     row then ends where the rule under it ends instead of running half
+     empty. flex-basis 0 keeps the four names the same width whatever the
+     label is; min-width is what forces the wrap into two rows on a phone. */
+  flex: 1 1 0;
+  display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
+  gap:.45em; min-height:3.7em; min-width:8.5em;
+  padding:.75em 1.05em;
+  border:1px solid var(--hair); border-radius:0;
+  text-align:left; line-height:1.2;
+  transition: border-color .25s ease, opacity .25s ease;
+}
+.funder__mark{ display:block; height:1.9em; width:auto; max-width:100%; object-fit:contain; object-position:left }
+.funder__name{ display:block }
+.funder:hover, .funder:focus-visible{ border-color:var(--hair-2); opacity:1 }
 
 /* ============================================================
    MICRO-ANIMATION
@@ -480,9 +777,9 @@ body.gallery-open{ overflow: hidden }
   pointer-events: none;
   transform: translate(calc(985 * var(--px)), calc(470 * var(--px))) translate(-50%,-50%);
   background: radial-gradient(circle closest-side,
-              rgba(255,243,226,.34) 0%,
-              rgba(255,243,226,.10) 55%,
-              rgba(255,243,226,0)   100%);
+              rgba(242,182,50,.30) 0%,
+              rgba(242,182,50,.10) 55%,
+              rgba(242,182,50,0)   100%);
 }
 
 /* scroll reveals — classes are applied by script, so a no-JS page shows everything */
@@ -511,7 +808,10 @@ body.gallery-open{ overflow: hidden }
   position: absolute;
   left: 0; right: 0;
   bottom: calc(-5 * var(--px));
-  height: calc(1 * var(--px));
+  /* 1 design px at 1920 is a hairline that disappears against the type;
+     this rule is the active-page marker as much as a hover flourish, so it
+     has to survive at every width */
+  height: calc(2 * var(--px));
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
@@ -530,11 +830,17 @@ body.gallery-open{ overflow: hidden }
 .thumbs span:hover, .thumbs a:hover{ transform: translateY(calc(-6 * var(--px))); filter: brightness(1.12) }
 .thumbs--dark span:hover, .thumbs--dark a:hover{ filter: brightness(1.45) }
 
-.field{ transition: background-color .3s ease, box-shadow .3s ease }
-.field:focus{ background: #5C4243; box-shadow: inset 0 0 0 1px rgba(242,229,228,.18); outline: none }
+.field{ transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease }
+/* A field that has a resting edge now has to change it, not just gain a
+   ring: marigold border (8.5:1 on the panel, 5.6:1 on the fill) plus a soft
+   halo, so focus reads as a state and not as a second outline. */
+.field:focus{
+  background: #5C4243; outline: none;
+  border-color: var(--marigold);
+  box-shadow: 0 0 0 3px rgba(242,182,50,.30);
+}
 
-.actions button{ transition: transform .25s cubic-bezier(.22,.61,.36,1), color .25s ease }
-.actions button:hover{ transform: translateX(calc(5 * var(--px))); color: #fff }
+/* the verbs are buttons now (.btn above) and carry their own states */
 
 .photo{ transition: filter .4s ease }
 
@@ -559,14 +865,14 @@ body.is-scrolled .site-header{ pointer-events: auto }
   content:"";
   position: absolute; inset: 0;
   background: var(--bg);
-  box-shadow: 0 1px 0 rgba(242,229,228,0);
+  box-shadow: 0 1px 0 rgba(247,241,220,0);
   opacity: 0;
   transition: opacity .35s ease, box-shadow .35s ease;
 }
 body.is-scrolled .site-header{ height: calc(120 * var(--px)) }
 body.is-scrolled .site-header::before{
   opacity: 1;
-  box-shadow: 0 1px 0 rgba(242,229,228,.10);
+  box-shadow: 0 1px 0 rgba(247,241,220,.10);
 }
 
 /* the wordmark shrinks toward its own right edge so the nav stays put */
@@ -589,7 +895,7 @@ body.is-scrolled .site-header .logo{
 /* skip link */
 .skip{
   position:absolute; left:calc(8 * var(--px)); top:calc(-200 * var(--px));
-  z-index:60; background:var(--deep); color:var(--ink);
+  z-index:60; background:var(--marigold); color:var(--deep); font-family:var(--display-face);
   padding:calc(10 * var(--px)) calc(16 * var(--px));
   font-size:calc(21 * var(--px) * var(--ts));
 }
@@ -637,7 +943,7 @@ body.is-scrolled .site-header .logo{
    enlarged phone page across a 1440px screen.
    ============================================================ */
 @media (max-width: 1650px){
-  :root{ --px: 1px }
+  :root{ --px: 1px; --ctl-h: 54px }
 
   .stage{ height: auto; min-height: 0; padding-bottom: 0 }
   /* The comp's flat blocks are compositional: they sit behind text at
@@ -658,7 +964,7 @@ body.is-scrolled .site-header .logo{
     padding: 26px 24px;
   }
   .a{ position: static }
-  .box, .tw{ width: auto; height: auto }
+  .box, .tw, .logo-row{ width: auto; height: auto }
 
   .sec{
     display: block;
@@ -676,7 +982,7 @@ body.is-scrolled .site-header .logo{
   .site-header::before{ display: none }
   body.is-scrolled .site-header{
     height: auto;
-    box-shadow: 0 1px 0 rgba(242,229,228,.10);
+    box-shadow: 0 1px 0 rgba(247,241,220,.10);
   }
   body.is-scrolled .site-header .logo{
     display: none;
@@ -690,27 +996,46 @@ body.is-scrolled .site-header .logo{
   header.sec{ padding: 22px 24px 30px }
   footer.sec{ padding-bottom: 0 }
 
-  .t{ font-size: 14px; line-height: 1.5 }
+  /* The ladder again, in viewport px. .t's base is the BODY rung, not a
+     size of its own: a role this block has not named should read as
+     running text rather than fall through to a default.
+     Note the order: .t here sits later in the source than the base role
+     rules, so at equal specificity it wins over them. Any role that
+     sizes itself — .legal, .field — has to be restated in this block,
+     not left to the base rule. */
+  .t{ font-size: 17px; line-height: 1.55 }
   /* the wordmark is an <a> on every page but the home one: left inline it
      ignores its padding and rides out of the sticky bar, so it is blockified
-     and the header's own padding takes over the inset */
-  .logo{ width: auto; display: block; font-size: 20px; line-height: 21px; text-align: left; padding: 0 }
-  .navbar{ left: auto; right: auto }
+     and the header's own padding takes over the inset. Leading follows the
+     comp's --lead 1.14, so the three lines keep the same air at every tier */
+  .logo{ width: auto; display: block; font-size: 21px; line-height: 24px; text-align: left; padding: 0 }
+  .navbar{ left: auto; right: auto; width: auto }
   .navbar{
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 6px 16px;
-    padding: 16px 24px 0;
-    font-size: 14px;
+    /* no horizontal padding: the header already insets the bar by 24px, and
+       adding the gutter again put the links 24px inside every other column
+       on the page. Only the vertical air belongs to the row. */
+    padding: 16px 0 0;
+    font-size: 15px;
     line-height: 1.6;
   }
   .navbar .pair{ word-spacing: normal }
-  .display{ font-size: 24px; line-height: 1.12; margin-bottom: 6px }
-  .sub{ font-size: 16px; line-height: 1.32; margin-bottom: 20px }
-  .lede{ font-size: 16px; line-height: 1.45 }
-  .body{ font-size: 14px; line-height: 1.6 }
-  .body p + p{ margin-top: 14px }
-  .label{ display: block; font-size: 14px; margin: 24px 0 12px; text-align: left !important }
+  .display{ font-size: 31px; line-height: 1.12; margin-bottom: 10px }
+  .sub{ font-size: 19px; line-height: 1.32; margin-bottom: 18px }
+  .lede{ font-size: 22px; line-height: 1.42 }
+  .body{ font-size: 17px; line-height: 1.6 }
+  .body p + p{ margin-top: 1.4em }
+  .label{ display: block; font-size: 12.5px; margin: 24px 0 12px; text-align: left !important }
+
+  /* the roles the phone block used to forget, which then read at
+     whatever .t's base was: a row's title and its meta, the supporters
+     credit line, the search status line, an inline link */
+  .row h3{ font-size: 19px; line-height: 1.3 }
+  .row .meta, .row .when, .meta{ font-size: 14px; line-height: 1.5 }
+  .logo-row{ font-size: 15px; line-height: 1.5 }
+  .inline-link{ font-size: 17px }
 
   .hero{ width: 100%; height: auto; padding: 26px 16px 34px }
   /* the hero's 1.025 entrance scales the full-bleed image a few pixels past
@@ -738,6 +1063,13 @@ body.is-scrolled .site-header .logo{
   .welcome-grid{ display: block }
   .welcome-grid > * + *{ margin-top: 14px }
 
+  /* The About page's two columns become two stacked blocks, and the wrapper
+     restores the 1.4em paragraph air the four paragraphs used to share inside
+     one block — the same margin .body p + p gives, so the break reads as a
+     paragraph break and not as a section change. */
+  .about-cols{ display: block }
+  .about-cols > * + *{ margin-top: 1.4em }
+
   /* three to a row, wrapping, with the gaps taken out of the track so the
      row lands exactly on the column rather than a fraction over it */
   .thumbs{ flex-wrap: wrap; gap: 12px !important }
@@ -745,8 +1077,8 @@ body.is-scrolled .site-header .logo{
 
   /* inputs stay at 16px: anything smaller makes iOS zoom on focus */
   .field{ width: 100%; height: 190px; font-size: 16px; line-height: 1.45; padding: 14px }
-  .field--line{ height: 54px; padding: 0 14px }
-  .actions{ margin-top: 14px; font-size: 14px; line-height: 1.7 }
+  .field--line{ height: var(--ctl-h); padding: 0 14px }
+  .actions{ margin-top: 14px; font-size: 15px; line-height: 1.7 }
 
   .rows{ margin-top: 8px }
   /* in the reflow these lose their drawn offset, so they take their own */
@@ -771,11 +1103,11 @@ body.is-scrolled .site-header .logo{
   .lightbox-prev{ left: 0 } .lightbox-next{ right: 0 }
 
   .scopes{ gap: 8px }
-  .scopes button{ padding: 9px 14px; font-size: 14px }
+  .scopes button{ padding: 9px 14px; font-size: 15px }
 
   .footer-cols{ display: block; padding: 46px 0 0 }
   .footer-cols > * + *{ margin-top: 26px }
-  .stack{ font-size: 14px; line-height: 1.8 }
+  .stack{ font-size: 15px; line-height: 1.8 }
   /* the strip's band is the one thing that still runs edge to edge, so it
      steps back out of the section gutter and hands it to its own padding */
   .legal-bar{
@@ -784,15 +1116,20 @@ body.is-scrolled .site-header .logo{
     margin: 0 -24px;
     padding: 18px 24px;
   }
-  /* the strip's own type is on the .legal children, and .t's 14px floor
-     would otherwise set the copyright line at body size */
-  .legal{ font-size: 11px; line-height: 1.6; letter-spacing: .06em }
+  /* the strip's own type is on the .legal children, and .t's base above
+     would otherwise set the copyright line at body size — the 13px floor
+     is the rung, restated here rather than inherited from the base rule */
+  .legal{ font-size: 13px; line-height: 1.6; letter-spacing: .06em }
   .legal-bar .a{ text-align: left !important }
   .legal-bar .a + .a{ margin-top: 8px }
 
   .feature-grid{ flex-direction: column; gap: 28px }
   .feature-card img{ height: 220px }
-  .logo-row{ gap: 10px 28px }
+  /* Four funders, two columns: as a flex row the plates pack 3 + 1 on a
+     small landscape phone and the orphan stretches the whole width. The
+     grid decides the count, so min-width has nothing left to police. */
+  .logo-row{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 16px }
+  .funder{ min-width:0 }
 
   /* ---------- wide reflow, 901–1650px -------------------------
      The phone rules above stretch badly across a tablet in
@@ -811,7 +1148,7 @@ body.is-scrolled .site-header .logo{
      competing systems.
      ------------------------------------------------------------- */
   @media (min-width: 901px){
-    :root{ --gutter: max(40px, calc((100vw - 1160px) / 2)) }
+    :root{ --gutter: max(40px, calc((100vw - 1160px) / 2)); --ctl-h: 58px }
 
     .sec{ padding: 0 var(--gutter) 84px }
     footer.sec{ padding-bottom: 0 }
@@ -822,19 +1159,31 @@ body.is-scrolled .site-header .logo{
 
     /* the header returns to the comp's single line */
     .site-header{ display: flex; align-items: flex-start; gap: 30px }
-    .site-header .logo{ padding: 20px 0 0; font-size: 22px; line-height: 23px }
+    .site-header .logo{ padding: 20px 0 0; font-size: 24px; line-height: 27px }
     /* the Search link lives in the footer now, so the navbar takes the
        comp's right edge for itself */
-    .site-header .navbar{ margin-left: auto; padding: 27px 0 0; flex-wrap: nowrap; gap: 22px; font-size: 15px }
+    .site-header .navbar{ margin-left: auto; padding: 27px 0 0; flex-wrap: nowrap; gap: 22px; font-size: 16px }
 
-    /* type steps up with the column, but never past the comp's own
-       two-thirds reduction at 1920 */
-    .display{ font-size: clamp(30px, 2.7vw, 41px) }
-    .sub{ font-size: clamp(19px, 1.6vw, 24px) }
-    .lede{ font-size: clamp(17px, 1.4vw, 21px) }
-    .body{ font-size: 15px; line-height: 1.62 }
-    .label{ font-size: 15px; margin: 30px 0 14px }
-    .stack{ font-size: 15px }
+    /* The ladder steps up with the column. Titles, decks and ledes
+       track the comp's own slope, so at 1650 — where the comp hands
+       over — they land within a pixel of what it would have drawn
+       (46 / 19 / 27). Running text does not track it: a body that
+       scales down with the window is how the site ended up at 14px,
+       so the body holds a floor instead, and everything above it is
+       measured from there. */
+    .t{ font-size: 18.5px; line-height: 1.55 }
+    .display{ font-size: clamp(33px, 2.78vw, 46px) }
+    .sub{ font-size: clamp(18px, 1.13vw, 19px) }
+    .lede{ font-size: clamp(21px, 1.62vw, 27px) }
+    .body{ font-size: 18.5px; line-height: 1.6 }
+    .label{ font-size: 13px; margin: 30px 0 14px }
+    .stack{ font-size: 16px }
+    .row h3{ font-size: 21px }
+    .row .meta, .row .when, .meta{ font-size: 15.5px }
+    /* Four plates across a laptop measure; the two-column grid above is a
+       phone rule that lives in the shared block, so it comes back off here. */
+    .logo-row{ display:flex; gap: 16px 32px; font-size: 16px }
+    .legal{ font-size: 13px }
 
     .hero{ padding: 44px 0 52px }
     .photo{ margin-bottom: 30px }
@@ -855,8 +1204,12 @@ body.is-scrolled .site-header .logo{
     .feature-grid{ flex-direction: row; gap: 30px }
     .feature-card img{ height: 300px }
     .scroll-gallery img{ height: 232px }
-    .field{ height: 210px; padding: 16px }
-    .actions{ margin-top: 18px; font-size: 15px }
+    .field{ height: 210px; padding: 16px; font-size: 18.5px; line-height: 1.55 }
+    /* that height is the message box's. A single-line input given 210px of
+       box is a void you can see through, so the line variant restates it
+       here — same specificity, later in the block, so it wins. */
+    .field--line{ height: var(--ctl-h); padding: 0 16px }
+    .actions{ margin-top: 18px; font-size: 16px }
 
     .footer-cols{
       display: flex; flex-wrap: wrap; gap: 48px 72px;

@@ -29,6 +29,14 @@
 <meta name="twitter:image" content="https://wysm.vercel.app/assets/img/og-cover.jpg">
 <meta name="twitter:image:alt" content="The words When You See Me, set in display type filled with photographs of women performing the community theatre production.">
 
+<!-- The three faces the page cannot render without: display, text, and the
+     Bodoni Moda accent that sets the wordmark and every eyebrow. All three are
+     preloaded, because all three are above the fold and a didone arriving late
+     moves the wordmark’s metrics rather than just its colour. -->
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/literata-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bodoni-moda-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -53,7 +61,7 @@
       <a href="publications.html">Publications</a>
       <a href="creative-works.html">Creative Works</a>
       <a href="programs.html">Programs</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="nav-cta">Contact</a>
     </nav>
   </header>
 
@@ -81,8 +89,8 @@
            placeholder="Search publications, creative works and programs"
            style="--x:140;--y:720;--w:1300;--h:84">
 
-    <div class="a t stack actions content" style="--x:1492;--y:748;--fs:21;--lh:26">
-      <button type="button" id="btn-clear">clear</button>
+    <div class="a t stack actions content" style="--x:1492;--y:720;--fs:24;--lh:34">
+      <button type="button" id="btn-clear" class="btn btn--ghost btn--row">clear</button>
     </div>
 
     <div class="a t tw scopes" id="scopes" role="group" aria-label="Filter by section"
@@ -97,16 +105,16 @@
   </section>
 
   <footer class="sec sec--flush site-footer" style="--y:1300">
-    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:197"></div>
-    <div class="a box deco" style="--x:968;--y:0;--w:952;--h:350"></div>
-    <div class="a box deco deco--deep" style="--x:1571;--y:0;--w:209;--h:197"></div>
+    <div class="a box deco" style="--x:0;--y:0;--w:440;--h:228"></div>
+    <div class="a box deco" style="--x:968;--y:0;--w:560;--h:228"></div>
+    <div class="a box deco deco--deep" style="--x:1528;--y:0;--w:252;--h:228"></div>
 
     <div class="footer-cols">
-      <a class="a t logo content" href="index.html" style="--x:0;--y:53.9;--w:399;--fs:44;--lh:36">
+      <a class="a t logo content" href="index.html" style="--x:0;--y:50;--w:399;--fs:44;--lh:36">
         When<br>You See<br>Me
       </a>
 
-      <nav class="a t stack content" style="--x:516;--y:62.1;--fs:21;--lh:27" aria-label="Footer">
+      <nav class="a t stack content" style="--x:516;--y:41;--fs:24;--lh:34" aria-label="Footer">
         <a href="about.html">About</a>
         <a href="publications.html">Publications</a>
         <a href="creative-works.html">Creative Works</a>
@@ -115,23 +123,66 @@
         <a href="search.html" aria-current="page">Search</a>
       </nav>
 
-      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:62.2;--fs:26;--lh:32" aria-label="Social">
+      <nav class="a t stack content" id="footer-social" style="--x:1004;--y:41;--fs:24;--lh:34" aria-label="Social">
         <a href="#">LinkedIn</a>
         <a href="#">Instagram</a>
         <a href="#">Facebook</a>
-        <a href="#">Youtube</a>
+        <a href="#">YouTube</a>
       </nav>
 
-      <div class="a t stack content" style="--x:1211;--y:61.7;--fs:26;--lh:33">
+      <div class="a t stack content" style="--x:1211;--y:42;--fs:24;--lh:34">
         <a id="footer-email" href="mailto:info@whenyouseeme.com">info@whenyouseeme.com</a>
         <a id="footer-phone" href="tel:+2334579890">+233 457 9890</a>
       </div>
     </div>
 
-    <div class="a box deco" style="--x:0;--y:350;--w:1920;--h:67"></div>
+    <!-- One band for the credits and the legal line. It used to be a 67px
+         strip under a panel that stopped 150px short of its own content. -->
+    <div class="a box deco" style="--x:0;--y:228;--w:1920;--h:189"></div>
+
+    <!-- ============================================================
+         FUNDING — the one acknowledgement on the site, in one place.
+
+         UKRI's "acknowledging your funding" guidance asks for the funder
+         named in full, with the grant number in square brackets, and says
+         nothing about logos. The plates below name every funder in full
+         and link out, so they carry it. The sentence that used to sit
+         under them said the same thing a second time and came off the
+         page on 2026-10-14.
+
+         What that gave up: with no sentence there is nowhere on the page
+         for a grant reference. When the real number exists, put it in the
+         AHRC plate rather than reinstating the line —
+
+           <span class="funder__name">Arts and Humanities Research
+           Council [grant reference XXX]</span>
+
+         — and the row re-flows on its own. The plates are equal columns,
+         so a fifth funder needs no markup maths either.
+
+         A mark is still optional: drop the file in assets/img/funders/
+         and put
+
+           <img class="funder__mark" src="assets/img/funders/ahrc-ukri.svg"
+                alt="UK Research and Innovation">
+
+         inside the matching <a class="funder">, above the name. sanity.js
+         reads a `logo` field the same way, so a studio upload needs no
+         markup at all.
+
+         These four anchors are the fallback. The live row is built by the
+         `supporters` list in the studio.
+         ============================================================ -->
+    <p class="a t label content" style="--x:140;--y:254;--fs:27;--lh:27">Funded and supported by</p>
+    <div class="a t content logo-row" id="supporters-list" style="--x:140;--y:286;--w:1640;--fs:24;--lh:34">
+      <a class="funder" href="https://www.ukri.org/councils/ahrc/" target="_blank" rel="noopener"><span class="funder__name">Arts and Humanities Research Council</span></a>
+      <a class="funder" href="https://www.bristol.ac.uk/" target="_blank" rel="noopener"><span class="funder__name">University of Bristol</span></a>
+      <a class="funder" href="https://www.ug.edu.gh/" target="_blank" rel="noopener"><span class="funder__name">University of Ghana</span></a>
+      <a class="funder" href="https://www.hfg.org/" target="_blank" rel="noopener"><span class="funder__name">Harry Frank Guggenheim Foundation</span></a>
+    </div>
+    <div class="a box rule" style="--x:140;--y:372;--w:1640;--h:2"></div>
     <div class="legal-bar">
-      <p class="a t legal content" id="legal-copyright" style="--x:272;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
-      <p class="a t tw legal content" style="--x:1000;--y:391.6;--w:566;--fs:13;--lh:13;text-align:right">PROJECT FUNDED BY THE <b id="legal-funder">ARTS AND HUMANITIES RESEARCH COUNCIL (AHRC)</b></p>
+      <p class="a t legal content" id="legal-copyright" style="--x:140;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
     </div>
   </footer>
 
