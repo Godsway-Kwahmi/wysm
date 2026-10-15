@@ -95,20 +95,26 @@
     <div class="a box rule" style="--x:140;--y:777;--w:1640;--h:2"></div>
     <h1 class="a t display content" style="--x:140;--y:827;--fs:62;--lh:60">About</h1>
     
-    <!-- Two columns, one measure. The mission paragraph holds the left and the
-         people-and-money paragraphs go to the right, flush to the 1780 gutter
-         every rule and panel on the page ends at. Both carry the site's own
-         62ch measure, which is 680px here, so the split costs no re-typesetting.
+    <!-- Two columns that divide the page's own measure rather than floating in
+         it. The 1640 between the gutters splits at 960 — the centre line, which
+         is also where the marigold bar over the navigation begins — with 40 of
+         gutter on either side of it, so each column is 780 wide: 140 → 920 and
+         1000 → 1780. Both outer edges therefore land on the same two lines every
+         rule, photograph and panel on this page ends on, and the pair is
+         symmetric about the centre instead of the right column standing 140
+         inside its own half. The measure opens with them: .about-cols sheds the
+         body's 62ch cap above 1650 (780 here is 73ch) because a column that is
+         drawn 780 wide and set to 661 is the gap he marked, not the type.
          .about-cols is display:contents above 1650 — the two blocks sit on the
          page exactly as they did as one — and a real block below it, where the
-         pair stacks and the wrapper puts back the paragraph gap the four
-         paragraphs used to share inside a single block. -->
+         pair stacks, the cap comes back, and the wrapper puts back the paragraph
+         gap the four paragraphs used to share inside a single block. -->
     <div class="about-cols">
-      <div class="a t tw body content" style="--x:140;--y:933;--w:680;--fs:21;--lh:32">
+      <div class="a t tw body content" style="--x:140;--y:933;--w:780;--fs:21;--lh:32">
         <p>When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they recognize the severity of gender-based violence and see survivors, particularly girls and women, who are disproportionately affected. This initiative is community-centred and informed by <a href="https://doi.org/10.1093/afraf/adx008" class="inline-link" target="_blank" rel="noopener">research</a> that demonstrates the pivotal role that ordinary people can play in addressing gender-based violence. It produces original research, artistic works, policy papers, and educational pamphlets. It also convenes policy workshops with relevant institutions in the state and civil society and provides training to stakeholders.</p>
       </div>
 
-      <div class="a t tw body content" style="--x:1100;--y:933;--w:680;--fs:21;--lh:32">
+      <div class="a t tw body content" style="--x:1000;--y:933;--w:780;--fs:21;--lh:32">
         <p>When You See Me is led by <a href="https://www.peacemedie.com/" class="inline-link" target="_blank" rel="noopener">Peace A. Medie</a>. She is Professor of Politics and International Relations at the University of Bristol. Her award-winning research has shown how women’s movements can shape how the state responds to <a href="https://global.oup.com/academic/product/global-norms-and-local-action-9780190922962?cc=gb&lang=en" class="inline-link" target="_blank" rel="noopener">violence against women</a> and how <a href="assets/pdf/publications/Rape-reporting-in-post-conflict-CI.pdf" class="inline-link" target="_blank" rel="noopener">relatives and friends</a> can influence survivors’ help-seeking behaviours.</p>
 
         <p>This project has been funded by an Arts and Humanities Research Council grant since 2024. Peace A. Medie serves as principal investigator on the grant and Nana Akua Anyidoho and Ekua Ekumah of University of Ghana serve as co-investigators.</p>

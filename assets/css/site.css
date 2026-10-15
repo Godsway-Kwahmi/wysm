@@ -448,6 +448,15 @@ body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
    wrapper were not there */
 .welcome-grid, .about-cols, .footer-cols, .legal-bar{ display: contents }
 
+/* The About page's two columns are drawn as halves of the page's measure — 780
+   apiece, split at the centre line — so they have to be free to set that wide.
+   The body's 62ch cap is what left each column standing inside its own half, so
+   it comes off above 1650, where the pair sits side by side. Below that the two
+   stack into the content width and the cap is the only thing keeping a
+   paragraph from running 1145px across a tablet, so the lift is scoped to the
+   tier that has the room for it. */
+@media (min-width:1651px){ .about-cols > *{ max-width: none } }
+
 /* ---------- rules ---------- */
 .rule{
   height: calc(2 * var(--px));
