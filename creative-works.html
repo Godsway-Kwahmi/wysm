@@ -62,6 +62,9 @@
   </header>
 
   <section class="sec">
+    <!-- The marigold cap on the block this page is titled from, at the weight
+         of the bar above the navigation: 270 − 23 = 247. -->
+    <div class="a box deco deco--bar" style="--x:140;--y:247;--w:819;--h:23"></div>
     <div class="a box deco" style="--x:140;--y:270;--w:819;--h:298"></div>
     <div class="a box deco" style="--x:0;--y:640;--w:279;--h:220"></div>
 
@@ -80,7 +83,16 @@
   </section>
 
   <section class="sec">
-    <div class="a box deco" id="ci-strand-1-block" style="--x:0;--y:1420;--w:900;--h:340"></div>
+    <!-- The three strands alternate left and right, each on a 900-wide block
+         whose head sits 44 below the block's top edge. Two of them were drawn
+         the same 340 tall, which is not what their copy needs: "Applied
+         theatre" left only 14 of block under its last line, and "Queenmothers
+         and neighbours" ran 15.3 past the foot altogether, so its final line
+         hung off the brown. Each now holds the same 44 under its last line as
+         it does over its head — 370 and 399.3 — while "Illustrated stories",
+         which already had 43.2, keeps the 340 it was drawn at. The blocks are
+         120 apart across and never touch, so nothing below any of them moved. -->
+    <div class="a box deco" id="ci-strand-1-block" style="--x:0;--y:1420;--w:900;--h:370"></div>
     <h2 class="a t tw sub content" id="ci-strand-1-title" style="--x:140;--y:1464;--w:600;--fs:36;--lh:36">Applied theatre</h2>
     <div class="a t tw body content" id="ci-strand-1-body" style="--x:140;--y:1544;--w:505;--fs:21;--lh:27">
       <p id="strand-theatre-1">Scenes are built with performers and community members rather than written for them, so what happens on stage is recognisable to the people watching it.</p>
@@ -94,7 +106,7 @@
       <p id="strand-comics-2">They are made to be used &ndash; in clinics, markets and community meetings &ndash; not to sit in a report.</p>
     </div>
 
-    <div class="a box deco" id="ci-strand-3-block" style="--x:0;--y:2260;--w:900;--h:340"></div>
+    <div class="a box deco" id="ci-strand-3-block" style="--x:0;--y:2260;--w:900;--h:399.3"></div>
     <h2 class="a t tw sub content" id="ci-strand-3-title" style="--x:140;--y:2304;--w:600;--fs:36;--lh:36">Queenmothers and neighbours</h2>
     <div class="a t tw body content" id="ci-strand-3-body" style="--x:140;--y:2384;--w:505;--fs:21;--lh:27">
       <p id="strand-community-1">Female traditional leaders are often the first people a woman turns to, so the programme works with queenmothers on what they can do and where they can refer someone on.</p>
@@ -135,14 +147,16 @@
     
     <p class="a t label content" id="work-gallery-heading" style="--x:140;--y:4180;--fs:27;--lh:27">Production Gallery</p>
     
-    <!-- Scrollable Gallery. Like the Programs strips, this draws on the
-         web-sized copies in web/: one 1600px-long-edge render of each frame
-         at JPEG q82, made from the camera original of the same frame, which
-         stays untouched in the folder above. The originals run to 5760px and
-         2.2–4.9 MB apiece — 23.9 MB for this strip — which a band three
-         hundred design pixels tall, and a lightbox that tops out at the
-         viewport, have no use for. The set now weighs 3.1 MB. -->
-    <div class="a scroll-gallery" id="work-gallery" style="--x:140;--y:4240;">
+    <!-- The production gallery: an accordion of ten frames, all on show,
+         the one under the pointer opening wide enough to read (see
+         .gallery in site.css). Like the Programs galleries, this draws on
+         the web-sized copies in web/: one 1600px-long-edge render of each
+         frame at JPEG q82, made from the camera original of the same frame,
+         which stays untouched in the folder above. The originals run to
+         5760px and 2.2–4.9 MB apiece — 23.9 MB for this strip — which a
+         band three hundred design pixels tall, and a lightbox that tops out
+         at the viewport, have no use for. The set now weighs 3.1 MB. -->
+    <div class="a gallery" id="work-gallery" style="--x:140;--y:4240;">
       <img src="assets/img/Creative-Works/community-theatre-production/web/02-gallery.jpg" loading="lazy" alt="Community Theatre Scene 2">
       <img src="assets/img/Creative-Works/community-theatre-production/web/03-gallery.jpg" loading="lazy" alt="Community Theatre Scene 3">
       <img src="assets/img/Creative-Works/community-theatre-production/web/04-gallery.jpg" loading="lazy" alt="Community Theatre Scene 4">

@@ -70,7 +70,11 @@
   </section>
 
   <section class="sec">
-    <div class="a box deco" style="--x:440;--y:500;--w:1131;--h:780"></div>
+    <!-- 830.5, not a round 780: the privacy line ends 753.5 below the panel's
+         top, so this makes the air under the text the same 77 it holds on the
+         left and the right. The panel and the type both scale with --px, so the
+         three insets stay equal at any width the comp is drawn at. -->
+    <div class="a box deco" style="--x:440;--y:500;--w:1131;--h:830.5"></div>
 
     <form id="contact-form">
       <p class="a t label content" id="form-prompt" style="--x:517;--y:545;--fs:27;--lh:27">Send feedback/inquiry</p>

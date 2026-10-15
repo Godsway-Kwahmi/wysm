@@ -54,6 +54,65 @@
     }, { passive: true });
   }
 
+  /* --- section glows ------------------------------------------------
+     The same light on the homepage's four entry sections. A pool starts
+     dark, comes up while the pointer is inside its section, tracks the
+     cursor, and fades out when it leaves — four always-on lights would
+     spend the whole page in a haze.
+
+     The comp's <section> is a zero-height grouping box: everything in it is
+     placed against the stage, so the element itself has no area to test and
+     no pointer events of its own. A section's extent is therefore measured
+     as the union of the blocks it holds, taken from offsetLeft/Top/Width/
+     Height — those ignore the reveal transforms, which getBoundingClientRect
+     would not — and the pointer is tested against that in stage coordinates,
+     so the glow answers to the empty field between the elements as well as
+     to the elements themselves. Re-measured on resize and on load, when the
+     reflow tiers change the geometry.
+
+     Reduced-motion visitors keep the page still, as with the hero, and
+     phones never see one: the stylesheet takes them out below 900.
+     ----------------------------------------------------------------- */
+  var pools = [];
+
+  if (!reduced && stage) {
+    [].forEach.call(document.querySelectorAll('.sec-glow'), function (el) {
+      var anchor = document.getElementById(el.getAttribute('data-glow')),
+          sec    = anchor && anchor.closest ? anchor.closest('section') : null;
+      if (sec) pools.push({ el: el, sec: sec, box: null });
+    });
+
+    function measurePools() {
+      pools.forEach(function (p) {
+        var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+        [].forEach.call(p.sec.children, function (e) {
+          if (e.classList.contains('anchor') || e.classList.contains('sec-glow')) return;
+          if (!e.offsetWidth || !e.offsetHeight) return;      /* hidden by the tier */
+          x0 = Math.min(x0, e.offsetLeft);  y0 = Math.min(y0, e.offsetTop);
+          x1 = Math.max(x1, e.offsetLeft + e.offsetWidth);
+          y1 = Math.max(y1, e.offsetTop  + e.offsetHeight);
+        });
+        p.box = x0 === Infinity ? null : { l: x0, t: y0, r: x1, b: y1 };
+      });
+    }
+
+    window.addEventListener('mousemove', function (ev) {
+      var sr = stage.getBoundingClientRect(),
+          x  = ev.clientX - sr.left,
+          y  = ev.clientY - sr.top;
+      for (var i = 0; i < pools.length; i++) {
+        var p = pools[i], b = p.box;
+        if (!b || x < b.l || x > b.r || y < b.t || y > b.b) { p.el.classList.remove('is-lit'); continue; }
+        p.el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%)';
+        p.el.classList.add('is-lit');
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', measurePools);
+    window.addEventListener('load', measurePools);
+    measurePools();
+  }
+
   /* --- stage height ---------------------------------------------
      The comp gives each page a drawn height, held in data-stage, and
      the stage is clipped to it so reveal transforms never add scroll.
@@ -151,14 +210,24 @@
   }
 
   /* --- photo galleries ------------------------------------------------
-     A page can hold several strips; each dot rail names the strip it
-     drives with data-gallery. Frames are made focusable here rather
-     than in the markup, so a strip of thirty photos stays readable.
+     A page can hold several galleries; each dot rail names the gallery it
+     belongs to with data-gallery. Frames are made focusable here rather
+     than in the markup, so a gallery of thirty photos stays readable.
+
+     At the comp the row is an accordion: it does not scroll, every frame
+     is on show, and the rail marks whichever frame the pointer or the
+     focus is holding open. Below 1650 the row is a strip again and the
+     rail goes back to reporting how far along it is. Both write the same
+     .active class through the one mark() below, so the rail can never
+     hold two opinions at once. A dot puts the focus on its frame: at the
+     comp that is what opens it, and in the reflow it is what scrolls the
+     strip to it.
      ------------------------------------------------------------------ */
-  var strips = [].slice.call(document.querySelectorAll('.scroll-gallery'));
+  var strips = [].slice.call(document.querySelectorAll('.gallery'));
 
   strips.forEach(function (strip) {
-    [].forEach.call(strip.querySelectorAll('img'), function (frame) {
+    var frames = [].slice.call(strip.querySelectorAll('img'));
+    frames.forEach(function (frame) {
       frame.tabIndex = 0;
     });
 
@@ -166,25 +235,40 @@
       '.gallery-pagination[data-gallery="' + strip.id + '"]');
     if (!rail) return;
 
-    var frames = [].slice.call(strip.querySelectorAll('img'));
+    function mark(i) {
+      [].forEach.call(rail.children, function (dot, j) {
+        dot.classList.toggle('active', j === i);
+      });
+    }
+
     frames.forEach(function (frame, i) {
       var dot = document.createElement('span');
       dot.className = 'dot' + (i ? '' : ' active');
       dot.addEventListener('click', function () {
         strip.scrollTo({ left: frame.offsetLeft - strip.offsetLeft, behavior: 'smooth' });
+        frame.focus({ preventScroll: true });
       });
       rail.appendChild(dot);
     });
 
+    // the frame the accordion is open on, mirrored onto the rail
+    strip.addEventListener('pointerover', function (ev) {
+      var i = frames.indexOf(ev.target);
+      if (i > -1) mark(i);
+    });
+    strip.addEventListener('focusin', function (ev) {
+      var i = frames.indexOf(ev.target);
+      if (i > -1) mark(i);
+    });
+
+    // where the row scrolls (everything below the comp), how far along it is
     strip.addEventListener('scroll', function () {
       var centre = strip.scrollLeft + strip.clientWidth / 2, best = Infinity, at = 0;
       frames.forEach(function (frame, i) {
         var d = Math.abs(centre - (frame.offsetLeft - strip.offsetLeft + frame.clientWidth / 2));
         if (d < best) { best = d; at = i; }
       });
-      [].forEach.call(rail.children, function (dot, i) {
-        dot.classList.toggle('active', i === at);
-      });
+      mark(at);
     }, { passive: true });
   });
 
@@ -243,7 +327,7 @@
   /* --- reveals: tag elements here so a no-JS page never hides content --- */
   if (!stage) return;
   var items = [].slice.call(stage.querySelectorAll(
-    '.deco, .panel, .photo, .content, .thumbs, .field, .rule'
+    '.deco, .panel, .band, .photo, .content, .thumbs, .field, .rule'
   )).filter(function (el) {
     return (!header || !header.contains(el)) && !el.classList.contains('hero');
   });

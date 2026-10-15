@@ -43,7 +43,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="stage" id="main" style="--stage:7381">
+<div class="stage" id="main" style="--stage:7170.4">
 
   <!-- The homepage has no set heading of its own — the wordmark is the hero
        image — so the page title is here for the document outline and for
@@ -87,24 +87,62 @@
        style="--x:420;--y:150;--w:1130;--h:640"
        alt="When You See Me, set in display type filled with photographs of women in West African dress.">
 
+  <!-- The four entry sections carry the same pool of light, held to their own
+       box and lit only while the pointer is inside. Each glow is a child of the
+       stage rather than of its section: .sec is position:static on purpose, so
+       the comp's --x/--y keep resolving against the stage, and making a section
+       a containing block would move every drawn element inside it. site.js finds
+       the section from the anchor named here. -->
+  <div class="sec-glow" data-glow="publications"   aria-hidden="true"></div>
+  <div class="sec-glow" data-glow="creative-works" aria-hidden="true"></div>
+  <div class="sec-glow" data-glow="programs"       aria-hidden="true"></div>
+  <div class="sec-glow" data-glow="contact"        aria-hidden="true"></div>
+
   <!-- ==========================================================
-       WELCOME — mission statement, replacing the old two-column intro
+       WELCOME — the mission statement, on the page ground
+
+       One sentence, one block, reading left to right across the 900 the lede
+       has always set in — which is the role's own 52ch measure, not an
+       arbitrary width. It spent one iteration split into two columns on
+       2026-10-14 and came back the same day.
+
+       The "Welcome" eyebrow over it came off on 2026-10-14 and the lede moved
+       up into the room it left. The band came in at 410 drawn px for 258 of
+       text with 60 above the rule, 50 between the rule and the type and 98
+       under the type; it runs 820 → 1108 now, the rule 30 under the hero's
+       foot and the lede 34 under the rule — the same head inset the three
+       entry cards hold over their titles. Everything from here down came up
+       152 with it, so no other gap on the page moved, and the drawn height
+       went 7381 → 7229; the FEATURED note carries where it stands now. Nothing
+       reads this copy from the CMS.
        ========================================================== -->
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:850;--w:1640;--h:2"></div>
-    <p class="a t label content" style="--x:140;--y:900;--fs:27;--lh:27">Welcome</p>
-    <p class="a t tw lede content" id="welcome-message" style="--x:140;--y:952;--w:900;--fs:36;--lh:46">When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they prioritise and see survivors of violence.</p>
+    <div class="a box rule" style="--x:140;--y:820;--w:1640;--h:2"></div>
+    <p class="a t tw lede content" id="welcome-message" style="--x:140;--y:854;--w:900;--fs:36;--lh:46">When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they prioritise and see survivors of violence.</p>
   </section>
 
   <!-- ==========================================================
        FEATURED — three entry points into the project's work
+
+       Three cards on the page ground, with nothing laid under them. The band
+       of the site's darkest brown the row sat on came out on 2026-10-14: the
+       photographs, their captions and the marigold a card takes on the pointer
+       carry the block by themselves, and with the dark gone the page is one
+       ground from the welcome sentence down to the Publications card. The
+       hairline that used to run across the top of that band, and the .--block
+       square at its right, had already come out the same day.
+       The photographs are at two-thirds of the height they were drawn at —
+       380 → 253.33, and the same fraction at the two reflow tiers — and the
+       heading and the row moved with them so the block held equal air above
+       the type and below the captions; that equality was then halved to 58.6,
+       which lifted the foot of the row 58.6 clear of the Publications card.
+       Everything from that card down came up 58.6 with it, so no other gap on
+       the page moved, and the drawn height went 7229 → 7170.4.
        ========================================================== -->
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:1260;--w:1640;--h:2"></div>
-    <div class="a box deco" style="--x:1780;--y:1300;--w:140;--h:240"></div>
-    <h2 class="a t tw display content" style="--x:140;--y:1320;--w:700;--fs:62;--lh:60">Featured</h2>
+    <h2 class="a t tw display content" style="--x:140;--y:1225.2;--w:700;--fs:62;--lh:60">Featured</h2>
 
-    <div class="a tw feature-grid" style="--x:140;--y:1420;--w:1640">
+    <div class="a tw feature-grid" style="--x:140;--y:1325.2;--w:1640">
       <a class="feature-card content" href="publications.html">
         <img src="assets/img/publication.webp" loading="lazy" alt="A speaker addresses an audience beside a Pitch Zone 2022 banner.">
         <span class="cap t sub">Publication</span>
@@ -124,23 +162,45 @@
        PUBLICATIONS
        ========================================================== -->
   <section class="sec">
-    <span class="a anchor" id="publications" style="--x:0;--y:1900"></span>
-    <div class="a box deco" style="--x:140;--y:1900;--w:761;--h:436"></div>
+    <span class="a anchor" id="publications" style="--x:0;--y:1689.4"></span>
+    <div class="a box deco" style="--x:140;--y:1689.4;--w:761;--h:436"></div>
+    <!-- The three entry cards each get a cap across the top of the block: the
+         header's own marigold, the same 23-deep bar the four entry pages carry
+         over their title cards, so a card here and the card on the page it opens
+         are capped alike. It is drawn after the card, so it lies on it. The title
+         and its line sit 43 below the card's top edge — the same 43 they hold
+         from its left edge, which is what makes the block read as one inset
+         rather than two — which leaves the title 20 under the cap.
+         The cap ran in the site's darkest brown until 2026-10-14. -->
+    <div class="a box deco deco--bar" style="--x:140;--y:1689.4;--w:761;--h:23"></div>
 
-    <h2 class="a t display content" style="--x:183;--y:1933.6;--fs:62;--lh:60">Publications</h2>
-    <p class="a t sub content" style="--x:184;--y:2007.4;--fs:36;--lh:36">When You See Me</p>
+    <h2 class="a t display content" style="--x:183;--y:1732.4;--fs:62;--lh:60">Publications</h2>
+    <p class="a t sub content" style="--x:184;--y:1806.2;--fs:36;--lh:36">When You See Me</p>
 
     <img class="a box photo" src="assets/img/Publications/When-You-See-Me.jpg" loading="lazy"
-         style="--x:681;--y:2086;--w:1099;--h:671"
+         style="--x:681;--y:1875.4;--w:1099;--h:671"
          alt="Cover image for the short story When You See Me.">
 
-    <div class="a box panel" style="--x:339;--y:2618;--w:610;--h:435"></div>
-    <div class="a t tw body content" style="--x:379;--y:2651.1;--w:505;--fs:21;--lh:27">
+    <!-- The panel and its band came up 51 to stand on the same line as the
+         thumbnails at the right, which is what Creative Works already does: the
+         thumb row runs 2711 → 2850, so 2850 is now the panel's foot, with the
+         band under it. The copy moves with the block it is set on, so it keeps
+         the 33.1 it held from the panel's top. -->
+    <div class="a box panel" style="--x:339;--y:2356.4;--w:610;--h:435"></div>
+    <div class="a t tw body content" style="--x:379;--y:2389.5;--w:505;--fs:21;--lh:27">
       <p>A short story about the people around a survivor of gender-based violence: the neighbours, friends and traditional leaders whose response can open a path to safety, or close it off. It gives its name to the research and creative programme this website presents.</p>
+      <a class="inline-link read-more" href="publications.html" aria-label="Read more about this publication">Read more …</a>
     </div>
+    <!-- The band that foots each block of copy: the header bar's marigold at a
+         sixth of its weight (23 → 3.85, half of the third he first asked for),
+         the panel's own width, starting at the panel's foot —
+         2415 + 435 = 2850. It follows the text in the markup rather than the
+         panel so the reflow's `.panel + .content` ground stays attached, and
+         lands under that ground when the comp is dropped. -->
+    <div class="a box band" style="--x:339;--y:2791.4;--w:610;--h:3.85"></div>
 
-    <p class="a t tw label content" style="--x:1400;--y:2808;--w:380;--fs:27;--lh:27;text-align:right">More publications:</p>
-    <div class="a thumbs thumbs--dark" style="--x:1242;--y:2863;gap:calc(38 * var(--px))">
+    <p class="a t tw label content" style="--x:1400;--y:2597.4;--w:380;--fs:27;--lh:27;text-align:right">More publications:</p>
+    <div class="a thumbs thumbs--dark" style="--x:1242;--y:2652.4;gap:calc(38 * var(--px))">
       <a href="publication-nightbloom.html" aria-label="Nightbloom"><span style="background-image:url('assets/img/Publications/nightbloom.webp');background-size:cover;background-position:center"></span></a>
       <a href="publication-women-and-violence-in-africa.html" aria-label="Women and Violence in Africa"><span style="background-image:url('assets/img/Publications/Women-and-Violence-in-Africa.jpg');background-size:cover;background-position:center"></span></a>
       <a href="publication-rape-reporting-cote-divoire.html" aria-label="Rape Reporting in Post-Conflict C&ocirc;te d'Ivoire"><span style="background-image:url('assets/img/Publications/Rape-reporting-in-post-conflict-CI.jpg');background-size:cover;background-position:center"></span></a>
@@ -151,24 +211,31 @@
        CREATIVE WORKS
        ========================================================== -->
   <section class="sec">
-    <span class="a anchor" id="creative-works" style="--x:0;--y:3100"></span>
-    <div class="a box deco" style="--x:140;--y:3100;--w:819;--h:298"></div>
+    <span class="a anchor" id="creative-works" style="--x:0;--y:2889.4"></span>
+    <div class="a box deco" style="--x:140;--y:2889.4;--w:819;--h:298"></div>
+    <div class="a box deco deco--bar" style="--x:140;--y:2889.4;--w:819;--h:23"></div>
 
-    <h2 class="a t display content" style="--x:183;--y:3133.6;--fs:62;--lh:60">Creative<br>Works</h2>
-    <p class="a t sub content" style="--x:184;--y:3267.4;--fs:36;--lh:36">Community Theatre</p>
+    <h2 class="a t display content" style="--x:183;--y:2932.4;--fs:62;--lh:60">Creative<br>Works</h2>
+    <p class="a t sub content" style="--x:184;--y:3066.2;--fs:36;--lh:36">Community Theatre</p>
 
     <img class="a box photo" src="assets/img/intervention.webp" loading="lazy"
-         style="--x:420;--y:3323;--w:1360;--h:600"
+         style="--x:420;--y:3112.4;--w:1360;--h:600"
          alt="Four women holding awards on stage at an African Union event.">
 
-    <div class="a box panel" style="--x:140;--y:3846;--w:610;--h:435"></div>
-    <div class="a t tw body content" style="--x:180;--y:3886.1;--w:505;--fs:21;--lh:27">
+    <!-- The panel and its band came up 72 to stand on the same line as the
+         thumbnail at the right: that thumb ends at 4057, which is now the
+         panel's foot, with the band under it. The copy moves with the block it
+         is set on, so it keeps the 40.1 it held from the panel's top. -->
+    <div class="a box panel" style="--x:140;--y:3563.4;--w:610;--h:435"></div>
+    <div class="a t tw body content" style="--x:180;--y:3603.5;--w:505;--fs:21;--lh:27">
       <p>Scenes are built with performers and community members rather than written for them, so what happens on stage is recognisable to the people watching it.</p>
       <p>Each performance ends in conversation: what help exists here, who to ask, and what usually gets in the way.</p>
+      <a class="inline-link read-more" href="creative-works.html" aria-label="Read more about the community theatre work">Read more …</a>
     </div>
+    <div class="a box band" style="--x:140;--y:3998.4;--w:610;--h:3.85"></div>
 
-    <p class="a t tw label content" style="--x:1400;--y:4015;--w:380;--fs:27;--lh:27;text-align:right">More creative works:</p>
-    <div class="a thumbs" style="--x:1320;--y:4070;gap:calc(38 * var(--px))">
+    <p class="a t tw label content" style="--x:1400;--y:3804.4;--w:380;--fs:27;--lh:27;text-align:right">More creative works:</p>
+    <div class="a thumbs" style="--x:1320;--y:3859.4;gap:calc(38 * var(--px))">
       <a href="creative-works.html" aria-label="Creative Works"><span style="background-image:url('assets/img/intervention.webp');background-size:cover;background-position:center"></span></a>
     </div>
   </section>
@@ -177,23 +244,30 @@
        PROGRAMS
        ========================================================== -->
   <section class="sec">
-    <span class="a anchor" id="programs" style="--x:0;--y:4300"></span>
-    <div class="a box deco" style="--x:1019;--y:4300;--w:761;--h:436"></div>
+    <span class="a anchor" id="programs" style="--x:0;--y:4089.4"></span>
+    <div class="a box deco" style="--x:1019;--y:4089.4;--w:761;--h:436"></div>
+    <div class="a box deco deco--bar" style="--x:1019;--y:4089.4;--w:761;--h:23"></div>
 
-    <h2 class="a t display content" style="--x:1062;--y:4333.6;--fs:62;--lh:60">Programs</h2>
-    <p class="a t sub content" style="--x:1063;--y:4407.4;--fs:36;--lh:36">Training Workshops</p>
+    <h2 class="a t display content" style="--x:1062;--y:4132.4;--fs:62;--lh:60">Programs</h2>
+    <p class="a t sub content" style="--x:1063;--y:4206.2;--fs:36;--lh:36">Training Workshops</p>
 
     <img class="a box photo" src="assets/img/convening.webp" loading="lazy"
-         style="--x:140;--y:4486;--w:1099;--h:671"
+         style="--x:140;--y:4275.4;--w:1099;--h:671"
          alt="A panel discussion in a conference setting.">
 
-    <div class="a box panel" style="--x:971;--y:5018;--w:610;--h:435"></div>
-    <div class="a t tw body content" style="--x:1036;--y:5051.1;--w:505;--fs:21;--lh:27">
+    <!-- Up 51 with its own thumbnail, the same way Publications and Creative
+         Works stand on theirs: the thumb at the left runs 5111 → 5250, so 5250 is
+         now the panel's foot and the band sits under it. The copy keeps the 33.1
+         it holds from the panel's top. -->
+    <div class="a box panel" style="--x:971;--y:4756.4;--w:610;--h:435"></div>
+    <div class="a t tw body content" style="--x:1036;--y:4789.5;--w:505;--fs:21;--lh:27">
       <p>When You See Me works closely with leaders who can be influential in their communities. Queenmothers from the Greater Accra and Volta Regions, as well as Nigerian community leaders, participated in the training.</p>
+      <a class="inline-link read-more" href="programs.html" aria-label="Read more about the training workshops and programs">Read more …</a>
     </div>
+    <div class="a box band" style="--x:971;--y:5191.4;--w:610;--h:3.85"></div>
 
-    <p class="a t tw label content" style="--x:140;--y:5208;--w:380;--fs:27;--lh:27;text-align:left">More programs:</p>
-    <div class="a thumbs thumbs--dark" style="--x:140;--y:5263;gap:calc(38 * var(--px))">
+    <p class="a t tw label content" style="--x:140;--y:4997.4;--w:380;--fs:27;--lh:27;text-align:left">More programs:</p>
+    <div class="a thumbs thumbs--dark" style="--x:140;--y:5052.4;gap:calc(38 * var(--px))">
       <a href="programs.html" aria-label="Programs"><span style="background-image:url('assets/img/convening.webp');background-size:cover;background-position:center"></span></a>
     </div>
   </section>
@@ -202,14 +276,19 @@
        CONTACT FORM
        ========================================================== -->
   <section class="sec">
-    <span class="a anchor" id="contact" style="--x:0;--y:5500"></span>
-    <div class="a box rule" style="--x:140;--y:5500;--w:1640;--h:2"></div>
-    <div class="a box deco" style="--x:440;--y:5550;--w:1131;--h:780"></div>
+    <span class="a anchor" id="contact" style="--x:0;--y:5289.4"></span>
+    <div class="a box rule" style="--x:140;--y:5289.4;--w:1640;--h:2"></div>
+    <!-- 830.5, not a round 780: the privacy line ends 753.5 below the panel's
+         top, so this makes the air under the text the same 77 it holds on the
+         left and the right. The panel and the type both scale with --px, so the
+         three insets stay equal at any width the comp is drawn at. Matches the
+         same panel on contact.html. -->
+    <div class="a box deco" style="--x:440;--y:5339.4;--w:1131;--h:830.5"></div>
 
-    <h2 class="a t display content" style="--x:140;--y:5550;--fs:62;--lh:60">Contact</h2>
+    <h2 class="a t display content" style="--x:140;--y:5339.4;--fs:62;--lh:60">Contact</h2>
 
     <form id="contact-form">
-      <p class="a t label content" id="form-prompt" style="--x:517;--y:5595;--fs:27;--lh:27">Send feedback/inquiry</p>
+      <p class="a t label content" id="form-prompt" style="--x:517;--y:5384.4;--fs:27;--lh:27">Send feedback/inquiry</p>
 
       <!-- The two notices the contact page carries, in the same order: what
            this channel is not, before anyone starts typing, and what happens
@@ -219,25 +298,25 @@
            verified. The handler in site.js reads #name and #email as well as
            #message, so the two extra fields are what put a real address in the
            Reply-to line of the draft instead of a dash. -->
-      <p class="a t tw body notice notice--alert content" style="--x:517;--y:5630;--w:977;--fs:21;--lh:27">This form is not a reporting or crisis line. The team reads messages on ordinary working days, not in real time. If you need help now, contact your local emergency services or a domestic violence helpline.</p>
+      <p class="a t tw body notice notice--alert content" style="--x:517;--y:5419.4;--w:977;--fs:21;--lh:27">This form is not a reporting or crisis line. The team reads messages on ordinary working days, not in real time. If you need help now, contact your local emergency services or a domestic violence helpline.</p>
 
-      <label class="a t label content" for="name" style="--x:517;--y:5740;--fs:27;--lh:27">Your name (optional)</label>
+      <label class="a t label content" for="name" style="--x:517;--y:5529.4;--fs:27;--lh:27">Your name (optional)</label>
       <input class="a box field field--line" id="name" name="name" type="text" autocomplete="name"
-             placeholder="Akorfa Mensah" style="--x:517;--y:5763;--w:477;--h:84">
+             placeholder="Akorfa Mensah" style="--x:517;--y:5552.4;--w:477;--h:84">
 
-      <label class="a t label content" for="email" style="--x:1017;--y:5740;--fs:27;--lh:27">Email (optional)</label>
+      <label class="a t label content" for="email" style="--x:1017;--y:5529.4;--fs:27;--lh:27">Email (optional)</label>
       <input class="a box field field--line" id="email" name="email" type="email" autocomplete="email"
-             placeholder="you@example.com" style="--x:1017;--y:5763;--w:477;--h:84">
+             placeholder="you@example.com" style="--x:1017;--y:5552.4;--w:477;--h:84">
 
-      <label class="a t label content" for="message" style="--x:517;--y:5876;--fs:27;--lh:27">Your message</label>
+      <label class="a t label content" for="message" style="--x:517;--y:5665.4;--fs:27;--lh:27">Your message</label>
       <textarea class="a box field" id="message" name="message" required placeholder="Tell us what you would like to know."
-                style="--x:517;--y:5899;--w:977;--h:250"></textarea>
+                style="--x:517;--y:5688.4;--w:977;--h:250"></textarea>
 
-      <div class="a t stack actions content" style="--x:517;--y:6173;--fs:24;--lh:34">
+      <div class="a t stack actions content" style="--x:517;--y:5962.4;--fs:24;--lh:34">
         <button type="submit" id="btn-send" class="btn btn--primary">Send message</button>
       </div>
 
-      <p class="a t tw body notice content" id="form-privacy" style="--x:517;--y:6245;--w:977;--fs:21;--lh:27;color:var(--dim)">Sending opens a new message in your own email app: nothing you type is stored on this website. We use what you send to reply, and to follow up on the project where it is relevant.</p>
+      <p class="a t tw body notice content" id="form-privacy" style="--x:517;--y:6034.4;--w:977;--fs:21;--lh:27;color:var(--dim)">Sending opens a new message in your own email app: nothing you type is stored on this website. We use what you send to reply, and to follow up on the project where it is relevant.</p>
     </form>
   </section>
 
@@ -245,26 +324,26 @@
        NEWSLETTER — mailing list signup
        ========================================================== -->
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:6474;--w:1640;--h:2"></div>
-    <div class="a box deco" style="--x:0;--y:6514;--w:185;--h:284"></div>
-    <h2 class="a t tw display content" style="--x:140;--y:6524;--w:900;--fs:62;--lh:60">Be the first to know about new creative works and upcoming events</h2>
+    <div class="a box rule" style="--x:140;--y:6263.4;--w:1640;--h:2"></div>
+    <div class="a box deco" style="--x:0;--y:6303.4;--w:185;--h:284"></div>
+    <h2 class="a t tw display content" style="--x:140;--y:6313.4;--w:900;--fs:62;--lh:60">Be the first to know about new creative works and upcoming events</h2>
 
     <form id="newsletter-form">
       <label class="visually-hidden" for="newsletter-email">Email address</label>
       <input class="a box field field--line" id="newsletter-email" name="email" type="email"
              required autocomplete="email" placeholder="Enter your email address"
-             style="--x:140;--y:6714;--w:640;--h:84">
-      <div class="a t stack actions content" style="--x:820;--y:6714;--fs:24;--lh:34">
+             style="--x:140;--y:6503.4;--w:640;--h:84">
+      <div class="a t stack actions content" style="--x:820;--y:6503.4;--fs:24;--lh:34">
         <button type="submit" id="btn-subscribe" class="btn btn--primary btn--row">subscribe</button>
       </div>
     </form>
-    <p class="a t body content" id="newsletter-status" style="--x:140;--y:6824;--fs:21;--lh:27" role="status" aria-live="polite"></p>
+    <p class="a t body content" id="newsletter-status" style="--x:140;--y:6613.4;--fs:21;--lh:27" role="status" aria-live="polite"></p>
   </section>
 
   <!-- ==========================================================
        FOOTER
        ========================================================== -->
-  <footer class="sec sec--flush site-footer" style="--y:6964">
+  <footer class="sec sec--flush site-footer" style="--y:6753.4">
     <div class="a box deco" style="--x:0;--y:0;--w:440;--h:228"></div>
     <div class="a box deco" style="--x:968;--y:0;--w:560;--h:228"></div>
     <div class="a box deco deco--deep" style="--x:1528;--y:0;--w:252;--h:228"></div>

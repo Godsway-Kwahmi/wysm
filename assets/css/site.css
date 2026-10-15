@@ -261,6 +261,12 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 .deco--deep{ background: var(--deep) }
 .photo{ z-index: 2; object-fit: cover }
 .panel{ background: var(--block); z-index: 3 }   /* blocks that sit over photos */
+/* The base band: the header bar's marigold at a sixth of its weight, run along
+   the foot of a block of copy. It is not a .deco, and that is the
+   point — a .deco is pure comp furniture and goes below 1650, where the
+   panel it belongs to comes back as the ground under its own text. The
+   band belongs to that ground, so it stays with it (see the reflow). */
+.band{ background: var(--marigold); z-index: 3 }
 .content{ z-index: 4 }
 
 /* ---------- type roles ----------
@@ -337,6 +343,12 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 .scopes,
 .inline-link{ --tsr: .88; --lead: 1.14; color: var(--marigold) }
 .inline-link:hover, .inline-link:focus-visible{ color: var(--gold-hi) }
+/* The "Read more" that closes a panel of copy on the homepage. It belongs to
+   the paragraph above it, so it lives inside the text block and flows with it
+   rather than carrying drawn coordinates that would drift the moment the copy
+   was edited. inline-block, not block, so the hover rule under it — which is
+   left:0/right:0 — stops at the last letter instead of running the measure. */
+.read-more{ display: inline-block; margin-top: 1.4em }
 /* the search status line is a sentence the visitor reads, not a label
    over a block, so it takes the body rung */
 .status{ --tsr: 1.05; --lead: 1.20 }
@@ -592,30 +604,49 @@ body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
 
 /* ============================================================
    PHOTO GALLERIES
-   A comp-positioned strip of frames that scrolls sideways. The strip
-   and its dot rail are two separate placed elements: the rail names
-   the strip it drives with data-gallery, so a page can hold several
+   A horizontal accordion. Every frame in the gallery is on show at once,
+   each one a slice of its own photograph, and the slice the pointer — or
+   the keyboard focus — is on takes the room. The frames share the row by
+   flex-grow, so opening one costs the others equally: at ten frames the
+   pointer's goes from 153 to 323 design px while its neighbours come down
+   to 134, and --gal-open is the ratio between them, the only number to
+   move. Nothing scrolls at the comp, which is why the rail under the row
+   marks the open frame rather than a scroll position (see site.js). A
+   frame opens full-size in the lightbox on click or Enter.
+   Below 1650 the row cannot hold ten slices at a readable width, so it
+   goes back to being the strip it was: natural aspect, sideways scroll.
+   The strip and its rail are two separate placed elements, and the rail
+   names the strip it drives with data-gallery, so a page can hold several
    galleries without the script having to guess which is which.
-   Frames open in a lightbox for full-size viewing.
    ============================================================ */
-.scroll-gallery{
+.gallery{
+  --gal-open: 2.4;                  /* the room the pointer's frame takes */
   display: flex;
-  overflow-x: auto;
   width: calc(1640 * var(--px));
-  gap: calc(29 * var(--px));
-  padding-bottom: calc(20 * var(--px));
-  scrollbar-color: var(--bar-thumb) var(--block);   /* the page's bar, on the strip's own fill */
+  height: calc(300 * var(--px));
+  gap: calc(12 * var(--px));
+  overflow: hidden;
   z-index: 4;
 }
-.scroll-gallery img{
-  height: calc(300 * var(--px));
+.gallery img{
+  flex: 1 1 0;
+  min-width: 0;
   width: auto;
-  cursor: pointer;
+  height: 100%;
   object-fit: cover;
-  transition: opacity .3s ease, filter .3s ease;
+  cursor: pointer;
+  transition: flex-grow .5s cubic-bezier(.22,.61,.36,1), filter .3s ease;
 }
-.scroll-gallery img:hover,
-.scroll-gallery img:focus-visible{ opacity: .85; filter: brightness(1.1) }
+/* The open frame is the one under the pointer. It does not scale — the row
+   is the clip, and a scaled image would bleed across the gap onto its
+   neighbours — it simply gets a wider slice of the same photograph, which
+   is the enlargement. The brightness lift is there so the frame reads as
+   live the instant the pointer arrives, before the half-second of flex. */
+.gallery img:hover,
+.gallery img:focus-visible{
+  flex-grow: var(--gal-open);
+  filter: brightness(1.06);
+}
 
 .gallery-pagination{
   display: flex;
@@ -677,14 +708,34 @@ body.gallery-open{ overflow: hidden }
    children flow.
    ============================================================ */
 .feature-grid{ display:flex; gap: calc(40 * var(--px)) }
-.feature-card{ display:block; flex:1 1 0; min-width:0 }
-.feature-card img{
-  display:block; width:100%; height:calc(380 * var(--px));
-  object-fit:cover;
-  transition: transform .45s cubic-bezier(.22,.61,.36,1), filter .45s ease;
+.feature-card{
+  display:block; flex:1 1 0; min-width:0; position:relative;
+  /* two-thirds of the 380 the photographs were drawn at */
+  --card-img-h: calc(253.33 * var(--px));
 }
-.feature-card:hover img,
-.feature-card:focus-visible img{ transform: scale(1.035); filter: brightness(1.08) }
+.feature-card img{
+  display:block; width:100%; height:var(--card-img-h);
+  object-fit:cover;
+}
+/* Hovering a card washes its photograph with marigold instead of pushing it
+   bigger — nothing on this page grows on pointer-over, and the card keeps the
+   exact box it was drawn at. The fill is the site's own accent at 80%: the
+   photograph still shows through, but the card under the pointer reads as a
+   flat field of the colour rather than a picture with a tint on it. The
+   overlay takes its height from the same custom property the image does, so
+   the two cannot drift apart at the reflow tiers, where the photograph changes
+   height but the card does not. */
+.feature-card::after{
+  content:"";
+  position:absolute; left:0; top:0;
+  width:100%; height:var(--card-img-h);
+  background: var(--marigold);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s ease;
+}
+.feature-card:hover::after,
+.feature-card:focus-visible::after{ opacity: .8 }
 /* the caption is a deck: it names the card the way a sub-head names a
    section, so it takes that rung (--sub 22) rather than a size of its own */
 .feature-card .cap{
@@ -764,23 +815,40 @@ body.gallery-open{ overflow: hidden }
 .js .navbar a:nth-child(5){ animation-delay:.56s }
 .js .hero{ opacity:0; animation: heroIn 1.05s .3s cubic-bezier(.22,.61,.36,1) forwards }
 
-/* hero glow — a soft warm light that trails the pointer across the wordmark.
-   The letterforms of the photograph are transparent, so the light reads
-   through them; site.js re-centres it on mousemove and holds it to the
-   hero's box. 430 design px of reach ≈ two thirds of the hero's height. */
-.hero-glow{
+/* Pointer glows — a soft warm light that trails the cursor. 430 design px of
+   reach each way (860 across ≈ two thirds of the hero's height), and the
+   letterforms of the photograph are transparent, so the hero's reads through
+   them. site.js re-centres both kinds on mousemove and holds each to its own
+   box.
+
+   The hero's is always lit and sits at z-index 1, behind the photograph. The
+   four section pools start dark and come up while the pointer is inside their
+   section — four always-on lights would spend the whole page in a haze — and
+   sit at z-index 2, over the flat blocks but under the photographs (which share
+   2 and come later in the document) and the text (4), so the field brightens
+   without either moving. */
+.hero-glow,
+.sec-glow{
   position: absolute;
   left: 0; top: 0;
   width:  calc(860 * var(--px));
   height: calc(860 * var(--px));
-  z-index: 1;                    /* behind the photograph, over the stage */
   pointer-events: none;
-  transform: translate(calc(985 * var(--px)), calc(470 * var(--px))) translate(-50%,-50%);
   background: radial-gradient(circle closest-side,
               rgba(242,182,50,.30) 0%,
               rgba(242,182,50,.10) 55%,
               rgba(242,182,50,0)   100%);
 }
+.hero-glow{
+  z-index: 1;                    /* behind the photograph, over the stage */
+  transform: translate(calc(985 * var(--px)), calc(470 * var(--px))) translate(-50%,-50%);
+}
+.sec-glow{
+  z-index: 2;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.sec-glow.is-lit{ opacity: 1 }
 
 /* scroll reveals — classes are applied by script, so a no-JS page shows everything */
 .js .reveal{
@@ -923,6 +991,9 @@ body.is-scrolled .site-header .logo{
   .scopes button,
   .navbar a::after,
   .inline-link::after,
+  /* the accordion still opens without the half-second of flex — a frame
+     that jumps to its full width is the same information, held instantly */
+  .gallery img,
   .stack a::after{ transition: none !important }
 }
 
@@ -965,6 +1036,14 @@ body.is-scrolled .site-header .logo{
   }
   .a{ position: static }
   .box, .tw, .logo-row{ width: auto; height: auto }
+  /* The panel a band sits under has come back as the ground above its own
+     text, so the band comes back with it — as a border on that ground, which
+     is the only box it can be measured against once the comp is gone. Drawn
+     at 2, the halving of its own 3.85, the way .rule halves 2 to 1. :has()
+     keeps it to the grounds that actually drew a band, so a panel that never
+     had one does not grow one here. */
+  .band{ display: none }
+  .panel + .content:has(+ .band){ border-bottom: 2px solid var(--marigold) }
 
   .sec{
     display: block;
@@ -1056,7 +1135,7 @@ body.is-scrolled .site-header .logo{
     transform: translate(-50%,-50%);
   }
   @media (max-width: 900px){
-    .hero-glow{ display: none }
+    .hero-glow, .sec-glow{ display: none }   /* no pointer to follow */
   }
   .photo{ width: 100%; height: auto; margin-bottom: 22px }
 
@@ -1083,6 +1162,9 @@ body.is-scrolled .site-header .logo{
   .rows{ margin-top: 8px }
   /* in the reflow these lose their drawn offset, so they take their own */
   .inline-link{ display: inline-block; margin-top: 14px }
+  /* the read-more stays a paragraph break below, not a 14px nudge — it is
+     still inside its own block of copy here */
+  .read-more{ margin-top: 1.4em }
   .row{
     grid-template-columns: 84px 1fr;
     column-gap: 16px;
@@ -1094,10 +1176,18 @@ body.is-scrolled .site-header .logo{
   /* tiles drawn at a comp size (the team portraits) reflow full width */
   .tile.box{ width: 100%; height: 220px }
 
-  /* the strip keeps scrolling sideways on a phone, which is what it is
-     for, but sheds its comp width so it cannot push the page wider */
-  .scroll-gallery{ width: auto; gap: 12px; margin-bottom: 14px }
-  .scroll-gallery img{ height: 150px }
+  /* The accordion is worth reading only at the comp's width: ten slices
+     across a phone are 24px apiece. So below 1650 the gallery goes back to
+     being the strip it was — natural aspect, scrolling sideways — and sheds
+     its comp width so it cannot push the page wider. flex is reset to 0 0
+     auto because a frame that may not shrink is the only way a row of
+     known photographs keeps its own shape. */
+  .gallery{
+    width: auto; height: auto; overflow-x: auto; gap: 12px;
+    padding-bottom: 12px; margin-bottom: 14px;
+    scrollbar-color: var(--bar-thumb) var(--block);
+  }
+  .gallery img{ flex: 0 0 auto; height: 150px }
   .gallery-pagination{ width: auto; justify-content: flex-start; gap: 8px }
   .gallery-pagination .dot{ width: 8px; height: 8px }
   .lightbox-prev{ left: 0 } .lightbox-next{ right: 0 }
@@ -1124,7 +1214,7 @@ body.is-scrolled .site-header .logo{
   .legal-bar .a + .a{ margin-top: 8px }
 
   .feature-grid{ flex-direction: column; gap: 28px }
-  .feature-card img{ height: 220px }
+  .feature-card{ --card-img-h: 146.67px }
   /* Four funders, two columns: as a flex row the plates pack 3 + 1 on a
      small landscape phone and the orphan stretches the whole width. The
      grid decides the count, so min-width has nothing left to police. */
@@ -1202,8 +1292,8 @@ body.is-scrolled .site-header .logo{
     .tile.box{ width: 100%; height: 320px }
 
     .feature-grid{ flex-direction: row; gap: 30px }
-    .feature-card img{ height: 300px }
-    .scroll-gallery img{ height: 232px }
+    .feature-card{ --card-img-h: 200px }
+    .gallery img{ height: 232px }
     .field{ height: 210px; padding: 16px; font-size: 18.5px; line-height: 1.55 }
     /* that height is the message box's. A single-line input given 210px of
        box is a void you can see through, so the line variant restates it
