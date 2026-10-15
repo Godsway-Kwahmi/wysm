@@ -120,25 +120,62 @@ window.SANITY = (function () {
     });
   }
 
-  /** A list of outbound links, one paragraph each: press coverage and the like. */
-  function linkList(id, list, labelKey) {
+  /** Press coverage as rows of the thumbnail component: the linked page's own
+   *  lead image, then the outlet as the row's name — which is what the drawn
+   *  list on the about page is, so a rebuild from the CMS looks like the page.
+   *
+   *  The images cannot come from the CMS: `mediaCoverage` holds `outlet` and
+   *  `url` only, and an article's og:image is not something a browser may read
+   *  cross-origin, so the copies are drawn with the page and looked up here by
+   *  the entry's `_key`. An entry the page has no picture for still gets its
+   *  row — as `.row--plain`, without the tile track — rather than dropping off
+   *  the list, so a curator's fourth link is never silently lost. */
+  function mediaRows(id, list, labelKey, thumbs) {
     if (!list || !list.length) return;
     var e = el(id);
     if (!e) return;
     e.innerHTML = '';
+    var rows = document.createElement('div');
+    rows.className = 'rows';
     list.forEach(function (item) {
       var url = safeUrl(item.url);
       if (!url || !item[labelKey]) return;
-      var p = document.createElement('p');
+      var thumb = thumbs && thumbs[item._key];
+
+      var row = document.createElement('div');
+      row.className = 'row' + (thumb ? '' : ' row--plain');
+
+      if (thumb) {
+        var t = document.createElement('a');
+        t.className = 'tile';
+        t.href = url;
+        t.target = '_blank';
+        t.rel = 'noopener';
+        t.tabIndex = -1;
+        t.setAttribute('aria-hidden', 'true');
+        var img = document.createElement('img');
+        img.src = thumb;
+        img.loading = 'lazy';
+        img.alt = '';
+        t.appendChild(img);
+        row.appendChild(t);
+      }
+
+      var name = document.createElement('div');
+      var h3 = document.createElement('h3');
+      h3.className = 't';
       var a = document.createElement('a');
-      a.className = 'inline-link';
       a.href = url;
       a.textContent = item[labelKey];
       a.target = '_blank';
       a.rel = 'noopener';
-      p.appendChild(a);
-      e.appendChild(p);
+      h3.appendChild(a);
+      name.appendChild(h3);
+      row.appendChild(name);
+      rows.appendChild(row);
     });
+    e.appendChild(rows);
+    if (window.fitStage) window.fitStage();
   }
 
   /** The funding row. The page draws each funder as a plate — the name
@@ -284,7 +321,7 @@ window.SANITY = (function () {
     query: query,
     text: text, href: href, src: src, image: image, hide: hide,
     paragraphs: paragraphs, columns: columns, links: links, meta: meta,
-    linkList: linkList, supporters: supporters, publicationPage: publicationPage,
+    mediaRows: mediaRows, supporters: supporters, publicationPage: publicationPage,
     settings: settings,
   };
 })();

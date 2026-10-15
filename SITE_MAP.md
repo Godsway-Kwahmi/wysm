@@ -139,7 +139,7 @@ Exposed as `window.fitStage` for pages that add rows after load.
 and exposes `window.SANITY`:
 
 `query` `text` `href` `src` `image` `hide` `paragraphs` `columns` `links`
-`meta` `linkList` `supporters` `publicationPage` `settings`
+`meta` `mediaRows` `supporters` `publicationPage` `settings`
 
 Rules the whole site follows:
 
@@ -150,6 +150,11 @@ Rules the whole site follows:
 - **All body copy goes in via `textContent`.** Never `innerHTML`.
 - **`safeUrl()` blocks `javascript:`, `data:` and `vbscript:`** on every
   URL the CMS supplies.
+- **`mediaRows()` takes a `{_key: path}` registry from the page.** Press
+  pictures cannot come through the CMS — `mediaCoverage` has only `outlet`
+  and `url`, and an article's og:image is not readable cross-origin from a
+  browser — so `about.html` names the local copy for each entry. An entry
+  with no key there still gets its row, without the tile.
 - Each page issues one GROQ query for its own document id. A failed fetch
   logs `Sanity fetch unavailable — showing built-in preview content.`
   Note the CDN rejects cross-origin requests from `127.0.0.1`, so a local
@@ -169,7 +174,8 @@ off the queries.
 ```
 assets/img/hero.webp  publication.webp  intervention.webp  convening.webp
 assets/img/Homepage/                3   slide stills, none of them wired (see §7)
-assets/img/About/                   6   + Images-for-activities-and-output-section/ (2)
+assets/img/About/                  10   + Images-for-activities-and-output-section/ (2)
+                                       + Media/ (2 press og:images) + Media/web/ (2)
 assets/img/Publications/            10  covers (+ 4 duplicate PDFs, see §7)
 assets/img/Creative-Works/
     cover-for-short-story.jpg  community-theatre-hero-image.jpg

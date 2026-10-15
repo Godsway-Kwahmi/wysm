@@ -576,7 +576,15 @@ body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
 .row .body{ --fs: 21; --lh: 27; margin-top: calc(12 * var(--px)) }
 .row .when{ text-align: right; color: var(--dim); white-space: nowrap }
 .row a:hover .tile{ opacity: .85 }
-.row a:hover h3{ color: var(--marigold) }
+/* The row's name is the link, so it answers the pointer the way every other
+   link on the site does. This used to read `.row a:hover h3`, which asked for
+   an h3 inside the anchor and so never matched anything: the title has been
+   dead since the component was drawn. Written on the anchor instead, it lights
+   at all three tiers, which is also why a row title carries no .inline-link —
+   that class sets its own 17px and a 14px top margin in the reflow, and a row
+   title has to take the component's type, not running text's. */
+.row h3 a:hover,
+.row h3 a:focus-visible{ color: var(--marigold) }
 
 .tile{
   display:block;

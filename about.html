@@ -43,7 +43,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="stage" id="main" style="--stage:3022">
+<div class="stage" id="main" style="--stage:2986.3">
 
   <!-- ==========================================================
        DECORATIVE BLOCKS FRAMING THE HERO
@@ -82,7 +82,8 @@
        the 640 it was drawn at. The image is a cover crop, so the shorter box
        takes in less of the frame instead of squeezing what it holds. The rule
        under it and everything below that came up 73 with the foot, so no gap
-       inside the page moved and the drawn height went 3095 → 3022.
+       inside the page moved. The page's own drawn height has moved since, with
+       everything else below it: 3022 then, 2986.3 now.
        ========================================================== -->
   <img class="a box photo hero" id="hero-image" src="assets/img/About/Header.jpg" loading="lazy"
        style="--x:420;--y:150;--w:1130;--h:567"
@@ -128,11 +129,11 @@
        SECTION 2: OUR ACTIVITIES AND OUTPUTS
        ========================================================== -->
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:1479;--w:1640;--h:2"></div>
-    <div class="a box deco" style="--x:1780;--y:1519;--w:140;--h:240"></div>
-    <h2 class="a t tw sub content" style="--x:140;--y:1539;--w:700;--fs:36;--lh:36">Our activities and outputs</h2>
+    <div class="a box rule" style="--x:140;--y:1382.8;--w:1640;--h:2"></div>
+    <div class="a box deco" style="--x:1780;--y:1422.8;--w:140;--h:240"></div>
+    <h2 class="a t tw sub content" style="--x:140;--y:1442.8;--w:700;--fs:36;--lh:36">Our activities and outputs</h2>
 
-    <div class="a tw feature-grid" style="--x:140;--y:1619;--w:1640">
+    <div class="a tw feature-grid" style="--x:140;--y:1522.8;--w:1640">
       <a class="feature-card content" href="publications.html">
         <img src="assets/img/About/publications.jpg" loading="lazy" alt="Publications">
         <span class="cap t sub">Publications</span>
@@ -152,19 +153,46 @@
        SECTION 3: MEDIA COVERAGE
        ========================================================== -->
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:2229;--w:1640;--h:2"></div>
-    <h2 class="a t tw sub content" style="--x:140;--y:2289;--w:700;--fs:36;--lh:36">Media coverage</h2>
+    <div class="a box rule" style="--x:140;--y:1888.3;--w:1640;--h:2"></div>
+    <h2 class="a t tw sub content" style="--x:140;--y:1948.3;--w:700;--fs:36;--lh:36">Media coverage</h2>
     
-    <div class="a t tw body content" id="media-list" style="--x:140;--y:2369;--w:1000;--fs:21;--lh:32">
-       <p><a href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" class="inline-link" target="_blank" rel="noopener">Ghana News Agency</a></p>
-       <p><a href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" class="inline-link" target="_blank" rel="noopener">Ghana Weekend</a></p>
+    <!-- Each coverage link is a row of the list component the works list uses:
+         a thumbnail, then the outlet as the row's name. The thumbnail is the
+         linked page's own lead image — its og:image — so the row shows the
+         photograph the article runs rather than a stand-in from this site. The
+         originals are kept here in Media/ and the served copies are one
+         640px-long-edge render at JPEG q82 in Media/web/, which is more than a
+         154x139 tile can use; the tile's own anchor is aria-hidden because the
+         outlet name beside it is the real link. That name carries no
+         .inline-link: it is a row title, so it takes the component's type at
+         every tier and lights on hover like the other six on the site.
+         The measure is the 1000 the two paragraphs had. The pair stands 401
+         tall — two rows of 30 + 139 + 30 and the three hairlines between and
+         under them — where the text was 96, so the footer's drawn top went
+         2264.3 → 2569.3 and the page 2681.3 → 2986.3 to keep the same 140
+         between the list's foot and the band. -->
+    <div class="a tw content" id="media-list" style="--x:140;--y:2028.3;--w:1000">
+      <div class="rows">
+        <div class="row">
+          <a class="tile" href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/About/Media/web/gna-queenmothers-gbv-web.jpg" loading="lazy" alt=""></a>
+          <div>
+            <h3 class="t"><a href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" target="_blank" rel="noopener">Ghana News Agency</a></h3>
+          </div>
+        </div>
+        <div class="row">
+          <a class="tile" href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/About/Media/web/ghana-weekend-researchers-gbv-web.jpg" loading="lazy" alt=""></a>
+          <div>
+            <h3 class="t"><a href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" target="_blank" rel="noopener">Ghana Weekend</a></h3>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ==========================================================
        FOOTER
        ========================================================== -->
-  <footer class="sec sec--flush site-footer" style="--y:2605">
+  <footer class="sec sec--flush site-footer" style="--y:2569.3">
     <div class="a box deco" style="--x:0;--y:0;--w:440;--h:228"></div>
     <div class="a box deco" style="--x:968;--y:0;--w:560;--h:228"></div>
     <div class="a box deco deco--deep" style="--x:1528;--y:0;--w:252;--h:228"></div>
@@ -261,7 +289,14 @@ SANITY.query(`*[_id == "aboutPage"][0]{ seo, mediaCoverage[]{ _key, outlet, url 
   .then(function (p) {
     if (!p) return;
     SANITY.meta(p);
-    SANITY.linkList('media-list', p.mediaCoverage, 'outlet');
+    /* Keyed by the CMS entry's `_key`, so the tiles survive the rebuild:
+       the list above is what the page looks like before the query comes
+       back, and this is the same list built from the live entries. A new
+       coverage link with no key here renders as a row without a picture. */
+    SANITY.mediaRows('media-list', p.mediaCoverage, 'outlet', {
+      gna:          'assets/img/About/Media/web/gna-queenmothers-gbv-web.jpg',
+      ghanaweekend: 'assets/img/About/Media/web/ghana-weekend-researchers-gbv-web.jpg'
+    });
   });
 </script>
 </body>
