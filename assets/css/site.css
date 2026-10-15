@@ -549,6 +549,14 @@ body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
   border-top: 1px solid var(--hair);
 }
 .row:last-child{ border-bottom: 1px solid var(--hair) }
+/* The works list is not closed. Every other list on the site carries a hairline
+   under its last row because the list is the end of what it holds; this one is
+   an index whose single row hands straight over to the section that row opens,
+   so the cap left a line stranded in the middle of the page with 239 design px
+   of bare ground under it. The rule that used to sit at the head of that
+   section came out with it. Scoped by id, because the five-row list on
+   publications.html still wants closing. */
+#works-list .row:last-child{ border-bottom: 0 }
 .row--plain{ grid-template-columns: 1fr auto }
 /* A row title takes the deck rung, its meta the chrome rung, so a list
    reads at the same two steps as a section does. */
