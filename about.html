@@ -48,7 +48,12 @@
   <!-- ==========================================================
        DECORATIVE BLOCKS FRAMING THE HERO
        ========================================================== -->
-  <div class="a box deco" style="--x:1780;--y:177;--w:140;--h:363"></div>
+  <!-- 150, not the 177 this was drawn at: the rail's head now sits on the line
+       the hero photograph starts on, so the two read as one band across the
+       page instead of the rail hanging 27 below the image it frames. The foot
+       stays where it was — 540 — so the block grew 363 → 390 on its top edge
+       alone, and nothing below it moved. -->
+  <div class="a box deco" style="--x:1780;--y:150;--w:140;--h:390"></div>
   <!-- 295, not the 279 this was drawn at: the rail's right edge is the line the
        cream card over the wordmark ends on, so the header and the block under
        it read as one column. The wordmark's own box is 289 and sits 6 inside
@@ -87,7 +92,7 @@
        ========================================================== -->
   <img class="a box photo hero" id="hero-image" src="assets/img/About/Header.jpg" loading="lazy"
        style="--x:420;--y:150;--w:1130;--h:567"
-       alt="About When You See Me">
+       alt="The performance space at night: a raked wooden stage under one hard worklight, the audience in plastic chairs along one side and performers in ankara cloth seated along the other.">
 
   <!-- ==========================================================
        SECTION 1: ABOUT
@@ -157,32 +162,49 @@
     <h2 class="a t tw sub content" style="--x:140;--y:1948.3;--w:700;--fs:36;--lh:36">Media coverage</h2>
     
     <!-- Each coverage link is a row of the list component the works list uses:
-         a thumbnail, then the outlet as the row's name. The thumbnail is the
-         linked page's own lead image — its og:image — so the row shows the
-         photograph the article runs rather than a stand-in from this site. The
+         a thumbnail, the outlet as the row's name, and the article's own
+         headline with the publisher's copyright line in the row's meta.
+
+         The thumbnail is the linked page's lead image — its og:image — so the
+         row shows the photograph the article runs rather than a stand-in from
+         this site: gna.org.gh/web/wp-content/uploads/2026/08/Ho-Social-Migrants-
+         GBV-12719jpeg.jpeg (1280x853) and ghanaweekend.com/wp-content/uploads/
+         2026/07/WhatsApp-Image-2026-07-20-at-9.01.27-PM.jpeg (1080x712). The
          originals are kept here in Media/ and the served copies are one
          640px-long-edge render at JPEG q82 in Media/web/, which is more than a
          154x139 tile can use; the tile's own anchor is aria-hidden because the
          outlet name beside it is the real link. That name carries no
          .inline-link: it is a row title, so it takes the component's type at
          every tier and lights on hover like the other six on the site.
+         The credits are the publishers' own lines — "Copyright © 2026 Ghana News
+         Agency" in GNA's footer, "© 2024 GhanaWeekend" in Ghana Weekend's. Note
+         that Ghana Weekend's file name says the photograph reached them over
+         WhatsApp, so their claim to it is the paper's, not a named photographer's;
+         if the second credit should read "Courtesy of" instead, it is one string
+         here and one in the registry below.
+
          The measure is the 1000 the two paragraphs had. The pair stands 401
          tall — two rows of 30 + 139 + 30 and the three hairlines between and
          under them — where the text was 96, so the footer's drawn top went
          2264.3 → 2569.3 and the page 2681.3 → 2986.3 to keep the same 140
-         between the list's foot and the band. -->
+         between the list's foot and the band. The meta costs nothing above
+         that: each headline takes two lines at the body's 62ch cap, which puts
+         the text block at 86 and leaves the 139-tall tile the tallest thing in
+         the row, so the rows are still 199 and the drawn numbers hold. -->
     <div class="a tw content" id="media-list" style="--x:140;--y:2028.3;--w:1000">
       <div class="rows">
         <div class="row">
           <a class="tile" href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/About/Media/web/gna-queenmothers-gbv-web.jpg" loading="lazy" alt=""></a>
           <div>
             <h3 class="t"><a href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" target="_blank" rel="noopener">Ghana News Agency</a></h3>
+            <span class="t body meta">Queenmothers, community leaders trained to support immigrant survivors of GBV &middot; &copy; Ghana News Agency</span>
           </div>
         </div>
         <div class="row">
           <a class="tile" href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/About/Media/web/ghana-weekend-researchers-gbv-web.jpg" loading="lazy" alt=""></a>
           <div>
             <h3 class="t"><a href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" target="_blank" rel="noopener">Ghana Weekend</a></h3>
+            <span class="t body meta">Researchers advocate stronger grassroots response to gender-based violence &middot; &copy; Ghana Weekend</span>
           </div>
         </div>
       </div>
@@ -271,6 +293,7 @@
     <div class="a box rule" style="--x:140;--y:372;--w:1640;--h:2"></div>
     <div class="legal-bar">
       <p class="a t legal content" id="legal-copyright" style="--x:140;--y:391.6;--fs:13;--lh:13">&copy; 2026 Peace Adzo Medie. All rights reserved.</p>
+      <p class="a t tw legal content" style="--x:1400;--y:391.6;--w:380;--fs:13;--lh:13;text-align:right">Website by <a href="https://rdvs.studio" target="_blank" rel="noopener">RDVS</a></p>
     </div>
   </footer>
 
@@ -289,13 +312,24 @@ SANITY.query(`*[_id == "aboutPage"][0]{ seo, mediaCoverage[]{ _key, outlet, url 
   .then(function (p) {
     if (!p) return;
     SANITY.meta(p);
-    /* Keyed by the CMS entry's `_key`, so the tiles survive the rebuild:
-       the list above is what the page looks like before the query comes
-       back, and this is the same list built from the live entries. A new
-       coverage link with no key here renders as a row without a picture. */
+    /* Keyed by the CMS entry's `_key`, so the tiles, the headlines and the
+       credits survive the rebuild: the list above is what the page looks like
+       before the query comes back, and this is the same list built from the
+       live entries. A new coverage link with no key here renders as a row
+       without a picture. The headline is the article's own, taken from its
+       og:title with the outlet's suffix cut; the credit is the publisher's,
+       off the line each page prints in its footer. */
     SANITY.mediaRows('media-list', p.mediaCoverage, 'outlet', {
-      gna:          'assets/img/About/Media/web/gna-queenmothers-gbv-web.jpg',
-      ghanaweekend: 'assets/img/About/Media/web/ghana-weekend-researchers-gbv-web.jpg'
+      gna: {
+        image:    'assets/img/About/Media/web/gna-queenmothers-gbv-web.jpg',
+        headline: 'Queenmothers, community leaders trained to support immigrant survivors of GBV',
+        credit:   '\u00A9 Ghana News Agency'
+      },
+      ghanaweekend: {
+        image:    'assets/img/About/Media/web/ghana-weekend-researchers-gbv-web.jpg',
+        headline: 'Researchers advocate stronger grassroots response to gender-based violence',
+        credit:   '\u00A9 Ghana Weekend'
+      }
     });
   });
 </script>

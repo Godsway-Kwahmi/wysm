@@ -121,16 +121,21 @@ window.SANITY = (function () {
   }
 
   /** Press coverage as rows of the thumbnail component: the linked page's own
-   *  lead image, then the outlet as the row's name — which is what the drawn
+   *  lead image, the outlet as the row's name, and the article's headline with
+   *  the publisher's copyright line in the row's meta — which is what the drawn
    *  list on the about page is, so a rebuild from the CMS looks like the page.
    *
-   *  The images cannot come from the CMS: `mediaCoverage` holds `outlet` and
-   *  `url` only, and an article's og:image is not something a browser may read
-   *  cross-origin, so the copies are drawn with the page and looked up here by
-   *  the entry's `_key`. An entry the page has no picture for still gets its
-   *  row — as `.row--plain`, without the tile track — rather than dropping off
-   *  the list, so a curator's fourth link is never silently lost. */
-  function mediaRows(id, list, labelKey, thumbs) {
+   *  None of that can come from the CMS: `mediaCoverage` holds `outlet` and
+   *  `url` only, an article's og:image is not something a browser may read
+   *  cross-origin, and neither the picture nor its headline is ours to re-key.
+   *  So the page supplies a `{_key: {image, headline, credit}}` registry and
+   *  this joins the two meta fields the one way they are ever written —
+   *  `headline · credit`, the middot the publications rows already use.
+   *
+   *  An entry the page has no picture for still gets its row — as `.row--plain`,
+   *  without the tile track — rather than dropping off the list, so a curator's
+   *  fourth link is never silently lost. */
+  function mediaRows(id, list, labelKey, byKey) {
     if (!list || !list.length) return;
     var e = el(id);
     if (!e) return;
@@ -140,12 +145,12 @@ window.SANITY = (function () {
     list.forEach(function (item) {
       var url = safeUrl(item.url);
       if (!url || !item[labelKey]) return;
-      var thumb = thumbs && thumbs[item._key];
+      var entry = (byKey && byKey[item._key]) || {};
 
       var row = document.createElement('div');
-      row.className = 'row' + (thumb ? '' : ' row--plain');
+      row.className = 'row' + (entry.image ? '' : ' row--plain');
 
-      if (thumb) {
+      if (entry.image) {
         var t = document.createElement('a');
         t.className = 'tile';
         t.href = url;
@@ -154,7 +159,7 @@ window.SANITY = (function () {
         t.tabIndex = -1;
         t.setAttribute('aria-hidden', 'true');
         var img = document.createElement('img');
-        img.src = thumb;
+        img.src = entry.image;
         img.loading = 'lazy';
         img.alt = '';
         t.appendChild(img);
@@ -171,6 +176,15 @@ window.SANITY = (function () {
       a.rel = 'noopener';
       h3.appendChild(a);
       name.appendChild(h3);
+
+      var meta = [entry.headline, entry.credit].filter(Boolean).join(' \u00B7 ');
+      if (meta) {
+        var s = document.createElement('span');
+        s.className = 't body meta';
+        s.textContent = meta;
+        name.appendChild(s);
+      }
+
       row.appendChild(name);
       rows.appendChild(row);
     });

@@ -150,11 +150,13 @@ Rules the whole site follows:
 - **All body copy goes in via `textContent`.** Never `innerHTML`.
 - **`safeUrl()` blocks `javascript:`, `data:` and `vbscript:`** on every
   URL the CMS supplies.
-- **`mediaRows()` takes a `{_key: path}` registry from the page.** Press
-  pictures cannot come through the CMS — `mediaCoverage` has only `outlet`
-  and `url`, and an article's og:image is not readable cross-origin from a
-  browser — so `about.html` names the local copy for each entry. An entry
-  with no key there still gets its row, without the tile.
+- **`mediaRows()` takes a `{_key: {image, headline, credit}}` registry from
+  the page.** Press pictures, headlines and credits cannot come through the
+  CMS — `mediaCoverage` has only `outlet` and `url`, an og:image is not
+  readable cross-origin from a browser, and none of the three is ours to
+  re-key — so `about.html` names the local copy and quotes the article for
+  each entry, and the writer joins `headline · credit` into the row's meta.
+  An entry with no image there still gets its row, without the tile.
 - Each page issues one GROQ query for its own document id. A failed fetch
   logs `Sanity fetch unavailable — showing built-in preview content.`
   Note the CDN rejects cross-origin requests from `127.0.0.1`, so a local
@@ -219,6 +221,13 @@ query time (`?w=400&fit=max&auto=format`).
   declares its own ratio: in the markup for the built-in rows, and read off the
   Sanity asset URL (`-1748x2480.jpg`) for the CMS-built ones, so `fitStage`
   measures the list's true height before a single image has arrived.
+- **A `.thumbs` strip is an `<img>` in the link, not a `background-image` on an
+  empty span.** The anchor keeps the fixed box and the mat and carries the
+  `aria-label` as the link's name; the image inside it fills the box with
+  `object-fit: cover` and carries the `alt`. A cover painted in CSS has no image
+  element for alt text to attach to, so anything that asked the strip what its
+  pictures were — a screen reader's image list, an accessibility audit, a reader
+  view — was handed the file path instead.
 - **Programs are deep-linkable.** The three entries carry `#program-training`,
   `#program-policy` and `#program-launch` on `.anchor` spans — the same device
   `index.html` uses — because a `<section>` is zero height on the comp, and

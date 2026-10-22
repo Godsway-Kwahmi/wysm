@@ -433,15 +433,21 @@ body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
 
 /* ---------- thumbnails ---------- */
 .thumbs{ display: flex; z-index: 4 }
-.thumbs span, .thumbs a{
+.thumbs a{
   display: block;
   width:  calc(154 * var(--px));
   height: calc(139 * var(--px));
   background: var(--cream);
   cursor: pointer;
 }
-.thumbs--dark span, .thumbs--dark a{ background: var(--block) }
-.thumbs span:hover, .thumbs a:hover{ opacity: .85 }
+.thumbs--dark a{ background: var(--block) }
+/* A thumb is an <img> inside the link, not a background-image painted on an
+   empty span. A cover drawn in CSS has no alt text to carry, so anything that
+   asks the strip what its pictures are — a screen reader's image list, an
+   audit, a reader view — was handed the file name instead. The anchor keeps
+   the box and the mat; the image fills it and crops the way cover did. */
+.thumbs img{ display: block; width: 100%; height: 100%; object-fit: cover }
+.thumbs a:hover{ opacity: .85 }
 
 /* wrappers exist only for the mobile reflow: at the comp's width they generate
    no box, so their children stay placed against the stage exactly as if the
@@ -893,10 +899,11 @@ body.gallery-open{ overflow: hidden }
 .js .reveal-photo.is-in{ clip-path: inset(0 0 0 0) }
 
 /* ---------- hover + focus detail ---------- */
-.navbar a, .stack a, .inline-link{ position: relative }
+.navbar a, .stack a, .legal a, .inline-link{ position: relative }
 .navbar a::after,
 .inline-link::after,
-.stack a::after{
+.stack a::after,
+.legal a::after{
   content:"";
   position: absolute;
   left: 0; right: 0;
@@ -915,13 +922,15 @@ body.gallery-open{ overflow: hidden }
 .inline-link:hover::after,
 .inline-link:focus-visible::after,
 .stack a:hover::after,
-.stack a:focus-visible::after{ transform: scaleX(1) }
+.stack a:focus-visible::after,
+.legal a:hover::after,
+.legal a:focus-visible::after{ transform: scaleX(1) }
 
-.thumbs span, .thumbs a{
+.thumbs a{
   transition: transform .3s cubic-bezier(.22,.61,.36,1), filter .3s ease, opacity .3s ease;
 }
-.thumbs span:hover, .thumbs a:hover{ transform: translateY(calc(-6 * var(--px))); filter: brightness(1.12) }
-.thumbs--dark span:hover, .thumbs--dark a:hover{ filter: brightness(1.45) }
+.thumbs a:hover{ transform: translateY(calc(-6 * var(--px))); filter: brightness(1.12) }
+.thumbs--dark a:hover{ filter: brightness(1.45) }
 
 .field{ transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease }
 /* A field that has a resting edge now has to change it, not just gain a
@@ -1009,7 +1018,6 @@ body.is-scrolled .site-header .logo{
   }
   .site-header,
   .site-header::before,
-  .thumbs span,
   .thumbs a,
   .tile,
   .actions button,
@@ -1177,7 +1185,7 @@ body.is-scrolled .site-header .logo{
   /* three to a row, wrapping, with the gaps taken out of the track so the
      row lands exactly on the column rather than a fraction over it */
   .thumbs{ flex-wrap: wrap; gap: 12px !important }
-  .thumbs span, .thumbs a{ flex: 0 0 calc(33.333% - 8px); width: auto; height: 84px }
+  .thumbs a{ flex: 0 0 calc(33.333% - 8px); width: auto; height: 84px }
 
   /* inputs stay at 16px: anything smaller makes iOS zoom on focus */
   .field{ width: 100%; height: 190px; font-size: 16px; line-height: 1.45; padding: 14px }
@@ -1307,7 +1315,7 @@ body.is-scrolled .site-header .logo{
     .panel + .photo + .content{ padding: 36px 40px }
 
     .thumbs{ gap: 20px !important }
-    .thumbs span, .thumbs a{ flex-basis: calc(20% - 16px); height: 132px }
+    .thumbs a{ flex-basis: calc(20% - 16px); height: 132px }
 
     /* list rows take the comp's three tracks: tile, text, year */
     .row{ grid-template-columns: 132px 1fr auto; column-gap: 30px; padding: 26px 0 }
