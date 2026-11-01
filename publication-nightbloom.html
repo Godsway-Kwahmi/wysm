@@ -43,7 +43,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="stage" id="main" style="--stage:1800">
+<div class="stage" id="main" style="--stage:1863">
 
   <header class="sec site-header">
     <div class="a box deco deco--white" style="--x:0;--y:0;--w:295;--h:59"></div>
@@ -63,23 +63,48 @@
 
   <section class="sec">
     <a class="a t content inline-link" href="publications.html" style="--x:140;--y:230;--fs:21;--lh:27">&larr; All publications</a>
+    <!-- 35 design px from the title's last line to its kind-and-year meta: the
+         step every other title-to-meta pair on the site takes. The meta used to sit
+         at a drawn 460 whatever the title did, which left a hole of dead air under a
+         one-line title; everything below it came up by the same 98 px on 2026-10-31
+         — the rule, the cover, the summary, the citation, the footer and the drawn
+         stage with them — so the page keeps every relationship it has below the
+         meta and only loses the hole. -->
     <h1 class="a t tw display content" id="pub-title" style="--x:140;--y:270;--w:1300;--fs:56;--lh:64">Nightbloom</h1>
-    <p class="a t tw meta content" id="pub-meta" style="--x:140;--y:460;--w:1300;--fs:21;--lh:27">Novel &middot; 2023</p>
+    <p class="a t tw meta content" id="pub-meta" style="--x:140;--y:362;--w:1300;--fs:21;--lh:27">Novel &middot; 2023</p>
   </section>
 
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:520;--w:1640;--h:2"></div>
+    <div class="a box rule" style="--x:140;--y:422;--w:1640;--h:2"></div>
     <img class="a box photo" id="pub-cover" src="assets/img/Publications/nightbloom.webp" loading="lazy"
-         style="--x:140;--y:580;--w:460;--h:660"
+         style="--x:140;--y:482;--w:460;--h:660"
          alt="Cover of the novel Nightbloom.">
-    <div class="a t tw body content" id="pub-abstract" style="--x:660;--y:580;--w:1060;--fs:21;--lh:30">
-      <p>A novel about two cousins, Akorfa and Selasi, raised together in Ghana and separated by class, ambition and time. When Akorfa leaves for the United States and Selasi stays behind, a secret from their childhood resurfaces and forces both women to reckon with the choices that shaped their friendship.</p>
+    <!-- The client's own abstract, from "Abstracts in order of appearance" in
+         When You See Me - Website.docx. The page used to show the one-line summary
+         here, which is what the list row above it is for; the abstract field on the
+         Sanity document is empty, so this stands on its own, and filling that field
+         in Studio replaces it without any change to the page. -->
+    <!-- The citation and the download link are placed from the abstract, not
+         from the top of the page: the abstract is the client's own text and runs
+         to 228, 638, 1165, 553 or 520 px depending on the publication, so one
+         fixed coordinate for what comes under it landed on top of it on four of
+         the five pages. Citation = abstract bottom + 55, link = citation + 80,
+         footer = whichever of the cover and the link reaches lower, + 143, stage
+         = footer + 417 -- the same rule on every page, measured at the comp on
+         2026-10-31. The text column itself draws 681 px wide: .body caps the
+         measure at 62 characters, which is what keeps a 2,400-character abstract
+         readable, and the slot reserves 1060 because that is the column the page
+         is built on, not the width the ink takes. -->
+    <div class="a t tw body content" id="pub-abstract" style="--x:660;--y:482;--w:1060;--fs:21;--lh:30">
+      <p>When Selasi and Akorfa were young girls in Ghana, they were more than just cousins; they were inseparable. Selasi was exuberant and funny, Akorfa quiet and studious. They would do anything for each other, imploring their parents to let them be together, sharing their secrets and desires and private jokes.</p>
+      <p>Then Selasi begins to change, becoming hostile and quiet; her grades suffer and she builds a space around herself, shutting Akorfa out. Meanwhile, Akorfa is accepted to an American university with the goal of becoming a doctor. Although hopeful that she can create a fuller life as a woman in America, she discovers the insidious ways that racism places obstacles in her path once she leaves Ghana. It takes a crisis to bring the friends back together, with Selasi&rsquo;s secret revealed and Akorfa forced to reckon with her role in their estrangement.</p>
+      <p>A riveting depiction of class and family in Ghana, a compelling exploration of memory, and an eye-opening story of life as an African-born woman in the United States, Nightbloom is above all a gripping and beautifully written novel attesting to the strength of female bonds in the face of societies that would prefer to silence women.</p>
     </div>
-    <p class="a t tw meta content" id="pub-citation" style="--x:660;--y:820;--w:1060;--fs:21;--lh:27">Algonquin Books (US) and Oneworld (UK), 2023. Longlisted for the 2024 Women&rsquo;s Prize for Fiction.</p>
-    <a class="a t content inline-link" id="pub-cta" href="https://www.hachettebookgroup.com/titles/peace-adzo-medie/nightbloom/9781643752846/" target="_blank" rel="noopener" style="--x:660;--y:900;--fs:21;--lh:27">View at publisher</a>
+    <p class="a t tw meta content" id="pub-citation" style="--x:660;--y:1175;--w:1060;--fs:21;--lh:27">Algonquin Books (US) and Oneworld (UK), 2023. Longlisted for the 2024 Women&rsquo;s Prize for Fiction.</p>
+    <a class="a t content inline-link" id="pub-cta" href="https://www.hachettebookgroup.com/titles/peace-adzo-medie/nightbloom/9781643752846/" target="_blank" rel="noopener" style="--x:660;--y:1255;--fs:21;--lh:27">View at publisher</a>
   </section>
 
-  <footer class="sec sec--flush site-footer" style="--y:1383">
+  <footer class="sec sec--flush site-footer" style="--y:1446">
     <div class="a box deco" style="--x:0;--y:0;--w:440;--h:228"></div>
     <div class="a box deco" style="--x:968;--y:0;--w:560;--h:228"></div>
     <div class="a box deco deco--deep" style="--x:1528;--y:0;--w:252;--h:228"></div>

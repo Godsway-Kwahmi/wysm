@@ -43,7 +43,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="stage" id="main" style="--stage:1800">
+<div class="stage" id="main" style="--stage:2390">
 
   <header class="sec site-header">
     <div class="a box deco deco--white" style="--x:0;--y:0;--w:295;--h:59"></div>
@@ -63,23 +63,47 @@
 
   <section class="sec">
     <a class="a t content inline-link" href="publications.html" style="--x:140;--y:230;--fs:21;--lh:27">&larr; All publications</a>
+    <!-- 35 design px from the title's last line to its kind-and-year meta: the
+         step every other title-to-meta pair on the site takes. The meta used to sit
+         at a drawn 460 whatever the title did, which left a hole of dead air under a
+         one-line title; everything below it came up by the same 98 px on 2026-10-31
+         — the rule, the cover, the summary, the citation, the footer and the drawn
+         stage with them — so the page keeps every relationship it has below the
+         meta and only loses the hole. -->
     <h1 class="a t tw display content" id="pub-title" style="--x:140;--y:270;--w:1300;--fs:56;--lh:64">Women and Violence in Africa</h1>
-    <p class="a t tw meta content" id="pub-meta" style="--x:140;--y:460;--w:1300;--fs:21;--lh:27">Encyclopedia entry &middot; 2019</p>
+    <p class="a t tw meta content" id="pub-meta" style="--x:140;--y:362;--w:1300;--fs:21;--lh:27">Encyclopedia entry &middot; 2019</p>
   </section>
 
   <section class="sec">
-    <div class="a box rule" style="--x:140;--y:520;--w:1640;--h:2"></div>
+    <div class="a box rule" style="--x:140;--y:422;--w:1640;--h:2"></div>
     <img class="a box photo" id="pub-cover" src="assets/img/Publications/Women-and-Violence-in-Africa.jpg" loading="lazy"
-         style="--x:140;--y:580;--w:460;--h:660"
+         style="--x:140;--y:482;--w:460;--h:660"
          alt="First page of the article Women and Violence in Africa.">
-    <div class="a t tw body content" id="pub-abstract" style="--x:660;--y:580;--w:1060;--fs:21;--lh:30">
-      <p>A peer-reviewed overview of research on violence against women across Africa: its forms and drivers, the toll it takes on survivors, and how states, communities and international actors have responded to it.</p>
+    <!-- The client's own abstract, from "Abstracts in order of appearance" in
+         When You See Me - Website.docx. The page used to show the one-line summary
+         here, which is what the list row above it is for; the abstract field on the
+         Sanity document is empty, so this stands on its own, and filling that field
+         in Studio replaces it without any change to the page. -->
+    <!-- The citation and the download link are placed from the abstract, not
+         from the top of the page: the abstract is the client's own text and runs
+         to 228, 638, 1165, 553 or 520 px depending on the publication, so one
+         fixed coordinate for what comes under it landed on top of it on four of
+         the five pages. Citation = abstract bottom + 55, link = citation + 80,
+         footer = whichever of the cover and the link reaches lower, + 143, stage
+         = footer + 417 -- the same rule on every page, measured at the comp on
+         2026-10-31. The text column itself draws 681 px wide: .body caps the
+         measure at 62 characters, which is what keeps a 2,400-character abstract
+         readable, and the slot reserves 1060 because that is the column the page
+         is built on, not the width the ink takes. -->
+    <div class="a t tw body content" id="pub-abstract" style="--x:660;--y:482;--w:1060;--fs:21;--lh:30">
+      <p>Violence, in all of its forms, touches girls and women&rsquo;s lives in Africa. While there is evidence that girls and women do participate in violence, research has shown that a significant proportion of them have also been victims. Violence against women describes violence inflicted on girls and women because of their gender and includes femicide, rape, intimate partner violence, and human trafficking. It also includes harmful practices such as female genital mutilation and early marriage. While it is a global problem, the levels of some forms of violence against women are particularly high in Africa. The problem is caused by a complex interaction of factors operating at multiple levels, including at the global level. Historical records show that acts of violence against women, including intimate partner violence and non-partner sexual violence, were perpetrated during the colonial era. During this period, perpetrators of non-partner sexual violence included colonial officers and troops under their command. Cases brought before colonial courts sometimes resulted in the conviction of the offender, but sentences were generally light. However, incidents of violence against women were mostly resolved within the family or community, with relatives and traditional leaders playing a central role.</p>
+      <p>The post-independence period has seen increased attention to violence against women. Activism by women&rsquo;s movements contributed to placing the issue on the agenda of states and of international organizations such as the United Nations. Sexual violence perpetrated by armed actors during wars in the 1990s also served to draw attention to violence against women. Consequently, most African countries have amended colonial-era rape laws and have adopted new legislation to address acts such as intimate partner violence, early marriage, and female genital mutilation. Many of them have also created specialized criminal-justice-sector institutions to address various forms of violence against women. These actions on the part of states have been influenced by women&rsquo;s movements and by pressure from international organizations such as the United Nations. While this demonstrates progress on the part of African states, there is a large implementation gap in most countries. Thus, girls and women rarely benefit from the progressive laws on the books. This demonstrates that there is much work that needs to be done to address violence against women in Africa.</p>
     </div>
-    <p class="a t tw meta content" id="pub-citation" style="--x:660;--y:820;--w:1060;--fs:21;--lh:27">Oxford Research Encyclopedia of African History, Oxford University Press, 2019. DOI: <a href="https://doi.org/10.1093/acrefore/9780190277734.013.567" target="_blank" rel="noopener">10.1093/acrefore/9780190277734.013.567</a></p>
-    <a class="a t content inline-link" id="pub-cta" href="assets/pdf/publications/Women-and-Violence-in-Africa.pdf" style="--x:660;--y:900;--fs:21;--lh:27">Download PDF</a>
+    <p class="a t tw meta content" id="pub-citation" style="--x:660;--y:1702;--w:1060;--fs:21;--lh:27">Oxford Research Encyclopedia of African History, Oxford University Press, 2019. DOI: <a href="https://doi.org/10.1093/acrefore/9780190277734.013.567" target="_blank" rel="noopener">10.1093/acrefore/9780190277734.013.567</a></p>
+    <a class="a t content inline-link" id="pub-cta" href="assets/pdf/publications/Women-and-Violence-in-Africa.pdf" style="--x:660;--y:1782;--fs:21;--lh:27">Download PDF</a>
   </section>
 
-  <footer class="sec sec--flush site-footer" style="--y:1383">
+  <footer class="sec sec--flush site-footer" style="--y:1973">
     <div class="a box deco" style="--x:0;--y:0;--w:440;--h:228"></div>
     <div class="a box deco" style="--x:968;--y:0;--w:560;--h:228"></div>
     <div class="a box deco deco--deep" style="--x:1528;--y:0;--w:252;--h:228"></div>

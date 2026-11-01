@@ -214,14 +214,11 @@
      belongs to with data-gallery. Frames are made focusable here rather
      than in the markup, so a gallery of thirty photos stays readable.
 
-     At the comp the row is an accordion: it does not scroll, every frame
-     is on show, and the rail marks whichever frame the pointer or the
-     focus is holding open. Below 1650 the row is a strip again and the
-     rail goes back to reporting how far along it is. Both write the same
-     .active class through the one mark() below, so the rail can never
-     hold two opinions at once. A dot puts the focus on its frame: at the
-     comp that is what opens it, and in the reflow it is what scrolls the
-     strip to it.
+     The row scrolls at every tier, so the rail has two things it can be
+     marking: where the strip has got to, and the frame the pointer or the
+     focus is on. Both write the same .active class through the one mark()
+     below, so the rail can never hold two opinions at once. A dot puts the
+     focus on its frame, which is what scrolls the strip to it.
      ------------------------------------------------------------------ */
   var strips = [].slice.call(document.querySelectorAll('.gallery'));
 
@@ -230,6 +227,26 @@
     frames.forEach(function (frame) {
       frame.tabIndex = 0;
     });
+
+    /* How much room the open frame takes. --gal-open is a ratio, and one
+       ratio set in the stylesheet would make the frame under the pointer a
+       different width in every gallery — 460 design px in the nine-frame
+       launch strip, 190 in the twenty-one-frame training set. This works the
+       ratio back out of the strip's own frame count so the open frame is
+       --gal-w wide wherever it stands, and re-takes it on resize, because the
+       ratio is drawn against the row's width in CSS px. Below the comp the
+       row is a strip and the property does nothing. */
+    var OPEN_W = 320;
+    function openRatio() {
+      var n = frames.length;
+      var px = strip.clientWidth / 1640;          // the comp's unit, from the row
+      var free = strip.clientWidth - 12 * px * (n - 1);
+      var w = OPEN_W * px;
+      if (n < 2 || free <= w) return;
+      strip.style.setProperty('--gal-open', (w * (n - 1) / (free - w)).toFixed(3));
+    }
+    openRatio();
+    window.addEventListener('resize', openRatio);
 
     var rail = strip.id && document.querySelector(
       '.gallery-pagination[data-gallery="' + strip.id + '"]');
@@ -251,7 +268,7 @@
       rail.appendChild(dot);
     });
 
-    // the frame the accordion is open on, mirrored onto the rail
+    // the frame the pointer or the keyboard is on, mirrored onto the rail
     strip.addEventListener('pointerover', function (ev) {
       var i = frames.indexOf(ev.target);
       if (i > -1) mark(i);
@@ -270,6 +287,51 @@
       });
       mark(at);
     }, { passive: true });
+  });
+
+  /* --- gallery arrows -------------------------------------------------
+     Each arrow pages its strip by most of one view, so the row never loses
+     a frame between the two. Which arrows are showing is measured, not
+     assumed: the wrapper carries data-at-start and data-at-end, and the CSS
+     fades the arrow and the right-hand edge out from those flags. A strip
+     short enough to fit without scrolling therefore arrives with both set
+     and no arrows at all, which is the honest answer.
+
+     The state is re-taken on load as well as on scroll, because the frames
+     are lazy: the row's width is not final until they have decoded. */
+  [].forEach.call(document.querySelectorAll('.gallery-wrap'), function (wrap) {
+    var strip = wrap.querySelector('.gallery');
+    if (!strip) return;
+    var prev = wrap.querySelector('.gallery-arrow--prev');
+    var next = wrap.querySelector('.gallery-arrow--next');
+
+    function state() {
+      var max = strip.scrollWidth - strip.clientWidth - 1;
+      wrap.toggleAttribute('data-at-start', strip.scrollLeft <= 1);
+      wrap.toggleAttribute('data-at-end', strip.scrollLeft >= max);
+    }
+    function page(dir) {
+      strip.scrollBy({ left: dir * strip.clientWidth * 0.8, behavior: 'smooth' });
+    }
+    if (prev) prev.addEventListener('click', function () { page(-1); });
+    if (next) next.addEventListener('click', function () { page(1); });
+    strip.addEventListener('scroll', state, { passive: true });
+    window.addEventListener('resize', state);
+
+    // The row's width is not known until its frames have decoded, and they are
+    // lazy, so at this point in the page's life most of them have not even been
+    // asked for. Measuring once here would decide "nothing to scroll" from a
+    // strip of empty boxes and hide the only control that reveals the rest —
+    // so the state is re-taken as each frame arrives (load does not bubble, but
+    // it does capture) and again when the row first comes into view.
+    strip.addEventListener('load', state, true);
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) state(); });
+      }, { rootMargin: '200px 0px' }).observe(wrap);
+    }
+    window.addEventListener('load', state);
+    state();
   });
 
   var lightbox = document.getElementById('lightbox');

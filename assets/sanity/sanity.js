@@ -231,7 +231,7 @@ window.SANITY = (function () {
      so this only replaces what the CMS actually has for that slug. */
   function publicationPage(slug) {
     return query('*[_type == "publication" && slug.current == $slug][0]{\n' +
-      '  title, kind, summary, citation, doi, downloadUrl, externalUrl,\n' +
+      '  title, kind, summary, abstract, citation, doi, downloadUrl, externalUrl,\n' +
       '  "year": string::split(publishedAt, "-")[0],\n' +
       '  "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format", alt }\n' +
       '}', { slug: slug }).then(function (p) {
@@ -241,7 +241,13 @@ window.SANITY = (function () {
       if (p.title) document.title = p.title + ' \u2014 Publications \u2014 When You See Me';
       text('pub-meta', [p.kind, p.year].filter(Boolean).join(' \u00B7 '));
       image('pub-cover', p.image);
-      paragraphs('pub-abstract', p.summary);
+      // The abstract block takes the document's abstract, never its one-line
+      // summary: the summary is what the row on Publications is for, and writing
+      // it over this block twice meant the client's own abstract could not reach
+      // the page even once. The field is empty on all five documents today, and
+      // paragraphs() returns on an empty value, so the text written into the HTML
+      // stands until someone fills the field in Studio.
+      paragraphs('pub-abstract', p.abstract);
 
       var cite = el('pub-citation');
       var doi = safeUrl(p.doi);

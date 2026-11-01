@@ -101,24 +101,29 @@
   <!-- ==========================================================
        WELCOME — the mission statement, on the page ground
 
-       One sentence, one block, reading left to right across the 900 the lede
-       has always set in — which is the role's own 52ch measure, not an
-       arbitrary width. It spent one iteration split into two columns on
-       2026-10-14 and came back the same day.
+       The sentence divides the page's own measure at the centre line, the way
+       the About page's pair does: 1640 split into two 800-wide columns with 40
+       of gutter on the line, so it stands across the page instead of on its
+       left half. It stays one element because SANITY.paragraphs('welcome-message',
+       page.welcome) writes this copy from the CMS — two elements would be two
+       bindings to keep in step — so .lede-cols does the dividing and the browser
+       balances the columns.
 
-       The "Welcome" eyebrow over it came off on 2026-10-14 and the lede moved
-       up into the room it left. The band came in at 410 drawn px for 258 of
-       text with 60 above the rule, 50 between the rule and the type and 98
-       under the type; it runs 820 → 1108 now, the rule 30 under the hero's
-       foot and the lede 34 under the rule — the same head inset the three
-       entry cards hold over their titles. Everything from here down came up
-       152 with it, so no other gap on the page moved, and the drawn height
-       went 7381 → 7229; the FEATURED note carries where it stands now. Nothing
-       reads this copy from the CMS.
+       Two lines now bracket the band: the rule above it, 30 under the hero's
+       foot, and the rule below it, which the brief asked for and the page was
+       missing — "the third section, separated by the second with a line, should
+       be titled Featured". Measured at the comp, the sentence ran 901 wide in
+       five lines, 222 deep, foot at 1076; across the divided measure it runs
+       three lines in each column, 133 deep, foot at 987. The lower rule stands
+       at 1105.1, 118.1 clear of that foot and 118.1 below the "Featured" head at
+       1225.2 — equal air on both sides, the way the upper rule sits 30 over the
+       band and 34 under it. Nothing below moved: the rule came into air that was
+       already there, so the page still draws 7171 tall.
        ========================================================== -->
   <section class="sec">
     <div class="a box rule" style="--x:140;--y:820;--w:1640;--h:2"></div>
-    <p class="a t tw lede content" id="welcome-message" style="--x:140;--y:854;--w:900;--fs:36;--lh:46">When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they prioritise and see survivors of violence.</p>
+    <p class="a t tw lede lede-cols content" id="welcome-message" style="--x:140;--y:854;--w:1640;--fs:36;--lh:46">When You See Me is a research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors. It illuminates how people can make a difference when they prioritise and see victims of violence.</p>
+    <div class="a box rule" style="--x:140;--y:1105.1;--w:1640;--h:2"></div>
   </section>
 
   <!-- ==========================================================
@@ -148,11 +153,11 @@
         <span class="cap t sub">Publication</span>
       </a>
       <a class="feature-card content" href="creative-works.html">
-        <img src="assets/img/intervention.webp" loading="lazy" alt="Women performers in ankara cloth and head wraps singing on stage, one clapping, each with a headset microphone.">
+        <img src="assets/img/Homepage/web/Community-theatre.jpg" loading="lazy" alt="The play performed at night: five performers in ankara cloth seated in a row on a stage before a red drape, one standing and gesturing, the audience&#39;s heads along the bottom of the frame.">
         <span class="cap t sub">Community Theatre</span>
       </a>
       <a class="feature-card content" href="programs.html">
-        <img src="assets/img/convening.webp" loading="lazy" alt="Six women in kente and ankara dress on a stage with a red drape behind them, one standing and gesturing while the others sit and clap, an audience in front.">
+        <img src="assets/img/Homepage/web/Training-Workshop.jpg" loading="lazy" alt="Workshop participants and facilitators standing together outdoors on paving in white, blue and patterned cloth, beside a When You See Me banner with trees behind.">
         <span class="cap t sub">Training Workshop</span>
       </a>
     </div>
@@ -216,11 +221,11 @@
     <div class="a box deco deco--bar" style="--x:140;--y:2889.4;--w:819;--h:23"></div>
 
     <h2 class="a t display content" style="--x:183;--y:2932.4;--fs:62;--lh:60">Creative<br>Works</h2>
-    <p class="a t sub content" style="--x:184;--y:3066.2;--fs:36;--lh:36">Community Theatre</p>
+    <p class="a t sub content" style="--x:184;--y:3059.6;--fs:36;--lh:36">Community Theatre</p>
 
-    <img class="a box photo" src="assets/img/intervention.webp" loading="lazy"
+    <img class="a box photo" src="assets/img/Creative-Works/community-theatre-production/web/01-lead-image.jpg" loading="lazy"
          style="--x:420;--y:3112.4;--w:1360;--h:600"
-         alt="Women performers in ankara cloth and head wraps singing on stage, one clapping, each with a headset microphone.">
+         alt="A discussion on stage after a performance: four people seated at a table with a bowl of pale roses in front of them, a man standing at the right speaking to the room.">
 
     <!-- The panel and its band came up 72 to stand on the same line as the
          thumbnail at the right: that thumb ends at 4057, which is now the
@@ -236,7 +241,7 @@
 
     <p class="a t tw label content" style="--x:1400;--y:3804.4;--w:380;--fs:27;--lh:27;text-align:right">More creative works:</p>
     <div class="a thumbs" style="--x:1320;--y:3859.4;gap:calc(38 * var(--px))">
-      <a href="creative-works.html" aria-label="Creative Works"><img src="assets/img/intervention.webp" loading="lazy" alt="Women performers in ankara cloth and head wraps singing on stage."></a>
+      <a href="creative-works.html" aria-label="Creative Works"><img src="assets/img/Creative-Works/community-theatre-photo-gallery/web/lead-image.jpg" loading="lazy" alt="The performance space at night: a raked wooden stage under one hard worklight, the audience in plastic chairs along one side and performers along the other."></a>
     </div>
   </section>
 
@@ -251,9 +256,9 @@
     <h2 class="a t display content" style="--x:1062;--y:4132.4;--fs:62;--lh:60">Programs</h2>
     <p class="a t sub content" style="--x:1063;--y:4206.2;--fs:36;--lh:36">Training Workshops</p>
 
-    <img class="a box photo" src="assets/img/convening.webp" loading="lazy"
+    <img class="a box photo" src="assets/img/Programs/Training-workshops-photo-gallery/web/lead-image.jpg" loading="lazy"
          style="--x:140;--y:4275.4;--w:1099;--h:671"
-         alt="Six women in kente and ankara dress on a stage with a red drape behind them, one standing and gesturing while the others sit and clap, an audience in front.">
+         alt="Around twenty workshop participants in white, blue and patterned cloth stand together for a group photograph in a yellow-walled hall.">
 
     <!-- Up 51 with its own thumbnail, the same way Publications and Creative
          Works stand on theirs: the thumb at the left runs 5111 → 5250, so 5250 is
@@ -268,7 +273,7 @@
 
     <p class="a t tw label content" style="--x:140;--y:4997.4;--w:380;--fs:27;--lh:27;text-align:left">More programs:</p>
     <div class="a thumbs thumbs--dark" style="--x:140;--y:5052.4;gap:calc(38 * var(--px))">
-      <a href="programs.html" aria-label="Programs"><img src="assets/img/convening.webp" loading="lazy" alt="Six women in kente and ankara dress on a stage before an audience, one standing and gesturing."></a>
+      <a href="programs.html" aria-label="Programs"><img src="assets/img/Programs/Short-story-launch-photo-gallery/web/lead-image.jpg" loading="lazy" alt="Guests at the launch holding up copies of the short story in front of a When You See Me banner."></a>
     </div>
   </section>
 
@@ -326,7 +331,7 @@
   <section class="sec">
     <div class="a box rule" style="--x:140;--y:6263.4;--w:1640;--h:2"></div>
     <div class="a box deco" style="--x:0;--y:6303.4;--w:185;--h:284"></div>
-    <h2 class="a t tw display content" style="--x:140;--y:6313.4;--w:900;--fs:62;--lh:60">Be the first to know about new creative works and publications</h2>
+    <h2 class="a t tw display content" style="--x:140;--y:6313.4;--w:900;--fs:62;--lh:60">Be the first to know about new creative works and upcoming events</h2>
 
     <form id="newsletter-form">
       <label class="visually-hidden" for="newsletter-email">Email address</label>

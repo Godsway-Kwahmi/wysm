@@ -333,6 +333,19 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 
 .lede{ font-family: var(--text-face); font-weight: 450; --lead: 1.12; letter-spacing: -.004em; max-width: 52ch }
 
+/* The homepage's mission sentence, set across the page's whole measure by
+   dividing it at the centre line — 1640 into two 800 columns with 40 of gutter on
+   the line, the same split the About page's pair makes. It is done with
+   column-count rather than two elements because the CMS writes this sentence into
+   one id, and a second element would be a second binding to keep in step; the
+   browser balances the pair, so the break lands where the type wants it.
+   The 52ch cap comes off above 1650 for the same reason it comes off
+   .about-cols > * — a block drawn 1640 wide and clamped to 884 is not the split.
+   Below that the columns collapse back to one and the cap holds. */
+@media (min-width:1651px){
+  .lede-cols{ max-width: none; column-count: 2; column-gap: calc(40 * var(--px)) }
+}
+
 /* The comp sizes these inline but never gave them a rung: a citation,
    a byline or a date (.meta), a link set as its own line
    (.inline-link outside a paragraph), the scope filters. All chrome —
@@ -634,27 +647,43 @@ body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
 .scopes button[aria-pressed="true"]{ background: var(--stage); border-color: var(--stage); color: var(--cream) }
 
 /* ============================================================
-   PHOTO GALLERIES
-   A horizontal accordion. Every frame in the gallery is on show at once,
-   each one a slice of its own photograph, and the slice the pointer — or
-   the keyboard focus — is on takes the room. The frames share the row by
-   flex-grow, so opening one costs the others equally: at ten frames the
-   pointer's goes from 153 to 323 design px while its neighbours come down
-   to 134, and --gal-open is the ratio between them, the only number to
-   move. Nothing scrolls at the comp, which is why the rail under the row
-   marks the open frame rather than a scroll position (see site.js). A
-   frame opens full-size in the lightbox on click or Enter.
-   Below 1650 the row cannot hold ten slices at a readable width, so it
-   goes back to being the strip it was: natural aspect, sideways scroll.
-   The strip and its rail are two separate placed elements, and the rail
-   names the strip it drives with data-gallery, so a page can hold several
-   galleries without the script having to guess which is which.
+   PHOTO GALLERIES — AN ACCORDION AT THE COMP, A STRIP BELOW IT
+   Every photograph from one event is in the row and every one is on show at
+   once: each frame is a slice of its own picture, and the slice the pointer —
+   or the keyboard focus — is on takes the room. The frames share the row by
+   flex-grow, so opening one costs the others equally. Nothing scrolls at the
+   comp, which is why the rail under the row marks the open frame rather than a
+   scroll position, and why the arrows at either end stand down — there is
+   nowhere to page to. A frame opens full-size in the lightbox on click or
+   Enter, and the hint by the rail says so, which is what lets the row be
+   honest about holding twenty-one photographs at once.
+   Below 1650 that many slices cannot exist at a readable width, so there the
+   row is the strip the arrows were made for: natural aspect, one frame after
+   another, sideways scroll, the row as the clip.
+   The strip and its rail are two separate placed elements, and the rail names
+   the strip it drives with data-gallery, so a page can hold several galleries
+   without the script having to guess which is which.
    ============================================================ */
-.gallery{
-  --gal-open: 2.4;                  /* the room the pointer's frame takes */
-  display: flex;
+/* ---------- photo galleries ----------
+   --gal-open is the ratio between the open frame and a closed one, and site.js
+   works it out per strip from the number of frames in it, so the frame under
+   the pointer is --gal-w wide in every gallery on the site instead of a
+   different fraction of a different row. At the comp that is 320 design px,
+   which leaves a neighbour of 153 px in the nine-frame launch strip, 76 in the
+   sixteen-frame production and 54 in the twenty-one-frame training set. The
+   answer to a 54 px slice is the lightbox, not a wider row: the set stays
+   whole and every frame is still reachable. */
+.gallery-wrap{
   width: calc(1640 * var(--px));
   height: calc(300 * var(--px));
+  position: absolute;
+  z-index: 4;
+}
+.gallery{
+  --gal-w: calc(320 * var(--px));      /* what the open frame is made to hold */
+  display: flex;
+  width: 100%;
+  height: 100%;
   gap: calc(12 * var(--px));
   overflow: hidden;
   z-index: 4;
@@ -665,19 +694,75 @@ body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
   width: auto;
   height: 100%;
   object-fit: cover;
-  cursor: pointer;
+  cursor: zoom-in;
   transition: flex-grow .5s cubic-bezier(.22,.61,.36,1), filter .3s ease;
 }
-/* The open frame is the one under the pointer. It does not scale — the row
-   is the clip, and a scaled image would bleed across the gap onto its
-   neighbours — it simply gets a wider slice of the same photograph, which
-   is the enlargement. The brightness lift is there so the frame reads as
-   live the instant the pointer arrives, before the half-second of flex. */
+/* The open frame is the one under the pointer. It does not scale — the row is
+   the clip, and a scaled image would bleed across the gap onto its
+   neighbours — it simply takes a wider slice of the same photograph, which is
+   the enlargement. The brightness lift is there so the frame reads as live the
+   instant the pointer arrives, before the half-second of flex. */
 .gallery img:hover,
 .gallery img:focus-visible{
-  flex-grow: var(--gal-open);
+  flex-grow: var(--gal-open, 2.4);
   filter: brightness(1.06);
 }
+.gallery img:focus-visible{
+  outline: calc(2 * var(--px)) solid var(--marigold);
+  outline-offset: calc(-4 * var(--px));
+}
+
+/* The two ends of the strip. Both sit on the row, half over the ground beside
+   it, so they never cover a face; both go away when the row cannot go that
+   way any further, which is what makes them a signal rather than decoration. */
+.gallery-arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(56 * var(--px));
+  height: calc(56 * var(--px));
+  border: 0;
+  border-radius: 50%;
+  background: var(--block);
+  color: var(--cream);
+  font-size: calc(22 * var(--px));
+  line-height: 1;
+  cursor: pointer;
+  z-index: 6;
+  transition: background-color .25s ease, color .25s ease, opacity .25s ease;
+}
+.gallery-arrow:hover,
+.gallery-arrow:focus-visible{
+  background: var(--marigold);
+  color: var(--deep);
+}
+.gallery-arrow--prev{ left:  calc(-28 * var(--px)) }
+.gallery-arrow--next{ right: calc(-28 * var(--px)) }
+.gallery-wrap[data-at-start] .gallery-arrow--prev,
+.gallery-wrap[data-at-end] .gallery-arrow--next{
+  opacity: 0;
+  pointer-events: none;
+  /* and out of the tab order — an arrow that cannot be seen must not be
+     reachable, which is what the row does at the comp, where the accordion
+     leaves nothing to page to and both go */
+  visibility: hidden;
+  transition: background-color .25s ease, color .25s ease, opacity .25s ease,
+              visibility 0s .25s;
+}
+/* The fade at the right edge: the last thing that says "there is more". It
+   lifts with the same flag the arrows use, so the two can never disagree. */
+.gallery-wrap::after{
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: calc(120 * var(--px));
+  background: linear-gradient(to right, transparent, var(--bg));
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity .3s ease;
+  z-index: 5;
+}
+.gallery-wrap[data-at-end]::after{ opacity: 0 }
 
 .gallery-pagination{
   display: flex;
@@ -696,6 +781,14 @@ body.is-scrolled .navbar{ top: calc(44 * var(--px)) }
 }
 .gallery-pagination .dot.active,
 .gallery-pagination .dot:hover{ background: var(--ink) }
+
+/* The hint. The row is an accordion and every frame is on show, so the one
+   thing the page cannot show is that a frame is a door. This says it, in the
+   meta role but dimmed like a row's meta line, on the rail's own line and set
+   against the measure's right edge so the dots keep the middle. The frames
+   themselves take cursor: zoom-in, which is the same sentence a quarter of a
+   second before you read it. */
+.gallery-hint{ text-align: right; color: var(--dim) }
 
 /* ---------- lightbox ----------
    Fixed to the viewport, so it sits outside the comp grid and takes
@@ -1024,8 +1117,8 @@ body.is-scrolled .site-header .logo{
   .scopes button,
   .navbar a::after,
   .inline-link::after,
-  /* the accordion still opens without the half-second of flex — a frame
-     that jumps to its full width is the same information, held instantly */
+  /* the frame's lift still reads without the third of a second — a frame
+     that brightens instantly is the same information, held at once */
   .gallery img,
   .stack a::after{ transition: none !important }
 }
@@ -1209,20 +1302,41 @@ body.is-scrolled .site-header .logo{
   /* tiles drawn at a comp size (the team portraits) reflow full width */
   .tile.box{ width: 100%; height: 220px }
 
-  /* The accordion is worth reading only at the comp's width: ten slices
-     across a phone are 24px apiece. So below 1650 the gallery goes back to
-     being the strip it was — natural aspect, scrolling sideways — and sheds
-     its comp width so it cannot push the page wider. flex is reset to 0 0
-     auto because a frame that may not shrink is the only way a row of
-     known photographs keeps its own shape. */
+  /* The accordion is worth opening only at the comp's width: twenty-one
+     slices across a phone are 12 px apiece. So below 1650 the row goes back to
+     being the strip it was — natural aspect, sideways scroll — and sheds the
+     comp width so it cannot push the page wider. flex is reset to 0 0 auto
+     because a frame that may not shrink is the only way a row of known
+     photographs keeps its own shape, and the clip moves from the row's own
+     overflow to the scroll. */
+  .gallery-wrap{ width: auto; height: auto }
   .gallery{
-    width: auto; height: auto; overflow-x: auto; gap: 12px;
+    gap: 12px;
     padding-bottom: 12px; margin-bottom: 14px;
+    overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x proximity;
     scrollbar-color: var(--bar-thumb) var(--block);
+    scrollbar-width: thin;
   }
-  .gallery img{ flex: 0 0 auto; height: 150px }
+  .gallery img{
+    flex: 0 0 auto; min-width: 0; width: auto; height: 150px;
+    scroll-snap-align: center; cursor: pointer;
+    transition: filter .3s ease;
+  }
+  .gallery img:hover,
+  .gallery img:focus-visible{ flex-grow: 0 }
+  .gallery-arrow{
+    width: 40px; height: 40px; font-size: 18px;
+    /* A phone swipes, and an arrow that competes with the gesture is worse than
+       no arrow, so the controls stay out below 901 and the strip keeps its own
+       scrollbar as the signal. The laptop tier puts them back a few rules on. */
+    display: none;
+  }
+  .gallery-arrow--prev{ left: -20px } .gallery-arrow--next{ right: -20px }
+  .gallery-wrap::after{ width: 90px; display: none }
   .gallery-pagination{ width: auto; justify-content: flex-start; gap: 8px }
   .gallery-pagination .dot{ width: 8px; height: 8px }
+  .gallery-hint{ width: auto; text-align: left; margin: -6px 0 18px }
   .lightbox-prev{ left: 0 } .lightbox-next{ right: 0 }
 
   .scopes{ gap: 8px }
@@ -1327,6 +1441,11 @@ body.is-scrolled .site-header .logo{
     .feature-grid{ flex-direction: row; gap: 30px }
     .feature-card{ --card-img-h: 200px }
     .gallery img{ height: 232px }
+    /* There is no swipe on a laptop: the arrows and the edge fade come back for
+       the 901-1650 tier, which is otherwise a strip with no hint that it
+       continues. Below 901 they stay out, where the gesture does the work. */
+    .gallery-arrow{ display: block }
+    .gallery-wrap::after{ display: block }
     .field{ height: 210px; padding: 16px; font-size: 18.5px; line-height: 1.55 }
     /* that height is the message box's. A single-line input given 210px of
        box is a void you can see through, so the line variant restates it
