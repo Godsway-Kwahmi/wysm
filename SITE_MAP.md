@@ -151,6 +151,17 @@ Rules the whole site follows:
   back empty, so a failed fetch, an empty field or a deleted document
   leaves the designed page standing. `SANITY.settings()` runs on every
   page automatically.
+- **`paragraphs()` and `columns()` inject `<p>` elements, and a `<p>` is not
+  margin-free.** The browser gives one 1em top and bottom, which shifts every
+  line inside a block that was placed by `--y` — and it is invisible locally,
+  because the CDN refuses `127.0.0.1` and the written-in text is a bare text
+  node. That is how the homepage's welcome sentence reached production with its
+  two columns 31 px out of alignment: the first column carried the injected
+  paragraph's margin and the second, continuing the same paragraph across the
+  column break, carried none. `.t p{ margin: 0 }` is the guard; `.body p + p`
+  keeps the air *between* paragraphs, which is content. Anything new that takes
+  `paragraphs()` needs to be measured with the CMS bound — see the CDN bridge
+  above — not against the fallback.
 - **All body copy goes in via `textContent`.** Never `innerHTML`.
 - **`safeUrl()` blocks `javascript:`, `data:` and `vbscript:`** on every
   URL the CMS supplies.

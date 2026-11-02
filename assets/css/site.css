@@ -326,6 +326,16 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
 }
 .legal b{ font-weight: 700; letter-spacing: .06em }
 
+/* A block the CMS writes into gains a <p> it did not author, and the browser's
+   default 1em top margin on that <p> drops every line inside a block that was
+   placed by --y. This is invisible locally — the CDN refuses 127.0.0.1, so the
+   written-in text is a bare text node and no margin exists — and shows the moment
+   Sanity answers: the homepage's welcome sentence, split into two columns by
+   `.lede-cols`, put its left column 31px (1em at 30.96px) below its right one on
+   the deployed site while every local check reported them level. So no injected
+   paragraph carries air of its own; only the space BETWEEN two of them is
+   content, and that stays the role's own number. */
+.t p{ margin: 0 }
 .body p{ margin: 0 }
 /* Paragraph air follows the type, not the comp: at 19px on 29px
    leading the drawn 21px gap no longer separates two paragraphs. */
