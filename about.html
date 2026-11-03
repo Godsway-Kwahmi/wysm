@@ -363,7 +363,7 @@
    so that comes from the CMS (the funding row in the footer comes from
    Site settings, handled in sanity.js).
    ------------------------------------------------------------------ */
-SANITY.query(`*[_id == "aboutPage"][0]{ seo, mediaCoverage[]{ _key, outlet, url } }`)
+SANITY.query(`*[_id == "aboutPage"][0]{ summary, seo, mediaCoverage[]{ _key, outlet, url } }`)
   .then(function (p) {
     if (!p) return;
     SANITY.meta(p);

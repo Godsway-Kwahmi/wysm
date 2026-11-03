@@ -352,8 +352,11 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visib
    The 52ch cap comes off above 1650 for the same reason it comes off
    .about-cols > * — a block drawn 1640 wide and clamped to 884 is not the split.
    Below that the columns collapse back to one and the cap holds. */
-@media (min-width:1651px){
+@media (min-width:901px){
   .lede-cols{ max-width: none; column-count: 2; column-gap: calc(40 * var(--px)) }
+}
+@media (max-width:900px){
+  .lede-cols{ max-width: none; column-count: 1 }
 }
 
 /* The comp sizes these inline but never gave them a rung: a citation,
@@ -1185,6 +1188,10 @@ body.is-scrolled .site-header .logo{
     display: block;
     padding: 0 24px 56px;
   }
+  .sec--welcome{ padding-bottom: 0 }
+  .sub + .meta{ margin-top: -6px; margin-bottom: 14px }
+  .meta + .meta{ margin-top: -8px; margin-bottom: 14px }
+  .meta + .body{ margin-top: 14px }
 
   /* header sticks as a slim bar; the stacked wordmark steps aside once scrolled */
   .site-header{

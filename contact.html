@@ -257,6 +257,7 @@ SANITY.query(`*[_id == "contactPage"][0]{ summary, seo, formPrompt, formPlacehol
     SANITY.text('form-prompt', p.formPrompt);
     var box = document.getElementById('message');
     if (box && p.formPlaceholder) box.placeholder = p.formPlaceholder;
+    if (window.fitStage) window.fitStage();
   });
 </script>
 </body>

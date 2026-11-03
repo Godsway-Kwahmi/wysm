@@ -272,9 +272,16 @@ def chrome_cmd(chrome, page, profile, out_pdf, headless_flag):
         "--no-first-run",
         "--no-default-browser-check",
         "--disable-extensions",
+        "--disable-background-networking",
+        "--disable-default-apps",
+        "--disable-sync",
+        "--disable-translate",
+        "--metrics-recording-only",
+        "--mute-audio",
+        "--safebrowsing-disable-auto-update",
         "--allow-file-access-from-files",
         "--user-data-dir=" + str(profile),
-        "--virtual-time-budget=30000",
+        "--virtual-time-budget=5000",
         "--no-pdf-header-footer",
         "--print-to-pdf=" + str(out_pdf),
         page.as_uri(),
@@ -461,9 +468,9 @@ def check(pdf_path, markup, sheet_count, verbose=True):
 
 def main():
     ap = argparse.ArgumentParser(description="Build the WYSM content guide PDF.")
-    ap.add_argument("--studio-url", default=os.environ.get("GUIDE_STUDIO_URL", ""),
+    ap.add_argument("--studio-url", default=os.environ.get("GUIDE_STUDIO_URL", "https://wysm.sanity.studio"),
                     help="address of the Sanity Studio for this project")
-    ap.add_argument("--contact", default=os.environ.get("GUIDE_CONTACT", ""),
+    ap.add_argument("--contact", default=os.environ.get("GUIDE_CONTACT", "Jude Nyoagbe • projects@rdvs.studio, jude_nyoagbe@rdvs.studio"),
                     help="who to ask, printed on the last sheet")
     ap.add_argument("--date", default=None, help="edition line on the cover")
     ap.add_argument("--out", default=str(DEFAULT_PDF), help="where to write the PDF")

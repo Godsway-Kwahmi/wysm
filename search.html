@@ -226,13 +226,13 @@ var STATIC = [
     title: 'When You See Me', href: 'creative-works.html#work-detail',
     text: 'A community-led applied theatre production exploring the responses to gender-based violence within migrant communities. Built closely with community members, the scenes provide a relatable, engaging platform for host and migrant communities alike to discuss barriers to justice and avenues for accessing help. Adapted for the stage from the short story by Dr. Sarah Dogbadzi and the Lododo Art Foundation, and staged in Accra (Legon, Nungua and Madina) and in Ho in July 2026, each performance ending with the audience in conversation with the writer, director and cast.' },
   { section: 'Creative Works', kind: 'Strand', year: '',
-    title: 'Theatre', href: 'creative-works.html',
+    title: 'Theatre', href: 'creative-works.html#work-theatre',
     text: 'Scenes are built with performers and community members rather than written for them, so what happens on stage is recognisable to the people watching it. Each performance ends in conversation: what help exists here, who to ask, and what usually gets in the way.' },
   { section: 'Creative Works', kind: 'Strand', year: '',
-    title: 'Short Story', href: 'creative-works.html',
+    title: 'Short Story', href: 'creative-works.html#work-story',
     text: 'A short story about the people around a survivor of gender-based violence: the neighbours, friends and traditional leaders whose response can open a path to safety, or close it off. It gives its name to the research and creative programme this website presents, and to the play adapted from it.' },
   { section: 'Creative Works', kind: 'Strand', year: '',
-    title: 'Illustrated comic', href: 'creative-works.html',
+    title: 'Illustrated comic', href: 'creative-works.html#work-comic',
     text: 'Coming soon. Short comics follow a survivor through the steps of getting help, drawn so they can be read and passed on without much text. They are made to be used – in clinics, markets and community meetings – not to sit in a report.' },
 
   { section: 'Programs', kind: 'Training Workshop', year: '2026',
@@ -243,7 +243,7 @@ var STATIC = [
     text: 'Representatives from the Ghana Immigration Service, the Domestic Violence and Victim Support Unit of the Ghana Police Service, the Centre for Gender Studies and Advocacy, the Ark Foundation, the Migration Advocacy Centre, the DA Foundation and Drama Queens discussed how the findings of the research project can inform policy and practice. 13 July 2026, ISSER Conference Centre, University of Ghana.' },
   { section: 'Programs', kind: 'Launch', year: '2026',
     title: 'Launch of Short Story', href: 'programs.html#program-launch',
-    text: 'The launch of the short story featured a reading by Peace Adzo Medie and performances by the poet, Twita, and the vocalist, falè. The Lododo Art Foundation also performed excerpts from the play adaptation. 16 July 2026, Kata Garden Bistro.' },
+    text: 'The launch of the short story featured a reading by Peace Adzo Medie and performances by the poet, Twita, and the vocalist, falè. The Lododo Art Foundation also performed excerpts from the play adaptation. 16 July 2026, Kata Gardens Bistro, Accra.' },
 
   { section: 'Pages', kind: 'Page', year: '',
     title: 'Home', href: 'index.html',
@@ -429,6 +429,9 @@ SANITY.query(`{
   "works": *[_type == "intervention"]{
     kind, title, summary, location,
     "year": string::split(date, "-")[0]
+  },
+  "pages": *[_type == "page"]{
+    title, summary, "slug": slug.current
   }
 }`).then(function (r) {
   if (!r) return;
@@ -443,13 +446,20 @@ SANITY.query(`{
   (r.works || []).forEach(function (w) {
     fromCms.push({
       section: 'Creative Works', kind: w.kind, year: w.year, title: w.title,
-      href: 'creative-works.html', text: [w.summary, w.location].filter(Boolean).join(' ')
+      href: 'creative-works.html#work-theatre', text: [w.summary, w.location].filter(Boolean).join(' ')
+    });
+  });
+  (r.pages || []).forEach(function (pg) {
+    if (!pg.title || !pg.slug) return;
+    fromCms.push({
+      section: 'Pages', kind: 'Page', year: '', title: pg.title,
+      href: 'page.html?slug=' + encodeURIComponent(pg.slug), text: pg.summary || ''
     });
   });
 
   if (!fromCms.length) return;
   index = STATIC.filter(function (e) {
-    return e.section === 'Programs' || e.section === 'Pages';
+    return e.section === 'Programs' || e.section === 'Pages' || (e.section === 'Creative Works' && e.kind === 'Strand');
   }).concat(fromCms);
   render();
 });

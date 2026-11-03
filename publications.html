@@ -355,7 +355,7 @@ SANITY.query(`{
     ){
       title, kind, summary, url,
       "year": string::split(publishedAt, "-")[0],
-      "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format", alt }
+      "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format", alt, "w": asset->metadata.dimensions.width, "h": asset->metadata.dimensions.height }
     }
   },
   "all": *[_type == "publication"] | order(publishedAt desc){
@@ -389,12 +389,12 @@ SANITY.query(`{
                    'introduction-women-gender-change-in-africa',
                    'rape-reporting-cote-divoire'];
   function rank(url) {
-    var m = /publication-([a-z0-9-]+)\.html/.exec(url || '');
+    var m = /publication-([a-z0-9-]+)(?:\.html)?$/i.exec(url || '');
     var i = m ? HER_ORDER.indexOf(m[1]) : -1;
     return i < 0 ? HER_ORDER.length : i;
   }
   all.sort(function (a, b) {
-    if (a.year !== b.year) return String(b.year).localeCompare(String(a.year));
+    if (a.year !== b.year) return Number(b.year || 0) - Number(a.year || 0);
     return rank(a.url) - rank(b.url);
   });
   list.innerHTML = '';

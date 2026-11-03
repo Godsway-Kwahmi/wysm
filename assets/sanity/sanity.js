@@ -92,7 +92,7 @@ window.SANITY = (function () {
     var parts = split(value);
     if (!parts.length) return;
     var e = el(id);
-    if (e) fill(e, parts);
+    if (e) { fill(e, parts); if (window.fitStage) window.fitStage(); }
   }
 
   /** One text field dealt across the columns the comp draws for it. */
@@ -104,6 +104,7 @@ window.SANITY = (function () {
       var e = el(id);
       if (e) fill(e, parts.slice(i * per, (i + 1) * per));
     });
+    if (window.fitStage) window.fitStage();
   }
 
   /** Rebuild a link stack from the CMS list. An entry with no usable URL is
@@ -127,6 +128,7 @@ window.SANITY = (function () {
     if (!made.length) return;
     e.innerHTML = '';
     made.forEach(function (a) { e.appendChild(a); });
+    if (window.fitStage) window.fitStage();
   }
 
   /** Press coverage as rows of the thumbnail component: the linked page's own
@@ -234,6 +236,7 @@ window.SANITY = (function () {
       a.appendChild(name);
       e.appendChild(a);
     });
+    if (window.fitStage) window.fitStage();
   }
 
   /* One publication's own page. The page ships with its content written in,
@@ -302,6 +305,7 @@ window.SANITY = (function () {
           cta.rel = 'noopener';
         }
       }
+      if (window.fitStage) window.fitStage();
     });
   }
 

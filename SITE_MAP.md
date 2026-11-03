@@ -144,7 +144,7 @@ Exposed as `window.fitStage` for pages that add rows after load.
 `https://6071id0c.apicdn.sanity.io/v2026-03-01/data/query/production?query=…`
 and exposes `window.SANITY`:
 
-`query` `text` `href` `image` `paragraphs` `columns` `links`
+`query` `text` `href` `image` `pageUrl` `paragraphs` `columns` `links`
 `meta` `mediaRows` `supporters` `publicationPage` `settings`
 
 (`src` and `hide` came out on 2026-11-02: no page had ever called either, and a
@@ -176,7 +176,33 @@ Rules the whole site follows:
   on 2026-10-31, for a different reason (see §6).
 - **`links()` drops an entry with no usable URL** rather than writing `href="#"`,
   the way `supporters()` already does. A name that looks like a link and goes
-  nowhere is worse than the name not being there.
+  nowhere is worse than the name not being there. `publications.html`'s `row()`
+  follows the same rule for the same reason: a publication with no `url` gets a
+  row with no tile link and no linked title, because the sixth publication added
+  before its page is built is exactly when that appears.
+- **`pageUrl()` puts a CMS site address into the form the site uses.** A curator
+  types the file she was given — `publication-nightbloom.html` — and all five
+  `publication` documents hold their `url` that way today. But `vercel.json` runs
+  `cleanUrls`, so the canonical shape here has no extension, the `.html` form
+  only answers by 308-redirecting, and `canonical`, `og:url` and the sitemap all
+  name the extensionless one. Every CMS address now reaches an `href` through
+  this: `href()` calls it, as do `links()`, `mediaRows()`, `supporters()` and the
+  publication CTA, so no page has to remember. It strips the extension (keeping a
+  trailing `#anchor` or `?query`), reduces a full `https://wysm.vercel.app/...`
+  paste to a site path, and leaves anything that is not this site — a DOI, a
+  funder, a publisher, `mailto:`, `tel:` — exactly as written. `rank()` in
+  `publications.html` matches the page address with or without the extension for
+  the same reason: it used to require `.html`, so typing the canonical form would
+  have silently moved every row to the end of the list.
+- **`search.html` keeps the entries no document supplies.** Its index is written
+  into the page and then rebuilt from the CMS. It used to keep only `Programs`
+  and `Pages` when the CMS answered, which dropped the three Creative Works
+  strands — theatre, short story, illustrated comic — that no document holds,
+  so searching "comic" worked on the fallback copy and found nothing in
+  production. `kind === 'Strand'` is kept with them. The results' links now come
+  from each publication's own `url` first, with the page's `PUB_PAGES` map as the
+  fallback it should always have been, and the intervention entry keeps its
+  `#work-detail` anchor instead of landing at the top of the page.
 - **`paragraphs()` and `columns()` inject `<p>` elements, and a `<p>` is not
   margin-free.** The browser gives one 1em top and bottom, which shifts every
   line inside a block that was placed by `--y` — and it is invisible locally,
@@ -456,7 +482,13 @@ card is authored.
   dimensions. Where the CMS drives the visible cover, `head()` also moves the
   card, and it deliberately uses the asset's plain URL rather than the tile's
   `?auto=format` one: a scraper sends no `Accept` header, so content negotiation
-  on a card buys nothing and risks a format the scraper will not take.
+  on a card buys nothing and risks a format the scraper will not take. Measured
+  on 2026-11-03 against the five live assets, that plain URL answers
+  `Content-Type: image/jpeg` for every one of them — including Nightbloom, whose
+  stored file is a `.webp` and whose markup card is still that webp — at 107 KB
+  to 831 KB. A `?w=1200&fit=max&fm=jpg` rendition would halve the four large
+  ones; it was not taken, because the card is the frame the page shows and a
+  smaller copy of it is the one thing this site's image rule forbids.
 - **`og:locale`** is `en_GB` on the twelve pages that carry an og block; the
   project spells *prioritise* and *organisations*.
 

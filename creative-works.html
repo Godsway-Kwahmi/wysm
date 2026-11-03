@@ -84,7 +84,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="stage" id="main" style="--stage:4900">
+<div class="stage" id="main" style="--stage:5950">
 
   <header class="sec site-header">
     <div class="a box deco deco--white" style="--x:0;--y:0;--w:295;--h:59"></div>
@@ -115,7 +115,7 @@
     <div class="a box deco" style="--x:0;--y:640;--w:279;--h:220"></div>
 
     <h1 class="a t display content" style="--x:183;--y:304;--fs:62;--lh:60">Creative<br>Works</h1>
-    <p class="a t tw lede content" id="page-summary" style="--x:186;--y:454;--w:620;--fs:36;--lh:36">Theatre and illustrated stories made with migrant communities in Ghana.</p>
+    <p class="a t tw lede content" id="page-summary" style="--x:186;--y:454;--w:680;--fs:36;--lh:36">Theatre, short stories, and illustrated comics made with migrant communities in Ghana.</p>
   </section>
 
   <section class="sec">
@@ -176,18 +176,35 @@
     <div class="a tw content" style="--x:140;--y:2840;--w:1640">
       <div class="rows" id="works-list">
         <div class="row">
-          <a class="tile" href="#work-detail" tabindex="-1" aria-hidden="true"><img src="assets/img/Creative-Works/community-theatre-production/web/02-gallery.jpg" loading="lazy" alt="From the production: a scene from the play." width="1600" height="1067"></a>
+          <a class="tile" href="#work-theatre" tabindex="-1" aria-hidden="true"><img src="assets/img/Creative-Works/community-theatre-production/web/02-gallery.jpg" loading="lazy" alt="From the production: a scene from the play." width="1600" height="1067"></a>
           <div>
-            <h3 class="t"><a href="#work-detail">When You See Me</a></h3>
+            <h3 class="t"><a href="#work-theatre">When You See Me</a></h3>
             <span class="t body meta">Community Theatre Production</span>
           </div>
           <span class="t when">2026</span>
+        </div>
+        <div class="row">
+          <a class="tile" href="#work-story" tabindex="-1" aria-hidden="true"><img src="assets/img/Creative-Works/cover-for-short-story.jpg" loading="lazy" alt="The cover of When You See Me — A Short Story." width="800" height="1136"></a>
+          <div>
+            <h3 class="t"><a href="#work-story">When You See Me &mdash; A Short Story</a></h3>
+            <span class="t body meta">Short Story by Peace Adzo Medie</span>
+          </div>
+          <span class="t when">2026</span>
+        </div>
+        <div class="row">
+          <div class="tile tile--light" style="display:flex;align-items:center;justify-content:center;color:var(--dim);font-family:var(--display-face);font-size:12px;text-align:center;padding:8px">Coming<br>Soon</div>
+          <div>
+            <h3 class="t"><a href="#work-comic">Illustrated Comic</a></h3>
+            <span class="t body meta">Graphic Narrative &bull; In development</span>
+          </div>
+          <span class="t when">Upcoming</span>
         </div>
       </div>
     </div>
   </section>
 
   <section class="sec" id="work-detail">
+    <span class="a anchor" id="work-theatre" style="--x:0;--y:3060"></span>
     <!-- The production, opened straight out of the list above it. The hairline
          that capped that list and the rule that headed this section both came
          out on 2026-10-15, and the section came up 220 with them, so the label
@@ -401,6 +418,7 @@ SANITY.query(`*[_id == "creativeWorksPage"][0]{
   SANITY.meta(page);
   SANITY.text('gallery-heading', page.galleryHeading);
   SANITY.paragraphs('intervention-intro', page.introduction);
+  if (window.fitStage) window.fitStage();
 });
 </script>
 </body>
