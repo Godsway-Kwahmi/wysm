@@ -466,10 +466,18 @@ Not bugs in the current build; things the site does not have.
 
 - The footer's four social links are `href="#"` on all 13 pages, and
   `siteSettings.socialLinks` comes back empty from Sanity, so nothing overwrites
-  them in production either. The project's own account URLs have to be typed
-  into the CMS or written into the markup — there is nothing in this tree to
-  point them at. Until then `links()` leaves the drawn stack alone, so the
-  placeholders are the only thing a crawler can follow, 52 of them site-wide.
+  them in production either — 52 links to nowhere site-wide. The project's own
+  account URLs are in neither this tree nor the CMS, and the brief never lists
+  them. **Decided 2026-11-03: leave them as they are and come back to them when
+  the client has provided the accounts.** `links()` will rebuild the stack from
+  the CMS the moment the list is non-empty, and it now drops any entry that has
+  no URL rather than writing another `#`.
+- **The publication covers are served by Sanity, deliberately.** Each page's
+  markup names the repo master (1748-2480 px, 1.1-2.1 MB) and the binding swaps
+  in the CDN's 1200 px rendition, so both requests happen and the visitor ends up
+  with the smaller file the share card also points at. **Decided 2026-11-03: keep
+  it bound to Sanity** rather than baking a sized rendition into the repo. The
+  master stays in the tree exactly as she supplied it.
 - **The `seo` object on the page documents holds `title` and `description`
   only.** No `image`, no `noIndex`, so a curator cannot choose a share card or
   pull a page out of the index from Studio; both have to be done in the markup.
