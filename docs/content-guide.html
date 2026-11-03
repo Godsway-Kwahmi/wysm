@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Updating the When You See Me website — a guide for the people who write it</title>
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="guide.css">
+</head>
+<body>
+
+<!-- ============================================================ 1 COVER -->
+<section class="sheet cover">
+  <div class="rule top"></div>
+  <p class="wordmark">When<br>You See<br>Me</p>
+  <p class="eyebrow">A guide for the people who write it</p>
+  <h1>Updating the<br>website</h1>
+  <p class="lede">Everything in this guide is done inside Sanity Studio, with a mouse and
+    a keyboard. There is no code in it, no design terms, and nothing you are asked
+    to understand about how the site is built. If a step in here does not match
+    what is on your screen, stop and ask &mdash; that is always the right answer.</p>
+
+  <div class="panel">
+    <p class="label">Where you go</p>
+    <p class="studio-url">{{STUDIO_URL}}</p>
+    <p class="small">You will need an account on the project's Sanity workspace. If the
+      link above does not open, or it asks you to sign in and you do not have a
+      password, ask for one &mdash; nothing here works without it.</p>
+  </div>
+
+  <div class="meta-row">
+    <p><span class="label">Written for</span> the When You See Me project</p>
+    <p><span class="label">Covers</span> the eleven pages you can write in</p>
+    <p><span class="label">Edition</span> <span class="edition">{{DATE}}</span></p>
+  </div>
+</section>
+
+<!-- ==================================================== 2 HOW IT IS PUT TOGETHER -->
+<section class="sheet">
+  <p class="eyebrow">Before anything else</p>
+  <h2>How the site is put together</h2>
+
+  <p class="big">The website has two halves, and only one of them is yours to work in.</p>
+
+  <div class="twocol">
+    <div>
+      <p class="label">Yours, in Sanity Studio</p>
+      <p>The words and the photographs. Every publication in the list, every
+        caption, every paragraph of introduction, the email address in the footer,
+        the names of the funders. You change these, you press Publish, and the
+        website changes.</p>
+      <p class="label mt">Not yours, with a developer</p>
+      <p>Where things sit on the page, how large they are, the colours, the type,
+        the photographs behind the words on the opening screen, and any page that
+        does not exist yet. These live in code, and a small change in one place
+        moves things on every screen.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-box"><span class="label">You write in</span>Sanity Studio</div>
+      <div class="flow-arrow">&darr;</div>
+      <div class="flow-box mid"><span class="label">The site reads from</span>the same place, every time a page is opened</div>
+      <div class="flow-arrow">&darr;</div>
+      <div class="flow-box end"><span class="label">Readers see</span>wysm.vercel.app</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p class="label">The one thing worth knowing</p>
+    <p>Studio and the website are connected, but they are not the same thing.
+      A few fields in Studio are there because the plan was for them to be used
+      one day, and the website does not read them yet. Pages 11 and 12 list every one of
+      them, so you never spend twenty minutes writing something that cannot
+      arrive.</p>
+  </div>
+
+  <table class="rows">
+    <thead><tr><th>The page you are looking at</th><th>What you are editing in Studio</th></tr></thead>
+    <tbody>
+      <tr><td>The opening sentence under the big photograph</td><td><b>Home page</b> &rarr; Welcome statement</td></tr>
+      <tr><td>The list of everything published</td><td><b>Publications</b> &mdash; one document per publication</td></tr>
+      <tr><td>The line under a page title</td><td>That page's <b>Standfirst</b> or <b>Summary</b></td></tr>
+      <tr><td>Email, phone, funders, copyright line</td><td><b>Site settings</b></td></tr>
+      <tr><td>Press coverage links on About</td><td><b>About page</b> &rarr; Media coverage</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ==================================================== 3 FIRST TIME -->
+<section class="sheet">
+  <p class="eyebrow">Getting started</p>
+  <h2>Your first time in Studio</h2>
+
+  <!--SHOT:login:Studio asks for the workspace the moment you open the address.-->
+
+  <ol class="steps">
+    <li><b>Open the address on the front page of this guide.</b> Studio loads in
+      the browser like any other site. Nothing needs installing.</li>
+    <li><b>Sign in</b> with the account on the project's workspace.</li>
+    <li><b>Find the menu down the left.</b> It lists the pages by name, plus two
+      things that are not pages: <em>Site settings</em> and <em>Creative work</em>.</li>
+    <li><b>Click a name.</b> A list opens. Click one entry to open it, or the
+      button at the top of the list to start a new one.</li>
+  </ol>
+
+  <div class="twocol">
+    <div>
+      <p class="label">The two buttons, and the difference</p>
+      <p><b>Save draft</b> keeps it for yourself. The website does not change and
+        nobody else sees it. Use it whenever you are mid-sentence.</p>
+      <p><b>Publish</b> puts it on the website. Within a minute or two, anyone
+        opening the page sees your words.</p>
+      <p class="small">There is no undo on Publish. Publish the fix and it is gone.
+        That is normal, not a disaster.</p>
+    </div>
+    <div>
+      <p class="label">Four habits that prevent every accident</p>
+      <p><b>Never delete an entry</b> you did not create. Deleting a publication
+        takes it off the site at once.</p>
+      <p><b>Change one thing, then publish.</b> If six changed at once, you will not
+        know which one broke.</p>
+      <p><b>Look at the site after you publish,</b> with Shift held on the reload
+        key, so it is not a cached copy.</p>
+      <p><b>If a field is greyed out or a button is missing,</b> your account cannot
+        see it. Ask whoever set you up; you are not doing it wrong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== 4 THE MAP -->
+<section class="sheet">
+  <p class="eyebrow">Reference</p>
+  <h2>What you can change, page by page</h2>
+  <p class="big">The eleven documents in Studio, and exactly what each one puts on
+    the website.</p>
+
+  <table class="rows wide">
+    <thead><tr><th>In Studio</th><th>Appears on</th><th>What you can change</th></tr></thead>
+    <tbody>
+      <tr><td><b>Home page</b></td><td>The opening page</td><td>Welcome statement. Search title and description.</td></tr>
+      <tr><td><b>About page</b></td><td>About</td><td>Media coverage: the outlet name and the link for each press item. Search title and description.</td></tr>
+      <tr><td><b>Publications page</b></td><td>Publications</td><td>The line under the title, the heading over the list, which publication is shown large at the top, search title and description.</td></tr>
+      <tr><td><b>Publication</b><br><span class="small">five exist</span></td><td>Publications, and each publication's own page</td><td>Everything about one publication: title, type, year, publisher, summary, citation, DOI, link, cover photograph.</td></tr>
+      <tr><td><b>Creative Works page</b></td><td>Creative Works</td><td>The line under the title, the introduction, the heading over the gallery, search title and description. <span class="warn">Read pages 11 and 12 first.</span></td></tr>
+      <tr><td><b>Creative work</b></td><td>Search results</td><td>A work: format, title, date, where, a link, the description, the lead image, a gallery. <span class="warn">Read pages 11 and 12 first.</span></td></tr>
+      <tr><td><b>Programs page</b></td><td>Programs</td><td>The line under the title, search title and description. <span class="warn">The three programme panels themselves are not here.</span></td></tr>
+      <tr><td><b>Contact page</b></td><td>Contact</td><td>The line under the title, the wording beside the form, search title and description.</td></tr>
+      <tr><td><b>Site settings</b></td><td>Every page's footer</td><td>Email address, telephone number, the copyright name, the funders and their links, social account links.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="foot-note">The website's own navigation &mdash; About, Publications, Creative Works,
+    Programs, Contact &mdash; is fixed, and there is no page you can add by yourself.
+    A new page is a development job.</p>
+</section>
+
+<!-- ==================================================== 5 ADD A PUBLICATION 1 -->
+<section class="sheet">
+  <p class="eyebrow">The job you will do most</p>
+  <h2>Add a publication</h2>
+  <p class="big">Publications are the safest thing to add, because the list on the
+    website is built from them.</p>
+
+  <!--SHOT:publication:One publication open in Studio, showing its fields.-->
+
+  <table class="rows">
+    <thead><tr><th>Field</th><th>What to type</th></tr></thead>
+    <tbody>
+      <tr><td><b>Title</b></td><td>The full title as it should appear, with any subtitle after a colon.</td></tr>
+      <tr><td><b>Type</b> <span class="small">(kind)</span></td><td>Journal article, Novel, Short story, Encyclopedia entry, Policy brief, Report.</td></tr>
+      <tr><td><b>Date</b> <span class="small">(publishedAt)</span></td><td>The year, in the form the field asks for. It sets the order: newest first.</td></tr>
+      <tr><td><b>Publisher</b></td><td>Who published it. For a journal article, the journal's name.</td></tr>
+      <tr><td><b>Summary</b></td><td>Two to four sentences, shown before the reader opens it.</td></tr>
+      <tr><td><b>Citation</b></td><td>The reference exactly as it should be quoted, without a full stop at the end.</td></tr>
+      <tr><td><b>DOI</b></td><td>The full link, starting <span class="mono">https://doi.org/</span>. Leave empty if there is none.</td></tr>
+      <tr><td><b>Download link</b></td><td>Only if the PDF is already on the website. Ask for it to be put there first.</td></tr>
+      <tr><td><b>External link</b></td><td>Where to read or buy it, when there is no file to download.</td></tr>
+      <tr><td><b>Cover image</b></td><td>The cover, or the first page of the article. Then write the alt text (page 8).</td></tr>
+      <tr><td><b>Link</b> <span class="small">(url)</span></td><td><span class="warn">Leave exactly as it is.</span> It is the address of this publication's own page.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ==================================================== 6 ADD A PUBLICATION 2 -->
+<section class="sheet">
+  <p class="eyebrow">Add a publication</p>
+  <h2>The one catch</h2>
+
+  <div class="callout stop">
+    <p class="label">A new publication joins the list. It does not get a page.</p>
+    <p>Each publication's own page &mdash; the one that opens when a reader clicks
+      it, with the cover, the abstract and the download button &mdash; is built
+      separately from the list. Adding a sixth publication in Studio puts a sixth
+      row on the Publications page, and that row will open a page that does not
+      exist yet.</p>
+    <p><b>So: before you add a publication, ask for its page.</b> Send the title,
+      the abstract, the year and the cover, and say it is a new publication. The
+      page is quick to make. Then the Link field in Studio gets filled in to point
+      at it.</p>
+  </div>
+
+  <p class="label mt">To add one, once the page exists</p>
+  <ol class="steps">
+    <li>Open <b>Publications</b> in the left-hand menu.</li>
+    <li>Click the button at the top of the list that starts a new entry.</li>
+    <li>Fill the fields from the previous page of this guide, top to bottom.</li>
+    <li>Paste the page address into <b>Link</b> when the developer gives it you.</li>
+    <li>Press <b>Publish</b>.</li>
+    <li>Open the Publications page on the website and check the new row is there,
+      in the right year, with the right cover.</li>
+  </ol>
+
+  <p class="label mt">To change which publication is shown large at the top of the page</p>
+  <p>Open <b>Publications page</b> (not an individual publication) and use the
+    <b>Featured</b> picker. Leave it empty and the website shows the newest one
+    by itself, which is the right answer nearly always.</p>
+
+  <p class="label mt">To change the order</p>
+  <p>The list sorts by date, newest first. Two publications in the same year
+    appear in the order the project decided, which is held by the developer &mdash;
+    tell them if you need that changed.</p>
+</section>
+
+<!-- ==================================================== 7 WORDS -->
+<section class="sheet">
+  <p class="eyebrow">The everyday edit</p>
+  <h2>Change words on a page</h2>
+
+  <ol class="steps">
+    <li>Open the page's name in the left-hand menu.</li>
+    <li>Click into the field and make your change. Double-click a word to select
+      it; three clicks take the whole sentence.</li>
+    <li>Press <b>Publish</b>.</li>
+    <li>Look at the website.</li>
+  </ol>
+
+  <div class="twocol">
+    <div>
+      <p class="label">Paragraphs</p>
+      <p>Studio's text fields are plain. To start a new paragraph, leave a
+        <b>whole empty line</b> between the two. One line break is not a new
+        paragraph &mdash; it just wraps.</p>
+      <p class="label mt">Copying in from Word or a PDF</p>
+      <p>Paste, then look at what arrived. Invisible formatting travels with the
+        text: curly quotation marks that print as odd characters, stray spaces,
+        a bold you did not ask for. If the field has a button that says
+        <em>clear formatting</em>, use it. Better still, paste into the field,
+        then retype the two or three places it looks wrong.</p>
+    </div>
+    <div>
+      <p class="label">What each field actually is</p>
+      <table class="rows">
+        <tbody>
+          <tr><td><b>Welcome statement</b></td><td>The sentence on the opening page, beside the line above it</td></tr>
+          <tr><td><b>Standfirst / Summary</b></td><td>The one line directly under a page's title</td></tr>
+          <tr><td><b>Introduction</b></td><td>The paragraph under that on Creative Works</td></tr>
+          <tr><td><b>List heading</b></td><td>The words over the list of publications</td></tr>
+          <tr><td><b>Gallery heading</b></td><td>The words over the photographs</td></tr>
+          <tr><td><b>Form prompt</b></td><td>The words beside the box on Contact</td></tr>
+        </tbody>
+      </table>
+      <p class="small">A field left empty does not break the page: the website
+        falls back to the words written into it. That is why something you changed
+        may look right in Studio and still show the old sentence &mdash; check you
+        published the right field, then ask.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== 8 PHOTOS -->
+<section class="sheet">
+  <p class="eyebrow">Photographs</p>
+  <h2>Change or add a photograph</h2>
+
+  <!--SHOT:image:An image field with the alt text written underneath it.-->
+
+  <ol class="steps">
+    <li>Click the image field. If one is already there, take it out first.</li>
+    <li>Drag the file in, or choose it from your computer.</li>
+    <li>When the upload finishes, a crop box appears. Drag it to frame the part
+      that matters &mdash; the people, not the empty wall. Only move it if the
+      default framing is wrong.</li>
+    <li><b>Write the alt text.</b> This is not optional, and it is the part most
+      people skip.</li>
+    <li>Publish, then look at the page.</li>
+  </ol>
+
+  <div class="twocol">
+    <div>
+      <p class="label">Alt text, in one rule</p>
+      <p>Say what is in the picture to someone who cannot see it, in one sentence,
+        and do not write "photo of" or "image of".</p>
+      <table class="rows">
+        <tbody>
+          <tr><td><span class="warn">No</span></td><td>Community theatre image.jpg</td></tr>
+          <tr><td><span class="warn">No</span></td><td>Women performing</td></tr>
+          <tr><td><span class="good">Yes</span></td><td>Five performers in ankara cloth seated in a row on a stage before a red drape, one standing and gesturing, the audience's heads along the bottom of the frame.</td></tr>
+        </tbody>
+      </table>
+      <p class="small">If the photograph carries words that matter &mdash; a book
+        cover, a banner &mdash; include them.</p>
+    </div>
+    <div>
+      <p class="label">Files</p>
+      <p>A photograph from a phone is fine. A very large file makes the page slow,
+        and a very small one looks blurred. If you are asked to send the original,
+        send the original.</p>
+      <p class="label mt">Two things not to do</p>
+      <p>Do not add text into the photograph itself &mdash; captions belong in the
+        words beside it, where they can be read by everyone and resized.</p>
+      <p>Do not put a photograph of a person's face where the website expects a
+        document cover, or the other way round. The frame they go into is sized
+        for one or the other.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== 9 FOOTER -->
+<section class="sheet">
+  <p class="eyebrow">Site settings</p>
+  <h2>The footer, the funders, the address</h2>
+  <p class="big">One document feeds the bottom of every page. Change it and the
+    whole site changes at once.</p>
+
+  <!--SHOT:settings:Site settings open, showing the contact fields and the list of funders.-->
+
+  <table class="rows wide">
+    <thead><tr><th>Field</th><th>What it does</th><th>How to write it</th></tr></thead>
+    <tbody>
+      <tr><td><b>Contact email</b></td><td>In every page's footer</td><td>The address alone, nothing around it. <span class="mono">info@whenyouseeme.com</span></td></tr>
+      <tr><td><b>Contact phone</b></td><td>The number in the footer</td><td>With the country code. <span class="mono">+233 457 9890</span></td></tr>
+      <tr><td><b>Copyright holder</b></td><td>The bottom copyright line</td><td>The name only. The year writes itself.</td></tr>
+      <tr><td><b>Supporters</b></td><td>The funder plates</td><td>Full name and the link to it. Never an acronym on its own.</td></tr>
+      <tr><td><b>Social links</b></td><td>The footer's social column</td><td>Empty today. Leave it alone until the accounts exist.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="label">About the funders</p>
+    <p>Writing the funder out in full is the acknowledgement the research
+      councils ask for; a logo is a courtesy, not a requirement, so <b>send a
+      logo</b> rather than pasting a picture of one. There is no slot for a grant
+      number in this list yet &mdash; if you have one that should appear, say so.</p>
+  </div>
+</section>
+
+<!-- ==================================================== 10 SEO -->
+<section class="sheet">
+  <p class="eyebrow">Being found</p>
+  <h2>The search fields</h2>
+  <p class="big">Every page has a small section for search. Two lines do most of
+    the work of how the project looks to someone who has never heard of it.</p>
+
+  <table class="rows wide">
+    <thead><tr><th>Field</th><th>Where it shows</th><th>What to write</th></tr></thead>
+    <tbody>
+      <tr><td><b>Title</b></td><td>The blue line in Google's results, and the name of the browser tab</td><td>Under about 60 characters. The page's subject first, the project's name last. Leave it empty to use what the page already says.</td></tr>
+      <tr><td><b>Description</b></td><td>The two lines under it</td><td>One or two sentences, under about 155 characters, that say what a reader will find. Write it for a person deciding whether to click.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="twocol">
+    <div>
+      <p class="label">Three rules</p>
+      <p><b>Do not leave a field half-filled.</b> A title with the description
+        still blank makes the page read worse than both being blank.</p>
+      <p><b>Do not stuff it with words.</b> "Publications, gender-based violence,
+        Ghana, research, theatre, short story, Medie" reads as noise to a person
+        and to a search engine.</p>
+      <p><b>Never repeat the same description on two pages.</b> Each page should
+        say something different.</p>
+    </div>
+    <div>
+      <p class="label">The limit, so you are not surprised</p>
+      <p>These fields reach Google and the browser tab. They do <b>not</b> reach
+        the card that appears when a page is shared on WhatsApp, Facebook or
+        LinkedIn. That card is written by the developer, page by page, and it
+        shows the publication's own cover.</p>
+      <p class="small">So if you change a description and the shared card still
+        says the old thing, you have not done it wrong. Ask for the card to be
+        updated to match.</p>
+    </div>
+  </div>
+
+  <div class="callout stop">
+    <p class="label">One field to fix right now</p>
+    <p>The Creative Works page's search description currently reads
+      <em>"Applied theatre and illustrated stories made with migrant communities
+      in Ghana&hellip;"</em>. The page itself, and the project's own brief, describe
+      theatre, a short story and illustrated comics. The sentence should match.
+      That is a two-minute change in the Creative Works page's search fields.</p>
+  </div>
+</section>
+
+<!-- ==================================== 11 NOT WIRED: PICTURES AND PAGES -->
+<section class="sheet">
+  <p class="eyebrow">Read this before you spend time on it</p>
+  <h2>Photographs and whole pages<br>Studio cannot reach</h2>
+  <p class="big">These are real fields in Studio, or would be, and the website does
+    not read them. Writing in them is not wrong &mdash; it just will not arrive.
+    Each one says what to do instead.</p>
+
+  <table class="rows wide">
+    <thead><tr><th>In Studio</th><th>Why it does not arrive</th><th>What to do instead</th></tr></thead>
+    <tbody>
+      <tr><td><b>Home page &rarr; Hero image</b></td><td>The big opening image is served from the website's own files, so a Studio copy would arrive at a lower quality than the one on screen.</td><td>Ask. Send the replacement and it is put in properly.</td></tr>
+      <tr><td><b>Creative work</b><br><span class="small">the whole document</span></td><td>The Creative Works page is written out by hand, one work at a time. Studio holds one work today; the page shows the play, and the search page reads the rest.</td><td>Ask for the page to be connected. Until then, adding a work here will not put it on the page.</td></tr>
+      <tr><td><b>Creative Works page &rarr; Intro image</b></td><td>The image held in Studio is not the photograph the project chose for this page.</td><td>Ask for it to be replaced, or say which photograph should be there.</td></tr>
+      <tr><td><b>About page &rarr; press pictures and headlines</b></td><td>Studio holds the outlet's name and its link. The picture, the headline and the credit beside each one are chosen by the developer.</td><td>Add the name and the link, and mention what the row should show.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="foot-note">That is the whole list, across this page and the next: four
+    things Studio cannot reach here, and four more on the next page. If something
+    you changed has not arrived and it is not on either list, send the three
+    things on page 13 &mdash; the address of the page, what you wrote in Studio,
+    and what the website shows.</p>
+</section>
+
+<!-- ==================================== 12 NOT WIRED: WORDS AND LAYOUT -->
+<section class="sheet">
+  <p class="eyebrow">The other half of the same list</p>
+  <h2>Words that are written into<br>the page, not into a field</h2>
+  <p class="big">Some paragraphs look like they belong to a Studio field because a
+    field with a similar name exists. They do not. These are the four to know
+    about.</p>
+
+  <table class="rows wide">
+    <thead><tr><th>In Studio</th><th>Why it does not arrive</th><th>What to do instead</th></tr></thead>
+    <tbody>
+      <tr><td><b>Creative Works page &rarr; Strands</b></td><td>The three blocks under the introduction are written in the page. The Studio list still holds an item that was deliberately taken out.</td><td>Ask, and say which block you want changed.</td></tr>
+      <tr><td><b>Programs page &rarr; the three programme panels</b></td><td>Only the line under the title comes from Studio. The titles, dates, places and paragraphs of the three programmes are written in the page.</td><td>Send the new wording and say which programme it belongs to.</td></tr>
+      <tr><td><b>Publication &rarr; the abstract</b></td><td>There is no abstract field to write in yet. Each publication's page holds the abstract the project supplied.</td><td>Send the abstract text and ask for it to be put on the page.</td></tr>
+      <tr><td><b>Anything about layout</b></td><td>Size, position, colour, type, spacing, and which pages exist.</td><td>Always a developer conversation.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout stop">
+    <p class="label">If you are not sure which list something is on</p>
+    <p>Write it, publish it, and look at the website. If nothing changed, it is
+      on one of these two lists. Nothing is lost by trying: Studio keeps what you
+      wrote, and it will arrive the day the page is connected to it.</p>
+  </div>
+</section>
+
+<!-- ==================================================== 13 RULES + TROUBLE -->
+<section class="sheet">
+  <p class="eyebrow">Two last things</p>
+  <h2>Keeping it right, and what to do when it is wrong</h2>
+
+  <div class="twocol">
+    <div>
+      <p class="label">The rules, all of them</p>
+      <table class="rows">
+        <tbody>
+          <tr><td><b>Blank line</b></td><td>means a new paragraph</td></tr>
+          <tr><td><b>One link per field</b></td><td>paste the address alone, no words around it</td></tr>
+          <tr><td><b>Dates</b></td><td>in the form the field shows you, not typed as a sentence</td></tr>
+          <tr><td><b>Alt text</b></td><td>always, on every photograph</td></tr>
+          <tr><td><b>Funder names</b></td><td>in full, not abbreviated</td></tr>
+          <tr><td><b>Titles</b></td><td>as they should be read, not in capitals</td></tr>
+          <tr><td><b>Empty field</b></td><td>the page keeps its own words &mdash; never leave one half-written</td></tr>
+          <tr><td><b>Publish</b></td><td>one change at a time, then look</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p class="label">Something looks wrong on the site</p>
+      <ol class="steps tight">
+        <li><b>Reload with Shift held down.</b> The most common cause is a saved
+          old copy of the page.</li>
+        <li><b>Did you press Publish, not Save draft?</b> The button at the top
+          tells you which state you are in.</li>
+        <li><b>Is the field empty?</b> An empty field shows the page's own words,
+          not a blank space.</li>
+        <li><b>Is it on the page 11 or 12 list?</b> If so, it cannot arrive yet.</li>
+        <li><b>Wait two minutes.</b> The site rebuilds itself after a publish.</li>
+        <li><b>Still wrong?</b> Send three things: the page's address, a
+          screenshot of what you wrote in Studio, and a screenshot of what the
+          website shows. That is enough to find almost anything.</li>
+      </ol>
+      <div class="callout">
+        <p class="label">When in doubt</p>
+        <p>Stop and ask. Nothing in Studio is lost by waiting, and a question
+          costs less than undoing something that has been published.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== 14 CARD -->
+<section class="sheet card">
+  <p class="eyebrow">Tear this out</p>
+  <h2>One page, everything</h2>
+
+  <div class="card-grid">
+    <div>
+      <p class="label">To change a publication</p>
+      <p>Publications &rarr; pick it &rarr; fields top to bottom &rarr; Publish.
+        A <b>new</b> one needs a page built first: ask.</p>
+      <p class="label mt">To change the opening sentence</p>
+      <p>Home page &rarr; Welcome statement &rarr; Publish.</p>
+      <p class="label mt">To change the email or phone</p>
+      <p>Site settings &rarr; Contact email or Contact phone &rarr; Publish.
+        It changes on every page at once.</p>
+      <p class="label mt">To add a funder</p>
+      <p>Site settings &rarr; Supporters &rarr; add one &rarr; full name and link
+        &rarr; Publish.</p>
+      <p class="label mt">To add a press link</p>
+      <p>About page &rarr; Media coverage &rarr; add one &rarr; outlet and link
+        &rarr; Publish. The picture and headline need a developer.</p>
+    </div>
+    <div>
+      <p class="label">Always</p>
+      <p>Blank line = new paragraph. Alt text on every image. One link per field.
+        Publish one change at a time, then look at the site.</p>
+      <p class="label mt">Never</p>
+      <p>Delete an entry you did not make. Paste formatted text without checking
+        it. Write in a field on the pages 11 and 12 list and expect it to appear.</p>
+      <p class="label mt">Needs a developer</p>
+      <p>Anything about layout. New pages. The hero image. Programme panels.
+        Publication abstracts. The Creative Works page. Shared-link cards.
+        Social account addresses.</p>
+      <div class="panel dark">
+        <p class="label">Ask</p>
+        <p class="mono">{{CONTACT}}</p>
+        <p class="small">The Studio address is written at the foot of this page.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="writein">
+    <div>
+      <p class="label">This project's Studio address</p>
+      <div class="rule"><span class="fill-line" data-token="STUDIO_URL"></span></div>
+    </div>
+    <div>
+      <p class="label">Who to ask, and their email</p>
+      <div class="rule"><span class="fill-line" data-token="CONTACT"></span></div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

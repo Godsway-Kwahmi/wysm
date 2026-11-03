@@ -31,6 +31,8 @@ assets/img/              photography, grouped by page
 assets/img/og-cover.jpg  the hero flattened to 1200x630, for link cards
 assets/img/favicon*.png  the wordmark's own W at 32 / 64 / 180 / 512
 assets/pdf/publications/  the four downloadable papers
+docs/                     the client's content guide: its HTML source, its print
+                          stylesheet, and the script that turns them into a PDF
 *.html                   12 pages, flat in the project root, plus 404.html
 robots.txt  sitemap.xml  for crawlers; 404.html is out of both
 ```
@@ -542,3 +544,60 @@ Not bugs in the current build; things the site does not have.
   templating step, so it can drift; it currently has not. The `canonical`,
   `og:url` and `theme-color` tags are pasted the same way, and are the other
   thing to change in all twelve places if the origin moves.
+
+---
+
+## 9. The content guide in `docs/`
+
+`docs/When-You-See-Me-Content-Guide.pdf` is the client's own manual: fourteen A4
+sheets, written for someone who has never opened a code editor, in the site's
+faces, colours and hairlines. It is not written by hand into a PDF.
+
+    python docs/build-guide.py                            # print, then check
+    python docs/build-guide.py --studio-url URL --contact you@example.com
+    python docs/build-guide.py --selftest                 # prove the check can fail
+
+`docs/content-guide.html` is the source and `docs/guide.css` the print sheet
+(`@page size: A4; margin: 0`, one `.sheet` per page). Three things about that
+pair are measured on this document, not inherited from habit:
+
+- **The variable faces cannot print.** Chrome puts a variable font into a PDF as
+  a Type3 bitmap: acceptable at 600 dpi, visibly soft at 1200, and 858 KB for
+  these pages against 293 KB for the same pages as outlines. `build-guide.py`
+  instantiates the weights the guide uses out of the same OFL files (`pip install
+  fonttools brotli`) and prints only those, *removing* the `fonts.css` link on
+  the way. Declaring both is not neutral: measured here, Chrome took the static
+  file for some runs and the variable one for others, and every run it took from
+  the variable file came back a bitmap. The build fails if a Type3 font reaches
+  the PDF, and fails if any of the three families is missing from it.
+- **A sheet is a frame, not a page.** `.sheet` is 296.5 mm tall (A4 less half a
+  millimetre, so a rounding difference cannot buy a blank page after each one)
+  and `overflow: hidden`. Copy taller than the box is cut off with no warning
+  and simply is not in the PDF. So the build reads the PDF back and requires
+  every word of each sheet to be present on its own page, and reports how many
+  millimetres are left before the signature band. `--selftest` prints a
+  deliberately over-tall sheet and requires that word check to catch it: a guard
+  that has never failed proves nothing.
+- **A screenshot costs the same whether it has arrived or not.** Every picture
+  sits in a `--plate-h` frame and the empty state is that same frame, dashed.
+  Built with four mock screenshots in place and with none, the spare-room line
+  is byte-for-byte the same, which is what makes those numbers worth trusting
+  before the real Studio pictures land.
+
+The four markers are `login`, `publication`, `image` and `settings`, written in
+the source as `<!--SHOT:name:caption-->`; a file at
+`docs/studio-screens/<name>.png` (or `.jpg`/`.webp`) is typeset in its place with
+the caption under it.
+
+`{{STUDIO_URL}}` and `{{CONTACT}}` are the two values the guide still prints as
+dashed "not in this copy yet" bands. Neither is recorded in this repo or in
+Sanity: no Studio deployment address for project `6071id0c` exists anywhere in
+the tree, and `6071id0c.sanity.studio`, `sanity.build/6071id0c` and the
+deployed-studio API path all answered 404 on 2026-11-03. Ask for the address,
+then rebuild with the flags above; the tear-out card on the last sheet prints
+both filled in, and leaves two rules to write on if they are not known yet.
+
+`docs/` is served like any other folder, so `/docs/content-guide` resolves under
+`cleanUrls`. `content-guide.html` carries `robots noindex` for that reason: it is
+the PDF's source, not a page of the site. `docs/.gitignore` keeps the build's own
+scratch (`.print-fonts/`, `.guide-build.html`) out of the tree.

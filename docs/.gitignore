@@ -1,0 +1,5 @@
+.print-fonts/
+.guide-build.html
+.selftest-overflow.pdf
+__pycache__/
+.qa/
