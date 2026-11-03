@@ -16,6 +16,7 @@
      the hero itself, flattened onto the page's field colour. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="When You See Me">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="About — When You See Me">
 <meta property="og:description" content="Who is behind the When You See Me project, what the research looks at, and how the creative works are made.">
 <meta property="og:url" content="https://wysm.vercel.app/about">
@@ -38,6 +39,48 @@
 <link rel="preload" href="assets/fonts/bodoni-moda-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/site.css">
+
+<!-- Search results and link previews read this: who the project is, who funds
+     it, and what each page is about. Every value here is already on the page. -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "AboutPage",
+   "@id": "#webpage",
+   "url": "https://wysm.vercel.app/about",
+   "name": "About",
+   "isPartOf": {
+    "@id": "#website"
+   },
+   "about": {
+    "@id": "#project"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://wysm.vercel.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "About",
+     "item": {
+      "@id": "#website"
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
 
@@ -92,7 +135,7 @@
        ========================================================== -->
   <img class="a box photo hero" id="hero-image" src="assets/img/About/Header.jpg" loading="lazy"
        style="--x:420;--y:150;--w:1130;--h:567"
-       alt="The performance space at night: a raked wooden stage under one hard worklight, the audience in plastic chairs along one side and performers in ankara cloth seated along the other.">
+       alt="The performance space at night: a raked wooden stage under one hard worklight, the audience in plastic chairs along one side and performers in ankara cloth seated along the other." width="5760" height="3840">
 
   <!-- ==========================================================
        SECTION 1: ABOUT
@@ -152,15 +195,15 @@
 
     <div class="a tw feature-grid" style="--x:140;--y:1522.8;--w:1640">
       <a class="feature-card content" href="publications.html">
-        <img src="assets/img/About/publications.jpg" loading="lazy" alt="The cover of &lsquo;When You See Me &mdash; A Short Story&rsquo; by Peace Adzo Medie: the title in cream hand-drawn capitals on a dark blue textured ground.">
+        <img src="assets/img/About/publications.jpg" loading="lazy" alt="The cover of &lsquo;When You See Me &mdash; A Short Story&rsquo; by Peace Adzo Medie: the title in cream hand-drawn capitals on a dark blue textured ground." width="1748" height="2480">
         <span class="cap t sub">Publications</span>
       </a>
       <a class="feature-card content" href="creative-works.html">
-        <img src="assets/img/About/Images-for-activities-and-output-section/web/Creative-Works.jpg" loading="lazy" alt="Four performers in ankara cloth and head wraps singing on stage, mouths open, hands moving, each wearing a headset microphone.">
+        <img src="assets/img/About/Images-for-activities-and-output-section/web/Creative-Works.jpg" loading="lazy" alt="Four performers in ankara cloth and head wraps singing on stage, mouths open, hands moving, each wearing a headset microphone." width="1600" height="1067">
         <span class="cap t sub">Creative Works</span>
       </a>
       <a class="feature-card content" href="programs.html">
-        <img src="assets/img/About/Images-for-activities-and-output-section/web/Programs.jpg" loading="lazy" alt="A workshop in session in a bright room: a woman standing at the head of a horseshoe of tables reading from papers, a slide behind her, participants seated either side.">
+        <img src="assets/img/About/Images-for-activities-and-output-section/web/Programs.jpg" loading="lazy" alt="A workshop in session in a bright room: a woman standing at the head of a horseshoe of tables reading from papers, a slide behind her, participants seated either side." width="1600" height="1067">
         <span class="cap t sub">Programs</span>
       </a>
     </div>
@@ -206,14 +249,14 @@
     <div class="a tw content" id="media-list" style="--x:140;--y:2028.3;--w:1000">
       <div class="rows">
         <div class="row">
-          <a class="tile" href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/About/Media/web/gna-queenmothers-gbv-web.jpg" loading="lazy" alt=""></a>
+          <a class="tile" href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/About/Media/web/gna-queenmothers-gbv-web.jpg" loading="lazy" alt="" width="640" height="426"></a>
           <div>
             <h3 class="t"><a href="https://gna.org.gh/2026/08/queenmothers-community-leaders-trained-to-support-immigrant-survivors-of-gbv/" target="_blank" rel="noopener">Ghana News Agency</a></h3>
             <span class="t body meta">Queenmothers, community leaders trained to support immigrant survivors of GBV &middot; &copy; Ghana News Agency</span>
           </div>
         </div>
         <div class="row">
-          <a class="tile" href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/About/Media/web/ghana-weekend-researchers-gbv-web.jpg" loading="lazy" alt=""></a>
+          <a class="tile" href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/About/Media/web/ghana-weekend-researchers-gbv-web.jpg" loading="lazy" alt="" width="640" height="422"></a>
           <div>
             <h3 class="t"><a href="https://ghanaweekend.com/2026/07/21/researchers-advocate-stronger-grassroots-response-to-gender-based-violence/" target="_blank" rel="noopener">Ghana Weekend</a></h3>
             <span class="t body meta">Researchers advocate stronger grassroots response to gender-based violence &middot; &copy; Ghana Weekend</span>

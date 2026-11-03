@@ -45,7 +45,7 @@ for any path the site does not have.
 
 | File | Drawn height | Sanity document | What it holds |
 |---|---|---|---|
-| `index.html` | 7170 | `homePage` | Hero, welcome lede, Featured, then Publications / Creative Works / Programs previews, a contact block, newsletter sign-up and supporters |
+| `index.html` | 6998 | `homePage` | Hero, welcome lede, Featured, then Publications / Creative Works / Programs previews, a contact block, newsletter sign-up and supporters |
 | `about.html` | 2986 | `aboutPage` | Programme description, activities and outputs, press list |
 | `publications.html` | 3020 | `publicationsPage` | Featured publication + the `publication` list |
 | `publication-when-you-see-me.html` | 1702 | `publication` slug `when-you-see-me` | Cover, her abstract, citation, PDF |
@@ -142,15 +142,39 @@ Exposed as `window.fitStage` for pages that add rows after load.
 `https://6071id0c.apicdn.sanity.io/v2026-03-01/data/query/production?query=…`
 and exposes `window.SANITY`:
 
-`query` `text` `href` `src` `image` `hide` `paragraphs` `columns` `links`
+`query` `text` `href` `image` `paragraphs` `columns` `links`
 `meta` `mediaRows` `supporters` `publicationPage` `settings`
+
+(`src` and `hide` came out on 2026-11-02: no page had ever called either, and a
+helper nothing uses is a surface someone has to keep correct.)
 
 Rules the whole site follows:
 
 - **Content ships in the HTML.** The writers are no-ops when a value comes
   back empty, so a failed fetch, an empty field or a deleted document
   leaves the designed page standing. `SANITY.settings()` runs on every
-  page automatically.
+  page automatically. The fetch itself now aborts at eight seconds, so a
+  hanging CDN cannot hold a page on the fallback path indefinitely.
+- **The head is written as three mirrors or not at all.** `head()` (internal)
+  sets `<title>` + `og:title` + `twitter:title` together, and `description` +
+  `og:description` + `twitter:description` together, and `og:image` +
+  `og:image:width/height` + `twitter:image` + both alts together from the asset's
+  own `metadata.dimensions`. Writing only the first two left a CMS title edit
+  moving the tab while the link card kept quoting the previous sentence.
+  `publicationPage()` takes the work's name from the document and keeps the
+  suffix already in the page's title, so Studio can rename a work without
+  restyling the title. See §7 for why the markup, not Studio, governs the card.
+- **A CMS picture may not replace a repo picture that is the same frame.**
+  `homePage.heroImage`'s asset id is the SHA-1 of `assets/img/hero.webp`, so the
+  document holds the identical picture; but `cdn.sanity.io` answers every request
+  through its own encoder, so binding it made the deployed page download the
+  198 KB file and then an 85 KB re-encode of the same frame, restarting the
+  largest paint. The hero binding came off on 2026-11-02 for that reason and the
+  page draws its own file. `creativeWorksPage.introImage` came off the same way
+  on 2026-10-31, for a different reason (see §6).
+- **`links()` drops an entry with no usable URL** rather than writing `href="#"`,
+  the way `supporters()` already does. A name that looks like a link and goes
+  nowhere is worse than the name not being there.
 - **`paragraphs()` and `columns()` inject `<p>` elements, and a `<p>` is not
   margin-free.** The browser gives one 1em top and bottom, which shifts every
   line inside a block that was placed by `--y` — and it is invisible locally,
@@ -180,12 +204,18 @@ Rules the whole site follows:
   CDN requests over CDP, replays them server-side and answers them with a
   permissive CORS header; that is how the publication pages were checked against
   the live dataset rather than only against their own HTML.
+- **A query projects only what a writer renders.** `creativeWorksPage` used to
+  pull every `intervention` with its lead image and its whole gallery and then
+  discard it, because the renderer that consumed it was never written;
+  `homePage` projected a `summary` the document does not carry. Both came out on
+  2026-11-02. What is still projected is live: `publications.html` reads
+  `publisher` and `url`, and all five `publication` documents carry both.
 - **A publication page's abstract block takes `abstract`, never `summary`.**
   It used to be written from `p.summary`, the one-line description the row on
   `publications.html` carries, so the client's own abstract could not reach the
-  page even once. The field is empty on all five documents today and
+  page even once. No `publication` document carries an `abstract` field today and
   `paragraphs()` returns on an empty value, so her text — written into the HTML —
-  stands until someone fills the field in Studio. The projection asks for
+  stands until the field exists and is filled. The projection asks for
   `abstract` explicitly; a field a query does not name never arrives.
 
 **Schema in this repo is incomplete.** Only
@@ -371,19 +401,95 @@ query time (`?w=400&fit=max&auto=format`).
 
 ---
 
-## 7. Known gaps
+## 7. The head, the card and the crawler
+
+Every page's `<head>` states each fact three times: once for the browser
+(`<title>`, `<meta name=description>`), once for the link card (`og:*`) and once
+for X (`twitter:*`). `sanity.js`'s `head()` is the only thing that writes any of
+them from the CMS and it writes all three or none. Before this, a CMS title edit
+moved the tab and left the card quoting the previous sentence, which is the one
+thing almost everyone who arrives from a shared link reads.
+
+**The asymmetry that has to be understood before editing any of it.** Social
+scrapers (Facebook, X, LinkedIn, WhatsApp) read the served HTML and do not run
+JavaScript. Google does render, with a delay. So the tags written into the markup
+govern the card, and the CMS values only reach Google's index. Editing an og
+value in Studio changes nothing a sharer will ever see; the markup is where a
+card is authored.
+
+- **Titles.** The brand appears once. The four works whose names are not the
+  brand read `Nightbloom — When You See Me`. The short story is the deliberate
+  exception: `When You See Me — When You See Me` says nothing, so it carries the
+  form and the author, `When You See Me — short story by Peace Adzo Medie`.
+  All titles are literal UTF-8, not character references, because the page
+  declares `charset=utf-8`. `publicationPage()` takes only the work's name from
+  the document and keeps the suffix the page already carries, so a rename in
+  Studio cannot restyle the title.
+- **Structured data.** The eleven indexable pages each carry one
+  `application/ld+json` block: a `@graph` of the site nodes (`WebSite`,
+  `Organization`, `ResearchProject`, on the homepage) plus the page's own node
+  and a `BreadcrumbList`. The five publication pages describe the work itself:
+  `Book` for the novel, `ScholarlyArticle` for the two African Affairs papers and
+  the encyclopedia entry, `CreativeWork` for the short story, each with the DOI
+  already printed in its citation line, the publisher already named there, and
+  the cover the page already draws. Nothing appears in a graph that is not also
+  on the page; `ld-check.cjs` in the scratch tooling proves that, and fails if a
+  graph URL stops resolving. `404.html` and `search.html` carry none.
+- **What the index may have.** `404.html` and `search.html` are `noindex`, and
+  both are out of `sitemap.xml` (eleven URLs). `search.html` came out on
+  2026-11-02: it is a function, not a document, and it reads no URL parameter, so
+  every query renders the same page. `robots.txt` still allows crawling it, which
+  is the right order — a disallowed page cannot be seen to be noindexed.
+  `lastmod` is the later of the last commit that touched the file and the file's
+  own mtime, so work in the tree before a commit still reads.
+- **Images.** All 99 `<img>` in the markup carry intrinsic `width`/`height`
+  except the seven that `publications.html` already had. Without them the reflow
+  tiers, where `.photo` is `width:100%; height:auto`, have no aspect ratio to
+  reserve until the file arrives, so the page jumps. Proven inert: with and
+  without the attributes, every image box, every image's document position, the
+  footer's position and the page's `scrollHeight` are identical at 1920 and at
+  420, measured twice to rule out the reveal transform (see §6).
+- **The card image.** `og:image` is the site's own file on the six section pages
+  and each work's own cover on the five publication pages, with its true
+  dimensions. Where the CMS drives the visible cover, `head()` also moves the
+  card, and it deliberately uses the asset's plain URL rather than the tile's
+  `?auto=format` one: a scraper sends no `Accept` header, so content negotiation
+  on a card buys nothing and risks a format the scraper will not take.
+- **`og:locale`** is `en_GB` on the twelve pages that carry an og block; the
+  project spells *prioritise* and *organisations*.
+
+---
+
+## 8. Known gaps
 
 Not bugs in the current build; things the site does not have.
 
-- The footer's four social links are `href="#"` on all 12 pages, and
+- The footer's four social links are `href="#"` on all 13 pages, and
   `siteSettings.socialLinks` comes back empty from Sanity, so nothing overwrites
   them in production either. The project's own account URLs have to be typed
   into the CMS or written into the markup — there is nothing in this tree to
-  point them at.
-- `sanity.js` writes `contact-email`, `contact-phone` and `contact-social`, but
-  no page carries those ids: the Contact page reaches its address only through
-  the shared footer. Giving it its own line is a layout decision, not a wiring
-  fix.
+  point them at. Until then `links()` leaves the drawn stack alone, so the
+  placeholders are the only thing a crawler can follow, 52 of them site-wide.
+- **The `seo` object on the page documents holds `title` and `description`
+  only.** No `image`, no `noIndex`, so a curator cannot choose a share card or
+  pull a page out of the index from Studio; both have to be done in the markup.
+  The Studio lives outside this tree, so this is a schema change to ask for, not
+  something to patch here.
+- **`abstract` is empty on all five `publication` documents.** Her abstracts are
+  written into the pages, and `paragraphs()` returns on an empty value, so the
+  text stands. Filling the field in Studio is what would let a future edit reach
+  the page without a deploy.
+- **One `intervention` document exists** (the play, 2026-07-16, ten gallery
+  frames). The brief lists three creative works, so the short story and the
+  novel have not been entered; `creative-works.html` renders its works from the
+  markup, and the query that used to fetch the documents was removed on
+  2026-11-02 because nothing consumed the answer. Binding the page back is the
+  piece that would let a fourth work arrive without editing HTML.
+- **`creativeWorksPage.seo.description` is stale** — it reads "Applied theatre
+  and illustrated stories…" while the page and the brief describe theatre, a
+  short story and illustrated comics. It is the one page of six where the CMS
+  sentence and the authored one disagree, and because Google renders JS, that is
+  the sentence the index will carry. One field to correct in Studio.
 - `assets/img/Homepage/` and `assets/img/About/Images-for-activities-and-output-section/`
   hold the client's own files beside the `web/` copies the pages draw on.
   `Header-Image.jpg` is the one to understand before touching: it is the five

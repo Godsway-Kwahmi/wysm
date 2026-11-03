@@ -1,76 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 12 pages. Paths are the cleanUrls form (vercel.json), not the .html files. -->
+<!-- 11 pages. Paths are the cleanUrls form (vercel.json), not the .html files.
+     404.html is noindex and search.html is noindex: both are out of here.
+     lastmod is the later of the last commit that touched the file and the file’s
+     own mtime, so work in the tree before a commit still reads. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wysm.vercel.app/about</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/contact</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/creative-works</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/programs</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/publication-introduction-women-gender-change-in-africa</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/publication-nightbloom</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/publication-rape-reporting-cote-divoire</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/publication-when-you-see-me</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/publication-women-and-violence-in-africa</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://wysm.vercel.app/publications</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://wysm.vercel.app/search</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
 </urlset>

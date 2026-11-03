@@ -16,6 +16,7 @@
      the hero itself, flattened onto the page's field colour. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="When You See Me">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="When You See Me">
 <meta property="og:description" content="Research and creative works on the prevention of and responses to gender-based violence within migrant communities in Ghana.">
 <meta property="og:url" content="https://wysm.vercel.app/">
@@ -38,6 +39,74 @@
 <link rel="preload" href="assets/fonts/bodoni-moda-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/site.css">
+
+<!-- Search results and link previews read this: who the project is, who funds
+     it, and what each page is about. Every value here is already on the page. -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "#website",
+   "name": "When You See Me",
+   "url": "https://wysm.vercel.app/",
+   "inLanguage": "en-GB",
+   "description": "Research and creative works on the prevention of and responses to gender-based violence within migrant communities in Ghana.",
+   "publisher": {
+    "@id": "#organization"
+   }
+  },
+  {
+   "@type": "Organization",
+   "@id": "#organization",
+   "name": "When You See Me",
+   "url": "https://wysm.vercel.app/",
+   "logo": "https://wysm.vercel.app/assets/img/og-cover.jpg",
+   "description": "Research and creative works on the prevention of and responses to gender-based violence within migrant communities in Ghana.",
+   "founder": {
+    "@type": "Person",
+    "@id": "#person",
+    "name": "Peace Adzo Medie"
+   }
+  },
+  {
+   "@type": "ResearchProject",
+   "@id": "#project",
+   "name": "When You See Me",
+   "url": "https://wysm.vercel.app/",
+   "description": "A research program and artistic project on the roles of individuals and communities in preventing gender-based violence and supporting survivors.",
+   "creator": {
+    "@type": "Person",
+    "@id": "#person",
+    "name": "Peace Adzo Medie"
+   },
+   "funder": [
+    {
+     "@type": "Organization",
+     "name": "Arts and Humanities Research Council",
+     "url": "https://www.ukri.org/councils/ahrc/"
+    },
+    {
+     "@type": "Organization",
+     "name": "University of Bristol",
+     "url": "https://www.bristol.ac.uk/"
+    },
+    {
+     "@type": "Organization",
+     "name": "University of Ghana",
+     "url": "https://www.ug.edu.gh/"
+    },
+    {
+     "@type": "Organization",
+     "name": "Harry Frank Guggenheim Foundation",
+     "url": "https://www.hfg.org/"
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
 
@@ -85,7 +154,7 @@
   <div class="hero-glow" id="hero-glow" aria-hidden="true"></div>
   <img class="a box photo hero" id="hero-image" src="assets/img/hero.webp"
        style="--x:420;--y:150;--w:1130;--h:640"
-       alt="When You See Me, set in display type filled with photographs of women in West African dress.">
+       alt="When You See Me, set in display type filled with photographs of women in West African dress." width="1130" height="640">
 
   <!-- The four entry sections carry the same pool of light, held to their own
        box and lit only while the pointer is inside. Each glow is a child of the
@@ -114,11 +183,14 @@
        missing — "the third section, separated by the second with a line, should
        be titled Featured". Measured at the comp, the sentence ran 901 wide in
        five lines, 222 deep, foot at 1076; across the divided measure it runs
-       three lines in each column, 133 deep, foot at 987. The lower rule stands
-       at 1105.1, 118.1 clear of that foot and 118.1 below the "Featured" head at
-       1225.2 — equal air on both sides, the way the upper rule sits 30 over the
-       band and 34 under it. Nothing below moved: the rule came into air that was
-       already there, so the page still draws 7171 tall.
+       three lines in each column, 133 deep, foot at 987.
+       The lower rule first stood 118.1 clear of that foot with the "Featured"
+       head 118.1 below it — equal air on both sides, but 236 of it stacked
+       around one hairline, which reads as two empty bands rather than a
+       bracket. It now stands at 1019: 32 under the band's foot and 32 over the
+       head at 1053, the same 32 the upper rule holds over this band. The
+       Featured block and everything from its cards down came up 172.2 with it,
+       so no other gap on the page moved, and the page draws 7170.4 → 6998.2.
        ========================================================== -->
   <section class="sec">
     <div class="a box rule" style="--x:140;--y:820;--w:1640;--h:2"></div>
@@ -143,21 +215,25 @@
        which lifted the foot of the row 58.6 clear of the Publications card.
        Everything from that card down came up 58.6 with it, so no other gap on
        the page moved, and the drawn height went 7229 → 7170.4.
+       The block came up a second time on 2026-11-02, 172.2 with the welcome's
+       lower rule, which was lifted off the 118.1 of air it was floating in to
+       the same 32 the upper rule holds. The 58.6 under the row is untouched;
+       the drawn height is 6998.2.
        ========================================================== -->
   <section class="sec">
     <h2 class="a t tw display content" style="--x:140;--y:1053;--w:700;--fs:62;--lh:60">Featured</h2>
 
     <div class="a tw feature-grid" style="--x:140;--y:1153;--w:1640">
       <a class="feature-card content" href="publications.html">
-        <img src="assets/img/publication.webp" loading="lazy" alt="The cover of &lsquo;When You See Me &mdash; A Short Story&rsquo; by Peace Adzo Medie: the title in cream hand-drawn capitals on a dark blue textured ground.">
+        <img src="assets/img/publication.webp" loading="lazy" alt="The cover of &lsquo;When You See Me &mdash; A Short Story&rsquo; by Peace Adzo Medie: the title in cream hand-drawn capitals on a dark blue textured ground." width="1099" height="671">
         <span class="cap t sub">Publication</span>
       </a>
       <a class="feature-card content" href="creative-works.html">
-        <img src="assets/img/Homepage/web/Community-theatre.jpg" loading="lazy" alt="The play performed at night: five performers in ankara cloth seated in a row on a stage before a red drape, one standing and gesturing, the audience&#39;s heads along the bottom of the frame.">
+        <img src="assets/img/Homepage/web/Community-theatre.jpg" loading="lazy" alt="The play performed at night: five performers in ankara cloth seated in a row on a stage before a red drape, one standing and gesturing, the audience&#39;s heads along the bottom of the frame." width="1600" height="1067">
         <span class="cap t sub">Community Theatre</span>
       </a>
       <a class="feature-card content" href="programs.html">
-        <img src="assets/img/Homepage/web/Training-Workshop.jpg" loading="lazy" alt="Workshop participants and facilitators standing together outdoors on paving in white, blue and patterned cloth, beside a When You See Me banner with trees behind.">
+        <img src="assets/img/Homepage/web/Training-Workshop.jpg" loading="lazy" alt="Workshop participants and facilitators standing together outdoors on paving in white, blue and patterned cloth, beside a When You See Me banner with trees behind." width="1600" height="1067">
         <span class="cap t sub">Training Workshop</span>
       </a>
     </div>
@@ -184,7 +260,7 @@
 
     <img class="a box photo" src="assets/img/Publications/When-You-See-Me.jpg" loading="lazy"
          style="--x:681;--y:1703.2;--w:1099;--h:671"
-         alt="Cover image for the short story When You See Me.">
+         alt="Cover image for the short story When You See Me." width="1748" height="2480">
 
     <!-- The panel and its band came up 51 to stand on the same line as the
          thumbnails at the right, which is what Creative Works already does: the
@@ -206,9 +282,9 @@
 
     <p class="a t tw label content" style="--x:1400;--y:2425.2;--w:380;--fs:27;--lh:27;text-align:right">More publications:</p>
     <div class="a thumbs thumbs--dark" style="--x:1242;--y:2480.2;gap:calc(38 * var(--px))">
-      <a href="publication-nightbloom.html" aria-label="Nightbloom"><img src="assets/img/Publications/nightbloom.webp" loading="lazy" alt="The Nightbloom cover: navy ground with marigold, teal and coral flowers, the title in white capitals."></a>
-      <a href="publication-women-and-violence-in-africa.html" aria-label="Women and Violence in Africa"><img src="assets/img/Publications/Women-and-Violence-in-Africa.jpg" loading="lazy" alt="The first page of the Oxford Research Encyclopedia article &lsquo;Women and Violence in Africa&rsquo; by Peace A. Medie."></a>
-      <a href="publication-rape-reporting-cote-divoire.html" aria-label="Rape Reporting in Post-Conflict C&ocirc;te d'Ivoire"><img src="assets/img/Publications/Rape-reporting-in-post-conflict-CI.jpg" loading="lazy" alt="The first page of the African Affairs article &lsquo;Rape Reporting in Post-Conflict C&ocirc;te d&rsquo;Ivoire&rsquo; by Peace A. Medie."></a>
+      <a href="publication-nightbloom.html" aria-label="Nightbloom"><img src="assets/img/Publications/nightbloom.webp" loading="lazy" alt="The Nightbloom cover: navy ground with marigold, teal and coral flowers, the title in white capitals." width="678" height="1024"></a>
+      <a href="publication-women-and-violence-in-africa.html" aria-label="Women and Violence in Africa"><img src="assets/img/Publications/Women-and-Violence-in-Africa.jpg" loading="lazy" alt="The first page of the Oxford Research Encyclopedia article &lsquo;Women and Violence in Africa&rsquo; by Peace A. Medie." width="2479" height="3508"></a>
+      <a href="publication-rape-reporting-cote-divoire.html" aria-label="Rape Reporting in Post-Conflict C&ocirc;te d'Ivoire"><img src="assets/img/Publications/Rape-reporting-in-post-conflict-CI.jpg" loading="lazy" alt="The first page of the African Affairs article &lsquo;Rape Reporting in Post-Conflict C&ocirc;te d&rsquo;Ivoire&rsquo; by Peace A. Medie." width="1843" height="2764"></a>
     </div>
   </section>
 
@@ -225,7 +301,7 @@
 
     <img class="a box photo" src="assets/img/Creative-Works/community-theatre-production/web/01-lead-image.jpg" loading="lazy"
          style="--x:420;--y:2940.2;--w:1360;--h:600"
-         alt="A discussion on stage after a performance: four people seated at a table with a bowl of pale roses in front of them, a man standing at the right speaking to the room.">
+         alt="A discussion on stage after a performance: four people seated at a table with a bowl of pale roses in front of them, a man standing at the right speaking to the room." width="1600" height="1067">
 
     <!-- The panel and its band came up 72 to stand on the same line as the
          thumbnail at the right: that thumb ends at 4057, which is now the
@@ -241,7 +317,7 @@
 
     <p class="a t tw label content" style="--x:1400;--y:3632.2;--w:380;--fs:27;--lh:27;text-align:right">More creative works:</p>
     <div class="a thumbs" style="--x:1320;--y:3687.2;gap:calc(38 * var(--px))">
-      <a href="creative-works.html" aria-label="Creative Works"><img src="assets/img/Creative-Works/community-theatre-photo-gallery/web/lead-image.jpg" loading="lazy" alt="The performance space at night: a raked wooden stage under one hard worklight, the audience in plastic chairs along one side and performers along the other."></a>
+      <a href="creative-works.html" aria-label="Creative Works"><img src="assets/img/Creative-Works/community-theatre-photo-gallery/web/lead-image.jpg" loading="lazy" alt="The performance space at night: a raked wooden stage under one hard worklight, the audience in plastic chairs along one side and performers along the other." width="1600" height="1067"></a>
     </div>
   </section>
 
@@ -258,7 +334,7 @@
 
     <img class="a box photo" src="assets/img/Programs/Training-workshops-photo-gallery/web/lead-image.jpg" loading="lazy"
          style="--x:140;--y:4103.2;--w:1099;--h:671"
-         alt="Around twenty workshop participants in white, blue and patterned cloth stand together for a group photograph in a yellow-walled hall.">
+         alt="Around twenty workshop participants in white, blue and patterned cloth stand together for a group photograph in a yellow-walled hall." width="1600" height="1010">
 
     <!-- Up 51 with its own thumbnail, the same way Publications and Creative
          Works stand on theirs: the thumb at the left runs 5111 → 5250, so 5250 is
@@ -273,7 +349,7 @@
 
     <p class="a t tw label content" style="--x:140;--y:4825.2;--w:380;--fs:27;--lh:27;text-align:left">More programs:</p>
     <div class="a thumbs thumbs--dark" style="--x:140;--y:4880.2;gap:calc(38 * var(--px))">
-      <a href="programs.html" aria-label="Programs"><img src="assets/img/Programs/Short-story-launch-photo-gallery/web/lead-image.jpg" loading="lazy" alt="Guests at the launch holding up copies of the short story in front of a When You See Me banner."></a>
+      <a href="programs.html" aria-label="Programs"><img src="assets/img/Programs/Short-story-launch-photo-gallery/web/lead-image.jpg" loading="lazy" alt="Guests at the launch holding up copies of the short story in front of a When You See Me banner." width="1600" height="1067"></a>
     </div>
   </section>
 
@@ -437,19 +513,30 @@
 <script src="assets/sanity/sanity.js"></script>
 <script>
 /* Home page ------------------------------------------------------------
-   The hero image and the welcome statement are the only two fields this
-   page still asks the CMS for. The Featured strip below it is a fixed
-   set of links into the site's three sections rather than a rotating
-   "latest content" pick, so it is written directly into the markup
-   above instead of queried here.
+   The welcome statement is the only field this page still asks the CMS for.
+   The Featured strip below it is a fixed set of links into the site's three
+   sections rather than a rotating "latest content" pick, so it is written
+   directly into the markup above instead of queried here.
+
+   The hero came off the binding on 2026-11-02, and it is worth keeping the
+   reason with it. homePage.heroImage holds the same frame the repo does: the
+   asset's id is the SHA-1 of assets/img/hero.webp, byte for byte, so the
+   document is not a different picture. But cdn.sanity.io answers every request
+   through its own encoder, so the deployed page downloaded the 198 KB file the
+   markup asks for, then fetched an 85 KB re-encode of the same frame and
+   swapped it in mid-load. Same picture, smaller bytes, two downloads, and the
+   second one restarts the largest paint on the page. A served image may not be
+   a reduction of its own frame, and an LCP image may not be replaced while it
+   is loading, so the markup's own file is what draws.
+
+   If the hero ever has to come from Studio, the document's asset has to be the
+   file the repo serves, and this binding comes back with it.
    ------------------------------------------------------------------ */
 SANITY.query(`*[_id == "homePage"][0]{
-  summary, seo, welcome,
-  "hero": heroImage{ "url": asset->url, alt }
+  seo, welcome
 }`).then(function (page) {
   if (!page) return;
   SANITY.meta(page);
-  SANITY.image('hero-image', page.hero);
   SANITY.paragraphs('welcome-message', page.welcome);
 });
 </script>

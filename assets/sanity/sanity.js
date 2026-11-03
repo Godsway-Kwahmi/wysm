@@ -14,14 +14,19 @@ window.SANITY = (function () {
   var DATASET     = "production";
   var API_VERSION = "v2026-03-01";
 
-  /* params is optional: { slug: "nightbloom" } becomes $slug in the GROQ. */
+  /* params is optional: { slug: "nightbloom" } becomes $slug in the GROQ.
+     A slow CDN used to leave a page on its built-in copy forever with nothing
+     said after the first warning; the eight-second abort at least bounds how
+     long a request can hold a page open. */
   function query(groq, params) {
     var url = "https://" + PROJECT_ID + ".apicdn.sanity.io/" + API_VERSION +
               "/data/query/" + DATASET + "?query=" + encodeURIComponent(groq);
     Object.keys(params || {}).forEach(function (k) {
       url += "&" + encodeURIComponent("$" + k) + "=" + encodeURIComponent(JSON.stringify(params[k]));
     });
-    return fetch(url)
+    var opts = {};
+    if (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) opts.signal = AbortSignal.timeout(8000);
+    return fetch(url, opts)
       .then(function (r) { return r.json(); })
       .then(function (j) { return j.result; })
       .catch(function (err) {
@@ -52,22 +57,18 @@ window.SANITY = (function () {
     var e = el(id);
     if (e) e.href = value;
   }
-  function src(id, value) {
-    if (!value) return;
-    var e = el(id);
-    if (e) e.src = value;
-  }
-  /* image field: { url, alt } */
+  /* image field: { url, alt, w, h } */
   function image(id, field) {
     if (!field || !field.url) return;
     var e = el(id);
     if (!e) return;
     e.src = field.url;
     if (field.alt) e.alt = field.alt;
-  }
-  function hide(id) {
-    var e = el(id);
-    if (e) e.style.display = 'none';
+    /* Every drawn image now carries the authored file's intrinsic size, because
+       the reflow tiers give a photo its height from that ratio. A CMS picture
+       with different dimensions has to move them too, or the browser reserves a
+       box the new picture does not fill. */
+    if (field.w && field.h) { e.width = field.w; e.height = field.h; }
   }
 
   function split(value) {
@@ -105,19 +106,27 @@ window.SANITY = (function () {
     });
   }
 
-  /** Rebuild a link stack from the CMS list. */
+  /** Rebuild a link stack from the CMS list. An entry with no usable URL is
+   *  dropped rather than written as `#`: a name that looks like a link and goes
+   *  nowhere is worse for the person reading it than the name not being there,
+   *  and `supporters()` already treats a missing URL the same way. */
   function links(id, list) {
     if (!list || !list.length) return;
     var e = el(id);
     if (!e) return;
-    e.innerHTML = '';
-    list.forEach(function (item) {
+    var made = list.map(function (item) {
+      var url = safeUrl(item.url);
+      if (!url || !(item.platform || item.title)) return null;
       var a = document.createElement('a');
-      a.href = safeUrl(item.url) || '#';
-      a.textContent = item.platform || item.title || '';
+      a.href = url;
+      a.textContent = item.platform || item.title;
       a.rel = 'noopener';
-      e.appendChild(a);
-    });
+      a.target = '_blank';
+      return a;
+    }).filter(Boolean);
+    if (!made.length) return;
+    e.innerHTML = '';
+    made.forEach(function (a) { e.appendChild(a); });
   }
 
   /** Press coverage as rows of the thumbnail component: the linked page's own
@@ -233,14 +242,28 @@ window.SANITY = (function () {
     return query('*[_type == "publication" && slug.current == $slug][0]{\n' +
       '  title, kind, summary, abstract, citation, doi, downloadUrl, externalUrl,\n' +
       '  "year": string::split(publishedAt, "-")[0],\n' +
-      '  "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format", alt }\n' +
+      '  "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format",\n' +
+      '    "raw": asset->url, alt,\n' +
+      '    "w": asset->metadata.dimensions.width, "h": asset->metadata.dimensions.height }\n' +
       '}', { slug: slug }).then(function (p) {
       if (!p) return;
 
       text('pub-title', p.title);
-      if (p.title) document.title = p.title + ' \u2014 Publications \u2014 When You See Me';
+      if (p.title) {
+        /* The page owns its own house style: the brand after the work's name on
+           four of them, and on the one whose title IS the brand, the form and
+           the author instead. The document supplies the work's name only, so
+           renaming a work in Studio can never restyle the title or strand the
+           link card behind the old wording. */
+        var cut = document.title.lastIndexOf(' \u2014 ');
+        head({ title: p.title + (cut === -1 ? '' : document.title.slice(cut)) });
+      }
       text('pub-meta', [p.kind, p.year].filter(Boolean).join(' \u00B7 '));
       image('pub-cover', p.image);
+      /* The card a shared link draws has to show the same cover the page shows.
+         Written only when the asset carries its real dimensions, so a card never
+         ends up claiming a size the picture is not. */
+      head({ image: p.image });
       // The abstract block takes the document's abstract, never its one-line
       // summary: the summary is what the row on Publications is for, and writing
       // it over this block twice meant the client's own abstract could not reach
@@ -282,16 +305,55 @@ window.SANITY = (function () {
     });
   }
 
-  /** Standfirst and <title>/<meta> for a page. */
+  /* The head is one statement with three mirrors: <title> for the browser,
+     og:* for the link card, twitter:* for the card on X. Writing only the first
+     two meant a CMS edit moved the tab and left the card quoting the previous
+     sentence — and the card is what almost everyone who arrives from a shared
+     link actually reads. Anything that changes one changes all three. */
+  function setMeta(key, value, content) {
+    var m = document.querySelector('meta[' + key + '="' + value + '"]');
+    if (m) m.setAttribute('content', content);
+  }
+
+  function head(node) {
+    if (node.title) {
+      document.title = node.title;
+      setMeta('property', 'og:title', node.title);
+      setMeta('name', 'twitter:title', node.title);
+    }
+    if (node.description) {
+      setMeta('name', 'description', node.description);
+      setMeta('property', 'og:description', node.description);
+      setMeta('name', 'twitter:description', node.description);
+    }
+    /* The card takes the asset's own URL, not the tile's. The tile asks for
+       auto=format so a browser can be handed webp by content negotiation, but a
+       social scraper sends no Accept header and gets whatever the negotiation
+       falls back to. The card is only ever read by a scraper, so it gets the
+       file as it is, at the size the asset reports. */
+    var card = node.image;
+    if (card && (card.raw || card.url) && card.w && card.h) {
+      var src = card.raw || card.url;
+      setMeta('property', 'og:image', src);
+      setMeta('property', 'og:image:width', String(card.w));
+      setMeta('property', 'og:image:height', String(card.h));
+      setMeta('name', 'twitter:image', src);
+      if (card.alt) {
+        setMeta('property', 'og:image:alt', card.alt);
+        setMeta('name', 'twitter:image:alt', card.alt);
+      }
+    }
+  }
+
+  /** Standfirst and the whole head for a page document. */
   function meta(page) {
     if (!page) return;
     text('page-summary', page.summary);
     var s = page.seo || {};
-    if (s.title) document.title = s.title;
-    if (s.description) {
-      var m = document.querySelector('meta[name="description"]');
-      if (m) m.setAttribute('content', s.description);
-    }
+    head({ title: s.title, description: s.description });
+    /* seo.noIndex is not in the schema yet — the seo object on every page
+       document holds title and description only — so a curator cannot pull a
+       page out of the index from Studio. search.html is noindex in the markup. */
   }
 
   /* Site-wide details. Every page asks for them, so it is the one
@@ -305,24 +367,23 @@ window.SANITY = (function () {
       '}').then(function (s) {
       if (!s) return;
 
+      /* Three of these writes used to aim at ids that exist on no page:
+         contact-email, contact-phone and contact-social. The contact page's own
+         address IS the footer's, so the footer ids are the only targets, and
+         every one of them is on all thirteen pages. */
       if (s.contactEmail) {
         text('footer-email', s.contactEmail);
         href('footer-email', 'mailto:' + s.contactEmail);
-        text('contact-email', s.contactEmail);
-        href('contact-email', 'mailto:' + s.contactEmail);
       }
       if (s.contactPhone) {
         var tel = 'tel:' + s.contactPhone.replace(/[^\d+]/g, '');
         text('footer-phone', s.contactPhone);
         href('footer-phone', tel);
-        text('contact-phone', s.contactPhone);
-        href('contact-phone', tel);
       }
 
       supporters('supporters-list', s.supporters);
 
       links('footer-social', s.socialLinks);
-      links('contact-social', s.socialLinks);
 
       if (s.copyrightHolder) {
         text('legal-copyright',
@@ -339,7 +400,7 @@ window.SANITY = (function () {
 
   return {
     query: query,
-    text: text, href: href, src: src, image: image, hide: hide,
+    text: text, href: href, image: image,
     paragraphs: paragraphs, columns: columns, links: links, meta: meta,
     mediaRows: mediaRows, supporters: supporters, publicationPage: publicationPage,
     settings: settings,

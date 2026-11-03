@@ -16,6 +16,7 @@
      the hero itself, flattened onto the page's field colour. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="When You See Me">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="Publications — When You See Me">
 <meta property="og:description" content="Papers, reports and writing produced by the When You See Me project.">
 <meta property="og:url" content="https://wysm.vercel.app/publications">
@@ -38,6 +39,98 @@
 <link rel="preload" href="assets/fonts/bodoni-moda-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/site.css">
+
+<!-- Search results and link previews read this: who the project is, who funds
+     it, and what each page is about. Every value here is already on the page. -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "CollectionPage",
+   "@id": "#webpage",
+   "url": "https://wysm.vercel.app/publications",
+   "name": "Publications",
+   "isPartOf": {
+    "@id": "#website"
+   },
+   "hasPart": [
+    {
+     "@id": "https://wysm.vercel.app/publication-when-you-see-me#work"
+    },
+    {
+     "@id": "https://wysm.vercel.app/publication-nightbloom#work"
+    },
+    {
+     "@id": "https://wysm.vercel.app/publication-women-and-violence-in-africa#work"
+    },
+    {
+     "@id": "https://wysm.vercel.app/publication-introduction-women-gender-change-in-africa#work"
+    },
+    {
+     "@id": "https://wysm.vercel.app/publication-rape-reporting-cote-divoire#work"
+    }
+   ],
+   "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListOrderDescending",
+    "itemListElement": [
+     {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "When You See Me",
+      "url": "https://wysm.vercel.app/publication-when-you-see-me"
+     },
+     {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Nightbloom",
+      "url": "https://wysm.vercel.app/publication-nightbloom"
+     },
+     {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Women and Violence in Africa",
+      "url": "https://wysm.vercel.app/publication-women-and-violence-in-africa"
+     },
+     {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Introduction: Women, Gender and Change in Africa",
+      "url": "https://wysm.vercel.app/publication-introduction-women-gender-change-in-africa"
+     },
+     {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "Rape Reporting in Post-Conflict Côte d’Ivoire: Accessing Justice and Ending Impunity",
+      "url": "https://wysm.vercel.app/publication-rape-reporting-cote-divoire"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://wysm.vercel.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Publications",
+     "item": {
+      "@id": "#website"
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
 
@@ -78,7 +171,7 @@
   <section class="sec">
     <img class="a box photo" id="feature-image" src="assets/img/Publications/When-You-See-Me.jpg" loading="lazy"
          style="--x:1210;--y:620;--w:570;--h:671"
-         alt="Cover image for the short story When You See Me.">
+         alt="Cover image for the short story When You See Me." width="1748" height="2480">
     <!-- The panel is drawn to the copy it carries, with the same 40 px of panel
          outside the ink on all four sides: 140 → 901 across, 660 → 1187 down. The
          copy's ink runs 180 → 861 (the body role holds its 62-character measure)
