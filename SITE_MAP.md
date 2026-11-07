@@ -14,7 +14,7 @@ CDN query API at runtime; every page also carries its copy written
 directly into the HTML, so the site renders complete with Sanity turned
 off.
 
-Deployed to Vercel (`vercel.json`: `cleanUrls:true`, `trailingSlash:false`).
+Deployed to Netlify (`netlify.toml`: `publish = "."`, Pretty URLs enabled; previously Vercel via `vercel.json`).
 Repo: `github.com/Godsway-Kwahmi/wysm`. Because `cleanUrls` is on, every
 `canonical`, `og:url` and sitemap entry is written in the extensionless form
 (`/publications`, not `/publications.html`), and `/index.html` redirects to `/`.
