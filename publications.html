@@ -355,13 +355,15 @@ SANITY.query(`{
     ){
       title, kind, summary, url,
       "year": string::split(publishedAt, "-")[0],
-      "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format", alt, "w": asset->metadata.dimensions.width, "h": asset->metadata.dimensions.height }
+      "image": image{ "url": asset->url + "?w=1200&fit=max&auto=format", alt,
+        "w": asset->metadata.dimensions.width, "h": asset->metadata.dimensions.height }
     }
   },
   "all": *[_type == "publication"] | order(publishedAt desc){
-    _id, title, publisher, kind, url,
+    title, publisher, kind, url,
     "year": string::split(publishedAt, "-")[0],
-    "image": image{ "url": asset->url + "?w=400&fit=max&auto=format", alt }
+    "image": image{ "url": asset->url + "?w=400&fit=max&auto=format", alt,
+      "w": asset->metadata.dimensions.width, "h": asset->metadata.dimensions.height }
   }
 }`).then(function (r) {
   if (!r) return;
@@ -389,17 +391,22 @@ SANITY.query(`{
                    'introduction-women-gender-change-in-africa',
                    'rape-reporting-cote-divoire'];
   function rank(url) {
-    var m = /publication-([a-z0-9-]+)(?:\.html)?$/i.exec(url || '');
+    /* The order the project decided, read off the page address. It used to
+       match `publication-x.html` only, so a curator who typed the address
+       without the extension - the form the site actually serves - would send
+       every row to the end of the list and the order would change by itself. */
+    var m = /publication-([a-z0-9-]+?)(?:\.html)?(?:[#?].*)?$/.exec(url || '');
     var i = m ? HER_ORDER.indexOf(m[1]) : -1;
     return i < 0 ? HER_ORDER.length : i;
   }
   all.sort(function (a, b) {
-    if (a.year !== b.year) return Number(b.year || 0) - Number(a.year || 0);
+    if (a.year !== b.year) return String(b.year).localeCompare(String(a.year));
     return rank(a.url) - rank(b.url);
   });
   list.innerHTML = '';
   all.forEach(function (p) {
-    list.appendChild(row(p.url, p.title, [p.publisher, p.kind].filter(Boolean).join(' \u00B7 '), p.year, p.image));
+    list.appendChild(row(SANITY.pageUrl(p.url), p.title,
+      [p.publisher, p.kind].filter(Boolean).join(' \u00B7 '), p.year, p.image));
   });
   if (window.fitStage) window.fitStage();
 });
@@ -409,31 +416,47 @@ function row(url, title, meta, when, image) {
   var wrap = document.createElement('div');
   wrap.className = 'row';
 
-  var tile = document.createElement('a');
+  /* A publication with no page address gets a row with no links in it. A name
+     that looks like a link and goes nowhere is the one thing a reader cannot
+     tell apart from a broken site, and links() already refuses to write
+     href="#" for exactly that reason. A sixth publication added before its page
+     is built is where that would show up here. */
+  var tile = document.createElement(url ? 'a' : 'div');
   tile.className = 'tile';
-  tile.href = url || '#';
-  tile.tabIndex = -1;
-  tile.setAttribute('aria-hidden', 'true');
+  if (url) {
+    tile.href = url;
+    tile.tabIndex = -1;
+    tile.setAttribute('aria-hidden', 'true');
+  }
   if (image && image.url) {
     var img = document.createElement('img');
     img.src = image.url;
     img.alt = '';
     img.loading = 'lazy';
     /* The tile is only given a width, so the cover's own ratio has to be
-       known before the file arrives or the row jumps as it loads. Sanity
-       writes the original size into every asset URL (-1748x2480.jpg). */
-    var dims = /-(\d+)x(\d+)\.(?:jpe?g|png|webp|gif|avif|tiff)(?:[?#]|$)/i.exec(image.url);
-    if (dims) { img.width = +dims[1]; img.height = +dims[2]; }
+       known before the file arrives or the row jumps as it loads. The query
+       carries the asset's dimensions now; reading them out of the URL's
+       -1748x2480 segment is the fallback, because it only works while every
+       cover is a Sanity file. */
+    if (image.w && image.h) { img.width = +image.w; img.height = +image.h; }
+    else {
+      var dims = /-(\d+)x(\d+)\.(?:jpe?g|png|webp|gif|avif|tiff)(?:[?#]|$)/i.exec(image.url);
+      if (dims) { img.width = +dims[1]; img.height = +dims[2]; }
+    }
     tile.appendChild(img);
   }
 
   var col = document.createElement('div');
   var h = document.createElement('h3');
   h.className = 't';
-  var a = document.createElement('a');
-  a.href = url || '#';
-  a.textContent = title || 'Untitled';
-  h.appendChild(a);
+  if (url) {
+    var a = document.createElement('a');
+    a.href = url;
+    a.textContent = title || 'Untitled';
+    h.appendChild(a);
+  } else {
+    h.textContent = title || 'Untitled';
+  }
 
   var m = document.createElement('span');
   m.className = 't body meta';

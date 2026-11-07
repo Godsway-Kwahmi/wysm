@@ -42,6 +42,32 @@ window.SANITY = (function () {
     return u && !/^\s*(javascript|data|vbscript):/i.test(u) ? u : '';
   }
 
+  /** An on-site address the CMS supplies, in the form the site itself uses.
+   *
+   *  A curator types the file she was given: `publication-nightbloom.html`.
+   *  The site is deployed with `cleanUrls`, so the canonical shape of every
+   *  page here has no extension - `vercel.json` answers the `.html` form with
+   *  a 308 - and `canonical`, `og:url` and the sitemap all name the
+   *  extensionless one. A CMS link dropped in as typed therefore works only by
+   *  redirecting, and the address in the bar no longer matches the address the
+   *  page declares for itself. So every site path the CMS supplies goes through
+   *  this on its way to an href. It also survives a full address being pasted
+   *  into the field, and keeps a `#anchor` or `?query` that follows the file. */
+  function pageUrl(u) {
+    u = safeUrl(u);
+    if (!u) return '';
+    if (/^https?:\/\//i.test(u)) {
+      /* A full address is only an on-site link if it names this site. Anything
+         else - a publisher's page, a funder's home - is left exactly as given. */
+      var here = new RegExp('^https?://' +
+        location.hostname.replace(/\./g, '\\.') + '(:\\d+)?(?=/|$)', 'i');
+      if (!here.test(u)) return u;
+      u = u.replace(/^https?:\/\/[^/]+/i, '');
+    }
+    u = u.replace(/^\/+/, '');                    // /page.html -> page.html
+    return u.replace(/\.html(?=[#?]|$)/i, '');    // the extension the site drops
+  }
+
   function el(id) { return document.getElementById(id); }
 
   /* Every writer is a no-op on empty values, so an unfinished document
@@ -52,7 +78,9 @@ window.SANITY = (function () {
     if (e) e.textContent = value;
   }
   function href(id, value) {
-    value = safeUrl(value);
+    /* Normalising here rather than on each page is the point: a CMS address
+       becomes a link through this one door, so no page has to remember to. */
+    value = pageUrl(value);
     if (!value) return;
     var e = el(id);
     if (e) e.href = value;
@@ -92,7 +120,7 @@ window.SANITY = (function () {
     var parts = split(value);
     if (!parts.length) return;
     var e = el(id);
-    if (e) { fill(e, parts); if (window.fitStage) window.fitStage(); }
+    if (e) fill(e, parts);
   }
 
   /** One text field dealt across the columns the comp draws for it. */
@@ -104,7 +132,6 @@ window.SANITY = (function () {
       var e = el(id);
       if (e) fill(e, parts.slice(i * per, (i + 1) * per));
     });
-    if (window.fitStage) window.fitStage();
   }
 
   /** Rebuild a link stack from the CMS list. An entry with no usable URL is
@@ -116,7 +143,7 @@ window.SANITY = (function () {
     var e = el(id);
     if (!e) return;
     var made = list.map(function (item) {
-      var url = safeUrl(item.url);
+      var url = pageUrl(item.url);
       if (!url || !(item.platform || item.title)) return null;
       var a = document.createElement('a');
       a.href = url;
@@ -128,7 +155,6 @@ window.SANITY = (function () {
     if (!made.length) return;
     e.innerHTML = '';
     made.forEach(function (a) { e.appendChild(a); });
-    if (window.fitStage) window.fitStage();
   }
 
   /** Press coverage as rows of the thumbnail component: the linked page's own
@@ -154,7 +180,7 @@ window.SANITY = (function () {
     var rows = document.createElement('div');
     rows.className = 'rows';
     list.forEach(function (item) {
-      var url = safeUrl(item.url);
+      var url = pageUrl(item.url);
       if (!url || !item[labelKey]) return;
       var entry = (byKey && byKey[item._key]) || {};
 
@@ -215,7 +241,7 @@ window.SANITY = (function () {
     if (!e) return;
     e.innerHTML = '';
     list.forEach(function (item) {
-      var url = safeUrl(item.url);
+      var url = pageUrl(item.url);
       if (!url || !item.name) return;
       var a = document.createElement('a');
       a.className = 'funder';
@@ -236,7 +262,6 @@ window.SANITY = (function () {
       a.appendChild(name);
       e.appendChild(a);
     });
-    if (window.fitStage) window.fitStage();
   }
 
   /* One publication's own page. The page ships with its content written in,
@@ -293,7 +318,7 @@ window.SANITY = (function () {
 
       var cta = el('pub-cta');
       if (cta) {
-        var file = safeUrl(p.downloadUrl), ext = safeUrl(p.externalUrl);
+        var file = pageUrl(p.downloadUrl), ext = pageUrl(p.externalUrl);
         if (file) {
           cta.href = file;
           cta.textContent = 'Download PDF';
@@ -305,7 +330,6 @@ window.SANITY = (function () {
           cta.rel = 'noopener';
         }
       }
-      if (window.fitStage) window.fitStage();
     });
   }
 
@@ -404,7 +428,7 @@ window.SANITY = (function () {
 
   return {
     query: query,
-    text: text, href: href, image: image,
+    text: text, href: href, image: image, pageUrl: pageUrl,
     paragraphs: paragraphs, columns: columns, links: links, meta: meta,
     mediaRows: mediaRows, supporters: supporters, publicationPage: publicationPage,
     settings: settings,
