@@ -1,4 +1,4 @@
-# SITE_MAP.md — structure of the When You See Me website
+﻿# SITE_MAP.md — structure of the When You See Me website
 
 A map of what is in this repository and how the pieces fit, for anyone
 opening the project cold. Written 2026-10-04 against the current tree.
@@ -18,7 +18,7 @@ Deployed to Netlify (`netlify.toml`: `publish = "."`, Pretty URLs enabled; previ
 Repo: `github.com/Godsway-Kwahmi/wysm`. Because `cleanUrls` is on, every
 `canonical`, `og:url` and sitemap entry is written in the extensionless form
 (`/publications`, not `/publications.html`), and `/index.html` redirects to `/`.
-The origin is `https://wysm.vercel.app`; if a custom domain is pointed at the
+The origin is `https://wysm.rdvs.workers.dev`; if a custom domain is pointed at the
 deployment, `robots.txt`, `sitemap.xml` and the two meta tags on each of the 12
 pages are what has to change.
 
@@ -188,7 +188,7 @@ Rules the whole site follows:
   name the extensionless one. Every CMS address now reaches an `href` through
   this: `href()` calls it, as do `links()`, `mediaRows()`, `supporters()` and the
   publication CTA, so no page has to remember. It strips the extension (keeping a
-  trailing `#anchor` or `?query`), reduces a full `https://wysm.vercel.app/...`
+  trailing `#anchor` or `?query`), reduces a full `https://wysm.rdvs.workers.dev/...`
   paste to a site path, and leaves anything that is not this site — a DOI, a
   funder, a publisher, `mailto:`, `tel:` — exactly as written. `rank()` in
   `publications.html` matches the page address with or without the extension for
